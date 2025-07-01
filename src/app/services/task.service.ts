@@ -24,6 +24,66 @@ export class TaskService {
       text: 'Third task',
       completed: false,
     },
+    {
+      id: '4',
+      icon: 'icon-add-to-list',
+      text: 'Add to list',
+      completed: false,
+    },
+    {
+      id: '5',
+      icon: 'icon-classic-computer',
+      text: 'Fix classic computer',
+      completed: false,
+    },
+    {
+      id: '6',
+      icon: 'icon-controller-fast-backward',
+      text: 'Rewind recording',
+      completed: false,
+    },
+    {
+      id: '7',
+      icon: 'icon-creative-commons-attribution',
+      text: 'Update CC attribution',
+      completed: false,
+    },
+    {
+      id: '8',
+      icon: 'icon-chevron-down',
+      text: 'Review dropdown logic',
+      completed: false,
+    },
+    {
+      id: '9',
+      icon: 'icon-warning',
+      text: 'Handle warning alert',
+      completed: false,
+    },
+    {
+      id: '10',
+      icon: 'icon-remove-user',
+      text: 'Remove inactive user',
+      completed: false,
+    },
+    {
+      id: '11',
+      icon: 'icon-document-landscape',
+      text: 'Convert to landscape format',
+      completed: false,
+    },
+    {
+      id: '12',
+      icon: 'icon-cloud',
+      text: 'Sync to cloud',
+      completed: false,
+    },
+    {
+      id: '13',
+      icon: 'icon-controller-play',
+      text: 'Start playback',
+      completed: false,
+    },
   ];
   constructor() {}
 
