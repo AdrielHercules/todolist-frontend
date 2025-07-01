@@ -1,1 +1,8 @@
-<p>task-page works!</p>
+
+    <section >
+        @for (task of listTaks; track $index) {
+            <app-task-item [task]="task">
+
+            </app-task-item>
+        }
+    </section>

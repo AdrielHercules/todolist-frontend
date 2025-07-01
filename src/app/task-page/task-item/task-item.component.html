@@ -1,1 +1,8 @@
-<p>task-item works!</p>
+<div class="flex items-center gap-2">
+
+  <svg class="h-[20px] w-[20px]">
+    <use [attr.xlink:href]="'/assets/symbol-defs.svg#' + task()?.icon"></use>
+  </svg>
+  <p>{{task()?.text}}</p>
+  <input type="checkbox" placeholder="True">
+</div>
