@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-add-task-button',
   imports: [],
   templateUrl: './add-task-button.component.html',
-  styleUrl: './add-task-button.component.css'
+  styleUrl: './add-task-button.component.css',
 })
 export class AddTaskButtonComponent {
 

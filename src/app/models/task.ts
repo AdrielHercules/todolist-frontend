@@ -3,4 +3,6 @@ export interface Task {
   icon: string;
   text: string;
   completed: boolean;
+
+
 }

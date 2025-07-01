@@ -34,7 +34,7 @@ export class TaskService {
       id: '5',
       icon: 'icon-classic-computer',
       text: 'Fix classic computer',
-      completed: false,
+      completed: true,
     },
     {
       id: '6',
@@ -52,7 +52,7 @@ export class TaskService {
       id: '8',
       icon: 'icon-chevron-down',
       text: 'Review dropdown logic',
-      completed: false,
+      completed: true,
     },
     {
       id: '9',
@@ -70,7 +70,7 @@ export class TaskService {
       id: '11',
       icon: 'icon-document-landscape',
       text: 'Convert to landscape format',
-      completed: false,
+      completed: true,
     },
     {
       id: '12',
@@ -82,7 +82,7 @@ export class TaskService {
       id: '13',
       icon: 'icon-controller-play',
       text: 'Start playback',
-      completed: false,
+      completed: true,
     },
   ];
   constructor() {}
