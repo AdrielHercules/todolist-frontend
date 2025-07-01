@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
+import { List } from '../../models/list';
 
 @Component({
   selector: 'app-list-item',
@@ -7,5 +8,5 @@ import { Component } from '@angular/core';
   styleUrl: './list-item.component.css'
 })
 export class ListItemComponent {
-
+  list = input<List>();
 }
