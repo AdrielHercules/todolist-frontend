@@ -1,1 +1,11 @@
-<p>top-bar works!</p>
+<div class="flex gap-10 items-center justify-center p-4 bg-amber-100">
+    <svg routerLink="/" class="size-6 mr-auto">
+        <use xlink:href="assets/symbol-defs.svg#icon-back"></use>
+    </svg>
+
+    <h1 class="text-xl font-bold mx">{{title()}}</h1>
+
+    <svg class="size-6 ml-auto">
+        <use xlink:href="assets/symbol-defs.svg#icon-user"></use>
+    </svg>
+</div>
