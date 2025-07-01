@@ -8,19 +8,19 @@ export class TaskService {
   taskList: Task[] = [
     {
       id: '1',
-      icon: 'icon-list',
+      icon: 'icon-calendar',
       text: 'First task',
       completed: false,
     },
     {
       id: '2',
-      icon: 'icon-list',
+      icon: 'icon-bowl',
       text: 'Second task',
       completed: false,
     },
     {
       id: '3',
-      icon: 'icon-list',
+      icon: 'icon-game-controller',
       text: 'Third task',
       completed: false,
     },

@@ -1,8 +1,9 @@
-<div class="flex items-center gap-2">
-
-  <svg class="h-[20px] w-[20px]">
+<div class="flex items-center justify-center gap-2 border-2 px-6 py-4">
+  <svg class="h-[20px] w-[20px] ml-3">
     <use [attr.xlink:href]="'/assets/symbol-defs.svg#' + task()?.icon"></use>
   </svg>
-  <p>{{task()?.text}}</p>
-  <input type="checkbox" placeholder="True">
+  <p class="mx-auto">{{task()?.text}}</p>
+  <input type="checkbox" placeholder="True" class="ml-auto mr-3">
 </div>
+
+<!-- Para posicionar las cosas a la iz o derecha ml/mr-auto para darle más anchura al div px y py-->
