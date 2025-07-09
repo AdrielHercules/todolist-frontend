@@ -23,8 +23,6 @@ export class ListService {
     },
   ];
 
-  constructor() {}
-
   getLists() {
     return this.lists;
   }

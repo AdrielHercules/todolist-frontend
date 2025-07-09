@@ -85,7 +85,6 @@ export class TaskService {
       completed: true,
     },
   ];
-  constructor() {}
 
   getTasks() {
     return this.taskList;
