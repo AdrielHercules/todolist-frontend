@@ -21,6 +21,21 @@ export class ListService {
       name: 'Limpieza',
       icon: '🧼',
     },
+    {
+      id: '3',
+      name: 'Trabajo',
+      icon: '💼',
+    },
+    {
+      id: '4',
+      name: 'Salud',
+      icon: '💊',
+    },
+    {
+      id: '5',
+      name: 'Ocio',
+      icon: '🎮',
+    },
   ];
 
   getLists() {
