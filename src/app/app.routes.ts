@@ -9,7 +9,7 @@ export const routes: Routes = [
     title: 'Listas',
   },
   {
-    path: 'tasks',
+    path: 'tasks/:listId',
     component: TaskPageComponent,
     title: 'Lista de tareas',
   },
