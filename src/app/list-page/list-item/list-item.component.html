@@ -1,4 +1,4 @@
-<div class="flex gap-2 pl-2">
+<div class="flex gap-2 pl-2" [routerLink]="['/tasks', list()?.id]">
   <p>{{ list()?.icon }}</p>
   <p>{{ list()?.name }}</p>
 </div>

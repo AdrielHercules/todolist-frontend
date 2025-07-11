@@ -1,7 +1,6 @@
 <section>
   @for (list of lists; track $index) {
-  <div routerLink="/tasks"
-    class="flex-col mb-1 h-10 border-2 shadow-md content-center hover:bg-amber-100 hover:cursor-pointer">
+  <div class="flex-col mb-1 h-10 border-2 shadow-md content-center hover:bg-amber-100 hover:cursor-pointer">
     <app-list-item [list]="list"></app-list-item>
   </div>
   }
