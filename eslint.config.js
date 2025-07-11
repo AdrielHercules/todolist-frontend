@@ -31,6 +31,7 @@ module.exports = tseslint.config(
         },
       ],
       "@typescript-eslint/no-unused-vars": "warn",
+      "@typescript-eslint/no-empty-function": "warn",
     },
   },
   {
@@ -45,5 +46,5 @@ module.exports = tseslint.config(
       // Example: turn off interactive-supports-focus
       "@angular-eslint/template/interactive-supports-focus": "off",
     },
-  }
+  },
 );
