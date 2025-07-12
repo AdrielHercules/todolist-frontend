@@ -1,6 +1,8 @@
-<main class="main">
-  <div class="h-dvh flex-col">
+<main>
+  <div class="h-dvh flex flex-col">
     <app-top-bar [title]="'Listas'"></app-top-bar>
-    <router-outlet />
+    <div class="flex-1">
+      <router-outlet />
+    </div>
   </div>
 </main>
