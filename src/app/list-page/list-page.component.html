@@ -1,11 +1,9 @@
-<section>
+<section class="flex h-full flex-col gap-2 bg-gray-200 p-2">
   @for (list of lists; track $index) {
-  <div class="flex-col mb-1 h-10 border-2 shadow-md content-center hover:bg-amber-100 hover:cursor-pointer">
     <app-list-item [list]="list"></app-list-item>
-  </div>
   }
 
-  <div class="fixed bottom-10 right-10">
+  <div class="fixed right-10 bottom-10">
     <app-add-list-button (click)="onAddListClick()"></app-add-list-button>
   </div>
 </section>
