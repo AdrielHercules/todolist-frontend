@@ -1,12 +1,9 @@
-<section class="bg-amber-200 pl-3 pr-3">
+<section class="flex h-full flex-col gap-2 bg-gray-200 p-2">
   @for (task of listTaks; track $index) {
-    <app-task-item [task]="task" class="m-3.5 pl-1"> </app-task-item>
+    <app-task-item [task]="task"> </app-task-item>
   }
 
-  <div
-    class="fixed bottom-10 right-10 rounded-full hover:scale-105 transition-discrete cursor-pointer"
-    (click)="onAddTask()"
-  >
-    <app-add-task-button></app-add-task-button>
+  <div class="fixed right-10 bottom-10">
+    <app-add-task-button (click)="onAddTask()"></app-add-task-button>
   </div>
 </section>

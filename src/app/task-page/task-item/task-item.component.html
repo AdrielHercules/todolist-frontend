@@ -1,9 +1,17 @@
-<div class="flex items-center justify-center gap-2 border-2 px-6 py-4 hover:scale-[101%] hover:bg-amber-300 hover:shadow-amber-800 hover:drop-shadow-amber-950 transition-discrete">
-  <svg class="h-[20px] w-[20px] ml-3">
+<div
+  class="flex h-15 content-center items-center rounded-md bg-white pl-6 align-middle select-none hover:cursor-pointer hover:bg-gray-100"
+>
+  <svg class="h-[20px] w-[20px]">
     <use [attr.xlink:href]="'/assets/symbol-defs.svg#' + task?.icon"></use>
   </svg>
-  <p class="pl-1">{{task?.text}}</p>
-  <input [checked]="task?.completed" type="checkbox" placeholder="True" class="ml-auto mr-3" (click)="onCheck($event)">
+  <p class="pl-3">{{ task?.text }}</p>
+  <input
+    [checked]="task?.completed"
+    type="checkbox"
+    placeholder="True"
+    class="mr-6 ml-auto"
+    (click)="onCheck($event)"
+  />
 </div>
 
 <!-- Para posicionar las cosas a la iz o derecha ml/mr-auto para darle más anchura al div px y py-->
