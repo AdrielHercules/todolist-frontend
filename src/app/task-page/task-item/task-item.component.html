@@ -1,10 +1,7 @@
 <div
   class="flex h-15 content-center items-center rounded-md bg-white pl-6 align-middle select-none hover:cursor-pointer hover:bg-gray-100"
 >
-  <svg class="h-[20px] w-[20px]">
-    <use [attr.xlink:href]="'/assets/symbol-defs.svg#' + task?.icon"></use>
-  </svg>
-  <p class="pl-3">{{ task?.text }}</p>
+  <p>{{ task?.text }}</p>
   <input
     [checked]="task?.completed"
     type="checkbox"

@@ -23,7 +23,6 @@ export class TaskPageComponent {
 
     const newTask: Task = {
       id: '14',
-      icon: 'icon-check',
       text: 'Final review and approval',
       completed: false,
       listId: '4',
