@@ -1,6 +1,8 @@
-<div class="flex h-dvh flex-col" [class.overflow-hidden]="isModalOpen()">
+<div class="flex min-h-dvh flex-col">
   <app-top-bar [title]="'Listas'"></app-top-bar>
   <main class="h-full flex-1 bg-gray-200">
     <router-outlet />
   </main>
 </div>
+
+<app-modal-host></app-modal-host>

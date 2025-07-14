@@ -28,10 +28,12 @@ export class ModalService {
 
     const instance = this.viewContainer?.createComponent(component).instance;
     this.isModalOpen.set(true);
+    document.body.style.overflow = 'hidden';
 
     const subscription = instance?.closed.subscribe(() => {
       this.viewContainer?.clear();
       this.isModalOpen.set(false);
+      document.body.style.overflow = '';
       subscription?.unsubscribe();
     });
 
