@@ -1,8 +1,6 @@
 <div class="flex h-dvh flex-col" [class.overflow-hidden]="isModalOpen()">
   <app-top-bar [title]="'Listas'"></app-top-bar>
-  <main>
-    <div class="flex-1">
-      <router-outlet />
-    </div>
+  <main class="h-full flex-1 bg-gray-200">
+    <router-outlet />
   </main>
 </div>
