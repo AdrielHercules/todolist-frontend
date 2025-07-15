@@ -3,6 +3,7 @@ import { TaskService } from '../services/task.service';
 import { Task } from '../models/task';
 import { TaskItemComponent } from './task-item/task-item.component';
 import { AddTaskButtonComponent } from './add-task-button/add-task-button.component';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-task-page',
@@ -13,21 +14,24 @@ import { AddTaskButtonComponent } from './add-task-button/add-task-button.compon
 export class TaskPageComponent {
   taskService: TaskService = inject(TaskService);
   listTaks: Task[] = [];
+  private activatedRoute = inject(ActivatedRoute);
+  private listId: string;
 
   constructor() {
-    this.listTaks = this.taskService.getTasks();
+    this.listId = '';
+    const id = this.activatedRoute.snapshot.paramMap.get('listId');
+    if (id != null) {
+      this.listId = id;
+    }
+    this.listTaks = this.taskService.getTasksByListId(this.listId);
   }
 
   onAddTask() {
-    console.log('work');
-
-    const newTask: Task = {
-      id: '14',
+    const newTask: Partial<Task> = {
       text: 'Final review and approval',
-      completed: false,
-      listId: '4',
+      listId: this.listId,
     };
 
-    this.listTaks.push(newTask);
+    this.taskService.pushTask(newTask);
   }
 }

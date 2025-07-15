@@ -5,8 +5,14 @@ import { Task } from '../models/task';
   providedIn: 'root',
 })
 export class TaskService {
-  taskList: Task[] = [
+  private taskList: Task[] = [
     // 🟨 Mis Tareas (0)
+    {
+      id: '0',
+      text: 'Crear tareas',
+      completed: false,
+      listId: '0',
+    },
     {
       id: '1',
       text: 'Crear lista de tareas',
@@ -318,6 +324,21 @@ export class TaskService {
       listId: '5',
     },
   ];
+
+  getTasksByListId(id: string) {
+    return this.taskList.filter((t) => t.listId === id);
+  }
+
+  pushTask(task: Partial<Task>) {
+    if (!task.text || !task.listId) throw new Error('No se puede añadir una tarea sin texto ni listId');
+    console.log(String(this.taskList.length));
+    this.taskList.push({
+      id: String(this.taskList.length),
+      text: task.text,
+      listId: task.listId,
+      completed: false,
+    });
+  }
 
   getTasks() {
     return this.taskList;
