@@ -1,4 +1,4 @@
-import { Component, computed, inject, OnInit, Output, ViewContainerRef } from '@angular/core';
+import { Component, inject, OnInit, ViewContainerRef } from '@angular/core';
 import { ModalService } from '../modal.service';
 
 @Component({
@@ -7,10 +7,8 @@ import { ModalService } from '../modal.service';
   templateUrl: './modal-host.component.html',
 })
 export class ModalHostComponent implements OnInit {
-  @Output() modalOpened = computed(() => this.modalService.isModalOpen());
-  viewContainer = inject(ViewContainerRef);
-  modalService = inject(ModalService);
-  isModalOpen = computed(() => this.modalService.isModalOpen());
+  private viewContainer = inject(ViewContainerRef);
+  private modalService = inject(ModalService);
 
   ngOnInit(): void {
     this.modalService.init(this.viewContainer);
