@@ -50,7 +50,7 @@ export class ModalService {
     return instance;
   }
 
-  closeModal(ref: ComponentRef<ModalComponent<unknown>>) {
+  private closeModal(ref: ComponentRef<ModalComponent<unknown>>) {
     this.viewContainer?.detach(this.viewContainer.length - 1);
     ref.destroy();
     this.modals.pop();
