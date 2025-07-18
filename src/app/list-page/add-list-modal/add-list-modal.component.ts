@@ -130,8 +130,6 @@ export class AddListModalComponent extends ModalComponent<Partial<List>> impleme
       name: this.name,
       icon: this.icon,
     });
-
-    this.close();
   }
 
   onInputClick() {
