@@ -1,9 +1,51 @@
-<div class="">
-    <div class="bg-blue-50 h-[100px] w-[400px] shadow-md">
-        <h2>Crear nueva lista</h2>
-        <div class="flex gap-2">
-            <label for="name-text-input">Nombre</label>
-            <input id="name-text-input" class="border-1 border-blue-500 rounded-md" type="text" />
-        </div>
+<div
+  class="fixed top-0 flex h-screen w-screen items-center justify-center bg-black/25 backdrop-blur-xs transition-all"
+  (animationend)="onAnimationEnd()"
+  (click)="close()"
+  (keypress)="close()"
+  [class.animate-fade-in]="!isClosing"
+  [class.animate-fade-out]="isClosing"
+>
+  <div
+    class="m-5 flex w-96 flex-col gap-2 rounded-md bg-blue-50 p-4 opacity-100 shadow-md"
+    (click)="$event.stopPropagation()"
+    (keypress)="$event.stopPropagation()"
+  >
+    <h2 class="font-semibold">Crear una lista</h2>
+    <div class="flex gap-2">
+      <button (click)="showIcons = !showIcons" class="rounded-md border-1 border-gray-500 p-4">{{ icon }}</button>
+
+      <input
+        #inputName
+        id="name-text-input"
+        placeholder="Nombre"
+        class="w-full rounded-md border-1 border-gray-500 p-4"
+        type="text"
+        (click)="onInputClick()"
+        [(ngModel)]="name"
+      />
     </div>
+    @if (!showIcons) {
+      <div class="flex animate-slide-in justify-end gap-2">
+        <button class="rounded-md p-2 font-semibold hover:bg-gray-200 active:bg-gray-200" (click)="close()">
+          CANCELAR
+        </button>
+        <button class="rounded-md p-2 font-semibold hover:bg-gray-200 active:bg-gray-200" (click)="onCreateClick()">
+          CREAR
+        </button>
+      </div>
+    } @else {
+      <div class="grid h-40 animate-slide-in grid-cols-6 gap-1 overflow-x-hidden overflow-y-scroll">
+        @for (icon of icons; track $index) {
+          <div
+            (click)="onIconClicked(icon)"
+            (keypress)="onIconClicked(icon)"
+            class="transtion flex aspect-square w-full cursor-pointer items-center justify-center transition hover:scale-120 active:scale-120"
+          >
+            {{ icon }}
+          </div>
+        }
+      </div>
+    }
+  </div>
 </div>
