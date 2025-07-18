@@ -5,7 +5,7 @@ import { List } from '../models/list';
   providedIn: 'root',
 })
 export class ListService {
-  lists: List[] = [
+  private lists: List[] = [
     {
       id: '0',
       name: 'Mis Tareas',
@@ -40,5 +40,17 @@ export class ListService {
 
   getLists() {
     return this.lists;
+  }
+
+  addList(list: Partial<List>) {
+    if (!list.name || !list.icon) {
+      throw new Error('Error, no se puede agregar una lista sin nombre ni icono: ' + list);
+    }
+
+    this.lists.push({
+      id: String(this.lists.length),
+      name: list.name,
+      icon: list.icon,
+    });
   }
 }
