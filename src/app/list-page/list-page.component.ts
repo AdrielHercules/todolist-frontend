@@ -3,7 +3,7 @@ import { List } from '../models/list';
 import { ListItemComponent } from './list-item/list-item.component';
 import { ListService } from '../services/list.service';
 import { AddListButtonComponent } from './add-list-button/add-list-button.component';
-import { AddListComponent } from './add-list/add-list.component';
+import { AddListModalComponent } from './add-list-modal/add-list-modal.component';
 import { ModalService } from '../core/modals/modal.service';
 
 @Component({
@@ -23,7 +23,7 @@ export class ListPageComponent {
   }
 
   onAddListClick() {
-    const component = this.modalService.openModal<Partial<List>>(AddListComponent);
+    const component = this.modalService.openModal<Partial<List>>(AddListModalComponent);
 
     component?.confirmed.subscribe((list) => {
       this.listService.addList(list);

@@ -6,10 +6,10 @@ import { ModalComponent } from '../../core/modals/modal/modal.component';
 @Component({
   selector: 'app-add-list',
   imports: [FormsModule],
-  templateUrl: './add-list.component.html',
-  styleUrl: './add-list.component.css',
+  templateUrl: './add-list-modal.component.html',
+  styleUrl: './add-list-modal.component.css',
 })
-export class AddListComponent extends ModalComponent<Partial<List>> implements AfterViewInit {
+export class AddListModalComponent extends ModalComponent<Partial<List>> implements AfterViewInit {
   protected name = '';
   protected icon = '📋';
   protected showIcons = false;

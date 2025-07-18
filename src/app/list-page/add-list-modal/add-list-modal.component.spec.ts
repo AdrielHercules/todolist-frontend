@@ -1,18 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddListComponent } from './add-list.component';
+import { AddListModalComponent } from './add-list-modal.component';
 
 describe('AddListComponent', () => {
-  let component: AddListComponent;
-  let fixture: ComponentFixture<AddListComponent>;
+  let component: AddListModalComponent;
+  let fixture: ComponentFixture<AddListModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AddListComponent]
-    })
-    .compileComponents();
+      imports: [AddListModalComponent],
+    }).compileComponents();
 
-    fixture = TestBed.createComponent(AddListComponent);
+    fixture = TestBed.createComponent(AddListModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
