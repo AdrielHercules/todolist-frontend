@@ -5,6 +5,7 @@ import { ListService } from '../services/list.service';
 import { AddListButtonComponent } from './add-list-button/add-list-button.component';
 import { AddListModalComponent } from './add-list-modal/add-list-modal.component';
 import { ModalService } from '../core/modals/modal.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-list-page',
@@ -13,6 +14,7 @@ import { ModalService } from '../core/modals/modal.service';
   styleUrl: './list-page.component.css',
 })
 export class ListPageComponent {
+  private router = inject(Router);
   private listService: ListService = inject(ListService);
   private modalService = inject(ModalService);
 
@@ -20,6 +22,10 @@ export class ListPageComponent {
 
   constructor() {
     this.lists = this.listService.getLists();
+  }
+
+  onListClick(listId: string) {
+    this.router.navigate(['/tasks', listId]);
   }
 
   onAddListClick() {
