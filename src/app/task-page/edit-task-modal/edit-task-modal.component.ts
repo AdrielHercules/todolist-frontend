@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { Task } from '../../models/task';
+import { Task } from '../models/task';
 
 @Component({
   selector: 'app-edit-task-modal',
