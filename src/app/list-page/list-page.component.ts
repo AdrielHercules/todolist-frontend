@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { List } from '../models/list';
+import { List } from './models/list';
 import { ListItemComponent } from './list-item/list-item.component';
 import { ListService } from '../services/list.service';
 import { AddListButtonComponent } from './add-list-button/add-list-button.component';

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, ElementRef, viewChild } from '@angular/core';
-import { List } from '../../models/list';
+import { List } from '../models/list';
 import { FormsModule } from '@angular/forms';
 import { ModalComponent } from '../../core/modals/modal/modal.component';
 
