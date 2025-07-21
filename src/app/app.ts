@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { TopBarComponent } from './top-bar/top-bar.component';
 import { ModalHostComponent } from './core/modals/modal-host/modal-host.component';
+import { TopBarComponent } from './layout/top-bar/top-bar.component';
 
 @Component({
   selector: 'app-root',

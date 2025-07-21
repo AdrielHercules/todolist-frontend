@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { List } from '../list-page/models/list';
+import { List } from '../models/list';
 
 @Injectable({
   providedIn: 'root',
