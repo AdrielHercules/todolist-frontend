@@ -2,12 +2,12 @@ import { Component, inject } from '@angular/core';
 import { TaskService } from './services/task.service';
 import { Task } from './models/task';
 import { TaskItemComponent } from './task-item/task-item.component';
-import { AddTaskButtonComponent } from './add-task-button/add-task-button.component';
 import { ActivatedRoute } from '@angular/router';
+import { AddButtonComponent } from '../shared/components/add-button/add-button.component';
 
 @Component({
   selector: 'app-task-page',
-  imports: [TaskItemComponent, AddTaskButtonComponent],
+  imports: [TaskItemComponent, AddButtonComponent],
   templateUrl: './task-page.component.html',
   styleUrl: './task-page.component.css',
 })
@@ -33,5 +33,6 @@ export class TaskPageComponent {
     };
 
     this.taskService.pushTask(newTask);
+    this.listTaks = this.taskService.getTasksByListId(this.listId);
   }
 }
