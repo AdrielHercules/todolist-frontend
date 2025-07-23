@@ -1,24 +1,49 @@
 <div class="flex items-center bg-amber-100 p-4">
   <div class="flex w-50 items-center justify-start gap-4">
-    <svg routerLink="/" class="size-6">
-      <use xlink:href="assets/symbol-defs.svg#icon-back"></use>
-    </svg>
-    <svg class="size-6">
-      <use xlink:href="assets/symbol-defs.svg#icon-home"></use>
-    </svg>
+    @if (topBarConf.returnButton) {
+      <svg routerLink="/" class="size-6">
+        <use xlink:href="assets/symbol-defs.svg#icon-back"></use>
+      </svg>
+    }
+
+    @if (topBarConf.homeButton) {
+      <svg class="size-6">
+        <use xlink:href="assets/symbol-defs.svg#icon-home"></use>
+      </svg>
+    }
   </div>
 
-  <h1 class="w-full text-center text-xl font-bold">{{ title() }}</h1>
+  <h1 class="w-full text-center text-xl font-bold" [class.text-center]="topBarConf.centerTitle">
+    {{ topBarConf.title }}
+  </h1>
 
   <div class="flex w-50 items-center justify-end gap-4">
-    <svg class="size-6">
-      <use xlink:href="assets/symbol-defs.svg#icon-share-alternitive"></use>
-    </svg>
-    <svg class="size-6">
-      <use xlink:href="assets/symbol-defs.svg#icon-eraser"></use>
-    </svg>
-    <svg class="size-6">
-      <use xlink:href="assets/symbol-defs.svg#icon-check"></use>
-    </svg>
+    @if (topBarConf.shareButton) {
+      <svg class="size-6">
+        <use xlink:href="assets/symbol-defs.svg#icon-share-alternitive"></use>
+      </svg>
+    }
+
+    @if (topBarConf.deleteButton) {
+      <svg class="size-6">
+        <use xlink:href="assets/symbol-defs.svg#icon-eraser"></use>
+      </svg>
+    }
+
+    @if (topBarConf.checkAllButton) {
+      <svg class="size-6">
+        <use xlink:href="assets/symbol-defs.svg#icon-check"></use>
+      </svg>
+    }
+
+    @if (topBarConf.userButton) {
+      <svg
+        class="size-6"
+        (click)="onButtonClick(topBarConf.userButton.callback)"
+        (keydown)="onButtonClick(topBarConf.userButton.callback)"
+      >
+        <use xlink:href="assets/symbol-defs.svg#icon-user"></use>
+      </svg>
+    }
   </div>
 </div>

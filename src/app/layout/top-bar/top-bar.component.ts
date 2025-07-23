@@ -1,5 +1,7 @@
-import { Component, input } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { TopBarConfig } from './models/top-bar-config';
+import { TopBarService } from './services/top-bar.service';
 
 @Component({
   selector: 'app-top-bar',
@@ -8,5 +10,21 @@ import { RouterLink } from '@angular/router';
   styleUrl: './top-bar.component.css',
 })
 export class TopBarComponent {
-  title = input<string>();
+  topBarConf: TopBarConfig = {
+    title: 'string',
+    centerTitle: true,
+  };
+
+  private topBarService = inject(TopBarService);
+
+  constructor() {
+    this.topBarService.getConfig().subscribe((t) => {
+      this.topBarConf = t;
+    });
+  }
+
+  onButtonClick(callback?: () => void) {
+    if (!callback) return;
+    callback();
+  }
 }
