@@ -4,6 +4,8 @@ import { Task } from './models/task';
 import { TaskItemComponent } from './task-item/task-item.component';
 import { ActivatedRoute } from '@angular/router';
 import { AddButtonComponent } from '../shared/components/add-button/add-button.component';
+import { TopBarService } from '../layout/top-bar/services/top-bar.service';
+import { ListService } from '../list-page/services/list.service';
 
 @Component({
   selector: 'app-task-page',
@@ -13,6 +15,9 @@ import { AddButtonComponent } from '../shared/components/add-button/add-button.c
 })
 export class TaskPageComponent {
   taskService: TaskService = inject(TaskService);
+  topBarService: TopBarService = inject(TopBarService);
+  listService = inject(ListService);
+
   listTaks: Task[] = [];
   private activatedRoute = inject(ActivatedRoute);
   private listId: string;
@@ -24,6 +29,13 @@ export class TaskPageComponent {
       this.listId = id;
     }
     this.listTaks = this.taskService.getTasksByListId(this.listId);
+    const titleList = this.listService.getLists()[Number(this.listId)].name;
+
+    this.topBarService.setConfig({
+      title: titleList,
+      centerTitle: true,
+      returnButton: {},
+    });
   }
 
   onAddTask() {
