@@ -1,15 +1,15 @@
 import { Component, inject } from '@angular/core';
 import { List } from './models/list';
 import { ListItemComponent } from './list-item/list-item.component';
-import { AddListButtonComponent } from './add-list-button/add-list-button.component';
 import { AddListModalComponent } from './add-list-modal/add-list-modal.component';
 import { ModalService } from '../core/modals/modal.service';
 import { Router } from '@angular/router';
 import { ListService } from './services/list.service';
+import { AddButtonComponent } from '../shared/components/add-button/add-button.component';
 
 @Component({
   selector: 'app-list-page',
-  imports: [ListItemComponent, AddListButtonComponent],
+  imports: [ListItemComponent, AddButtonComponent],
   templateUrl: './list-page.component.html',
   styleUrl: './list-page.component.css',
 })
