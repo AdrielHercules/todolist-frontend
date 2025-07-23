@@ -331,7 +331,6 @@ export class TaskService {
 
   pushTask(task: Partial<Task>) {
     if (!task.text || !task.listId) throw new Error('No se puede añadir una tarea sin texto ni listId');
-    console.log(String(this.taskList.length));
     this.taskList.push({
       id: String(this.taskList.length),
       text: task.text,
