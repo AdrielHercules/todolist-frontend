@@ -6,6 +6,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AddButtonComponent } from '../shared/components/add-button/add-button.component';
 import { TopBarService } from '../layout/top-bar/services/top-bar.service';
 import { ListService } from '../list-page/services/list.service';
+import { TopBarButtonType } from '../layout/top-bar/models/top-bar-button-type';
 
 @Component({
   selector: 'app-task-page',
@@ -34,7 +35,8 @@ export class TaskPageComponent {
     this.topBarService.setConfig({
       title: titleList,
       centerTitle: true,
-      returnButton: {},
+      leftButtons: [{ type: TopBarButtonType.BACK }, { type: TopBarButtonType.USER }],
+      rightButtons: [{ type: TopBarButtonType.HOME }],
     });
   }
 

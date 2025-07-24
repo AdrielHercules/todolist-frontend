@@ -13,12 +13,8 @@ export class TopBarService {
       title: config.title ?? '',
       centerTitle: config.centerTitle ?? true,
 
-      homeButton: config.homeButton,
-      returnButton: config.returnButton,
-      shareButton: config.shareButton,
-      deleteButton: config.deleteButton,
-      checkAllButton: config.checkAllButton,
-      userButton: config.userButton,
+      leftButtons: config.leftButtons ?? [],
+      rightButtons: config.rightButtons ?? [],
     });
   }
 

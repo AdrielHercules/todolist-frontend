@@ -1,48 +1,22 @@
-<div class="flex items-center bg-amber-100 p-4">
-  <div class="flex w-50 items-center justify-start gap-4">
-    @if (topBarConf.returnButton) {
-      <svg routerLink="/" class="size-6">
-        <use xlink:href="assets/symbol-defs.svg#icon-back"></use>
-      </svg>
-    }
+<div class="z-1 flex items-center bg-amber-100 p-4">
+  @if (topBarConf.leftButtons.length !== 0 || topBarConf.centerTitle) {
+    <div class="z-1 flex w-50 items-center justify-start gap-4">
+      @for (button of topBarConf.leftButtons; track $index) {
+        <svg routerLink="/" class="z-1 size-6" (click)="onButtonClick(button)" (keydown)="onButtonClick(button)">
+          <use [attr.xlink:href]="button.type"></use>
+        </svg>
+      }
+    </div>
+  }
 
-    @if (topBarConf.homeButton) {
-      <svg class="size-6">
-        <use xlink:href="assets/symbol-defs.svg#icon-home"></use>
-      </svg>
-    }
-  </div>
-
-  <h1 class="w-full text-center text-xl font-bold" [class.text-center]="topBarConf.centerTitle">
+  <h1 class="z-1 w-full text-center text-xl font-bold" [class.text-center]="topBarConf.centerTitle">
     {{ topBarConf.title }}
   </h1>
 
-  <div class="flex w-50 items-center justify-end gap-4">
-    @if (topBarConf.shareButton) {
-      <svg class="size-6">
-        <use xlink:href="assets/symbol-defs.svg#icon-share-alternitive"></use>
-      </svg>
-    }
-
-    @if (topBarConf.deleteButton) {
-      <svg class="size-6">
-        <use xlink:href="assets/symbol-defs.svg#icon-eraser"></use>
-      </svg>
-    }
-
-    @if (topBarConf.checkAllButton) {
-      <svg class="size-6">
-        <use xlink:href="assets/symbol-defs.svg#icon-check"></use>
-      </svg>
-    }
-
-    @if (topBarConf.userButton) {
-      <svg
-        class="size-6"
-        (click)="onButtonClick(topBarConf.userButton.callback)"
-        (keydown)="onButtonClick(topBarConf.userButton.callback)"
-      >
-        <use xlink:href="assets/symbol-defs.svg#icon-user"></use>
+  <div class="z-1 flex w-50 items-center justify-end gap-4">
+    @for (button of topBarConf.rightButtons; track $index) {
+      <svg routerLink="/" class="size-6" (click)="onButtonClick(button)" (keydown)="onButtonClick(button)">
+        <use [attr.xlink:href]="button.type"></use>
       </svg>
     }
   </div>
