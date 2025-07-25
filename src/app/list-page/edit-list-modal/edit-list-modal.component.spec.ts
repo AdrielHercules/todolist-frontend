@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AddListModalComponent } from './add-list-modal.component';
+import { AddListModalComponent } from './edit-list-modal.component';
 
 describe('AddListComponent', () => {
   let component: AddListModalComponent;
