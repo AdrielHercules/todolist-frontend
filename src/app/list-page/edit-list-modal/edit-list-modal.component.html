@@ -20,9 +20,14 @@
         id="name-text-input"
         placeholder="Nombre"
         class="w-full rounded-md border-1 border-gray-500 p-4"
+        [ngClass]="{
+          'focus:outline-red-500': invalidName,
+          'animate-zig-zag-h': invalidName,
+        }"
         type="text"
         (click)="onInputClick()"
-        [(ngModel)]="name"
+        [ngModel]="name"
+        (ngModelChange)="onInputChange($event)"
       />
     </div>
     @if (!showIcons) {

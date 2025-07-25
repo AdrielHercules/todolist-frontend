@@ -3,10 +3,11 @@ import { List } from '../models/list';
 import { FormsModule } from '@angular/forms';
 import { ModalComponent } from '../../core/modals/modal/modal.component';
 import { listIcons } from '../models/list-icons';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-edit-list',
-  imports: [FormsModule],
+  imports: [FormsModule, NgClass],
   templateUrl: './edit-list-modal.component.html',
   styleUrl: './edit-list-modal.component.css',
 })
@@ -14,9 +15,11 @@ export class EditListModalComponent extends ModalComponent<Partial<List>> implem
   inputList = input<List>();
 
   private id?: string = undefined;
-  protected name = '';
-  protected icon = '';
-  protected showIcons = false;
+  protected name;
+  protected icon;
+  protected showIcons;
+
+  protected invalidName;
 
   private nameInputField = viewChild<ElementRef<HTMLInputElement>>('inputName');
 
@@ -25,6 +28,11 @@ export class EditListModalComponent extends ModalComponent<Partial<List>> implem
 
   constructor() {
     super();
+    this.name = '';
+    this.icon = '';
+    this.showIcons = false;
+    this.invalidName = false;
+
     this.isClosing = false;
   }
 
@@ -39,7 +47,9 @@ export class EditListModalComponent extends ModalComponent<Partial<List>> implem
   }
 
   onCreateClick() {
-    if (this.name === '' || this.icon == '') {
+    if (this.name === '') {
+      this.invalidName = true;
+      this.nameInputField()?.nativeElement.focus();
       return;
     }
 
@@ -68,5 +78,10 @@ export class EditListModalComponent extends ModalComponent<Partial<List>> implem
   onIconClicked(icon: string) {
     this.icon = icon;
     this.showIcons = false;
+  }
+
+  onInputChange(text: Event) {
+    this.name = String(text);
+    if (this.name !== '') this.invalidName = false;
   }
 }
