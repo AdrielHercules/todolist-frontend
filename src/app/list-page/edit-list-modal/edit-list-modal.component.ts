@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, viewChild } from '@angular/core';
+import { Component, ElementRef, input, OnInit, viewChild } from '@angular/core';
 import { List } from '../models/list';
 import { FormsModule } from '@angular/forms';
 import { ModalComponent } from '../../core/modals/modal/modal.component';
@@ -9,12 +9,15 @@ import { ModalComponent } from '../../core/modals/modal/modal.component';
   templateUrl: './edit-list-modal.component.html',
   styleUrl: './edit-list-modal.component.css',
 })
-export class AddListModalComponent extends ModalComponent<Partial<List>> implements AfterViewInit {
+export class AddListModalComponent extends ModalComponent<Partial<List>> implements OnInit {
+  inputList = input<List>();
+
+  private id?: string = undefined;
   protected name = '';
-  protected icon = '📋';
+  protected icon = '';
   protected showIcons = false;
 
-  private inputName = viewChild<ElementRef<HTMLInputElement>>('inputName');
+  private nameInputField = viewChild<ElementRef<HTMLInputElement>>('inputName');
 
   protected icons: string[] = [
     '😀',
@@ -117,8 +120,12 @@ export class AddListModalComponent extends ModalComponent<Partial<List>> impleme
     this.isClosing = false;
   }
 
-  override ngAfterViewInit() {
-    this.inputName()?.nativeElement.focus();
+  ngOnInit(): void {
+    this.id = this.inputList()?.id;
+    this.name = this.inputList()?.name ?? '';
+    this.icon = this.inputList()?.icon ?? '📋';
+
+    this.nameInputField()?.nativeElement.focus();
   }
 
   onCreateClick() {
@@ -127,6 +134,7 @@ export class AddListModalComponent extends ModalComponent<Partial<List>> impleme
     }
 
     this.confirmed.emit({
+      id: this.id,
       name: this.name,
       icon: this.icon,
     });

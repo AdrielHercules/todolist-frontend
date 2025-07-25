@@ -79,7 +79,7 @@ export class ListPageComponent implements OnInit {
       this.selectedLists.size == 1
         ? [
             { type: TopBarButtonType.DELETE, callback: this.removeSelectedLists.bind(this) },
-            { type: TopBarButtonType.EDIT },
+            { type: TopBarButtonType.EDIT, callback: this.editList.bind(this) },
           ]
         : [{ type: TopBarButtonType.DELETE, callback: this.removeSelectedLists.bind(this) }];
 
@@ -94,5 +94,16 @@ export class ListPageComponent implements OnInit {
     this.lists.filter((l) => this.selectedLists.has(l.id)).forEach((l) => this.listService.removeList(l));
 
     this.selectedLists.clear();
+  }
+
+  editList() {
+    const selectedList = this.lists.find((l) => this.selectedLists.has(l.id));
+    const modal = this.modalService.openModal<Partial<List>>(AddListModalComponent, [
+      {
+        property: 'inputList',
+        value: selectedList,
+      },
+    ]);
+    modal?.confirmed.subscribe((l) => this.listService.updateList(l));
   }
 }
