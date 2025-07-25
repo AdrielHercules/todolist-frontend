@@ -42,6 +42,10 @@ export class ListService {
     return this.lists;
   }
 
+  getListById(id: string) {
+    return this.lists.find((l) => l.id == id);
+  }
+
   addList(list: Partial<List>) {
     if (!list.name || !list.icon) {
       throw new Error('Error al añadir. No se puede agregar una lista sin nombre ni icono: ' + list);
@@ -68,7 +72,7 @@ export class ListService {
       throw new Error(`Error al actualizar. No se ha especificado un id ${listData.id}`);
     }
 
-    const list = this.lists.find((l) => l.id == listData.id);
+    const list = this.getListById(listData.id);
     if (!list) {
       console.warn(`Error al actualizar. No se encontró la lista con id ${listData.id}`);
       return;
