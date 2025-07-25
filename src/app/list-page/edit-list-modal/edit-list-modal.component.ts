@@ -10,7 +10,7 @@ import { listIcons } from '../models/list-icons';
   templateUrl: './edit-list-modal.component.html',
   styleUrl: './edit-list-modal.component.css',
 })
-export class AddListModalComponent extends ModalComponent<Partial<List>> implements OnInit, AfterViewInit {
+export class EditListModalComponent extends ModalComponent<Partial<List>> implements OnInit, AfterViewInit {
   inputList = input<List>();
 
   private id?: string = undefined;

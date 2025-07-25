@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { List } from './models/list';
 import { ListItemComponent } from './list-item/list-item.component';
-import { AddListModalComponent } from './edit-list-modal/edit-list-modal.component';
+import { EditListModalComponent } from './edit-list-modal/edit-list-modal.component';
 import { ModalService } from '../core/modals/modal.service';
 import { Router } from '@angular/router';
 import { ListService } from './services/list.service';
@@ -45,7 +45,7 @@ export class ListPageComponent implements OnInit {
   }
 
   onAddListClick() {
-    const modal = this.modalService.openModal<Partial<List>>(AddListModalComponent);
+    const modal = this.modalService.openModal<Partial<List>>(EditListModalComponent);
     modal?.confirmed.subscribe((list) => this.listService.addList(list));
   }
 
@@ -98,7 +98,7 @@ export class ListPageComponent implements OnInit {
 
   editList() {
     const selectedList = this.lists.find((l) => this.selectedLists.has(l.id));
-    const modal = this.modalService.openModal<Partial<List>>(AddListModalComponent, [
+    const modal = this.modalService.openModal<Partial<List>>(EditListModalComponent, [
       {
         property: 'inputList',
         value: selectedList,
