@@ -1,4 +1,4 @@
-import { Component, ElementRef, input, OnInit, viewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, input, OnInit, viewChild } from '@angular/core';
 import { List } from '../models/list';
 import { FormsModule } from '@angular/forms';
 import { ModalComponent } from '../../core/modals/modal/modal.component';
@@ -10,7 +10,7 @@ import { listIcons } from '../models/list-icons';
   templateUrl: './edit-list-modal.component.html',
   styleUrl: './edit-list-modal.component.css',
 })
-export class AddListModalComponent extends ModalComponent<Partial<List>> implements OnInit {
+export class AddListModalComponent extends ModalComponent<Partial<List>> implements OnInit, AfterViewInit {
   inputList = input<List>();
 
   private id?: string = undefined;
@@ -32,7 +32,9 @@ export class AddListModalComponent extends ModalComponent<Partial<List>> impleme
     this.id = this.inputList()?.id;
     this.name = this.inputList()?.name ?? '';
     this.icon = this.inputList()?.icon ?? '📋';
+  }
 
+  override ngAfterViewInit() {
     this.nameInputField()?.nativeElement.focus();
   }
 
