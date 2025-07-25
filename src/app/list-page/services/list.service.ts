@@ -58,4 +58,19 @@ export class ListService {
     const listId = this.lists.indexOf(list);
     this.lists.splice(listId, 1);
   }
+
+  updateList(listData: Partial<List>) {
+    if (!listData.id) {
+      throw new Error(`Error al actualizar. No se ha especificado un id ${listData.id}`);
+    }
+
+    const list = this.lists.find((l) => l.id == listData.id);
+    if (!list) {
+      console.warn(`Error al actualizar. No se encontró la lista con id ${listData.id}`);
+      return;
+    }
+
+    list.name = listData.name ?? list.name;
+    list.icon = listData.icon ?? list.icon;
+  }
 }
