@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { List } from './models/list';
 import { ListItemComponent } from './list-item/list-item.component';
-import { AddListModalComponent } from './add-list-modal/add-list-modal.component';
+import { AddListModalComponent } from './edit-list-modal/edit-list-modal.component';
 import { ModalService } from '../core/modals/modal.service';
 import { Router } from '@angular/router';
 import { ListService } from './services/list.service';

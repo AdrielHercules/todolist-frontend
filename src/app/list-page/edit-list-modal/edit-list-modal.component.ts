@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { ModalComponent } from '../../core/modals/modal/modal.component';
 
 @Component({
-  selector: 'app-add-list',
+  selector: 'app-edit-list',
   imports: [FormsModule],
-  templateUrl: './add-list-modal.component.html',
-  styleUrl: './add-list-modal.component.css',
+  templateUrl: './edit-list-modal.component.html',
+  styleUrl: './edit-list-modal.component.css',
 })
 export class AddListModalComponent extends ModalComponent<Partial<List>> implements AfterViewInit {
   protected name = '';
