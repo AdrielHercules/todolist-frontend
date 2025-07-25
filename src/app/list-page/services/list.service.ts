@@ -44,7 +44,7 @@ export class ListService {
 
   addList(list: Partial<List>) {
     if (!list.name || !list.icon) {
-      throw new Error('Error, no se puede agregar una lista sin nombre ni icono: ' + list);
+      throw new Error('Error al añadir. No se puede agregar una lista sin nombre ni icono: ' + list);
     }
 
     this.lists.push({
@@ -55,8 +55,12 @@ export class ListService {
   }
 
   removeList(list: List) {
-    const listId = this.lists.indexOf(list);
-    this.lists.splice(listId, 1);
+    const listIndex = this.lists.findIndex((l) => l.id === list.id);
+    if (listIndex !== -1) {
+      this.lists.splice(listIndex, 1);
+    } else {
+      console.warn(`Error al eliminar. No se ha encontrado la lista con id ${list.id}`);
+    }
   }
 
   updateList(listData: Partial<List>) {
