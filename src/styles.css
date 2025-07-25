@@ -34,4 +34,23 @@
       opacity: 1;
     }
   }
+
+  --animate-zig-zag-h: zig-zag-h 300ms ease;
+  @keyframes zig-zag-h {
+    0% {
+      transform: translateX(5px);
+    }
+    25% {
+      transform: translateX(-10px);
+    }
+    50% {
+      transform: translateX(10px);
+    }
+    75% {
+      transform: translateX(-10px);
+    }
+    100% {
+      transform: translateX(5px);
+    }
+  }
 }
