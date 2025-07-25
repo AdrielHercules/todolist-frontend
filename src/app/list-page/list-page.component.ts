@@ -70,7 +70,7 @@ export class ListPageComponent implements OnInit {
         title: 'Listas',
         centerTitle: false,
 
-        rightButtons: [{ type: TopBarButtonType.SHARE }],
+        rightButtons: [{ type: TopBarButtonType.USER }],
       });
       return;
     }
