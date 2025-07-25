@@ -53,4 +53,9 @@ export class ListService {
       icon: list.icon,
     });
   }
+
+  removeList(list: List) {
+    const listId = this.lists.indexOf(list);
+    this.lists.splice(listId, 1);
+  }
 }
