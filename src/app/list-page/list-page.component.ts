@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { List } from './models/list';
 import { ListItemComponent } from './list-item/list-item.component';
 import { AddListModalComponent } from './add-list-modal/add-list-modal.component';
@@ -9,6 +9,7 @@ import { AddButtonComponent } from '../shared/components/add-button/add-button.c
 import { TopBarService } from '../layout/top-bar/services/top-bar.service';
 import { TopBarButtonType } from '../layout/top-bar/models/top-bar-button-type';
 import { LongPressDirective } from '../shared/directives/long-press.directive';
+import { TopBarButton } from '../layout/top-bar/models/top-bar-button';
 
 @Component({
   selector: 'app-list-page',
@@ -16,19 +17,21 @@ import { LongPressDirective } from '../shared/directives/long-press.directive';
   templateUrl: './list-page.component.html',
   styleUrl: './list-page.component.css',
 })
-export class ListPageComponent {
+export class ListPageComponent implements OnInit {
   private router = inject(Router);
   private listService = inject(ListService);
   private modalService = inject(ModalService);
   private topBarService = inject(TopBarService);
 
-  lists: List[] = [];
+  protected lists: List[] = [];
   protected selectedLists: Set<string>;
 
   constructor() {
     this.selectedLists = new Set<string>();
-    this.lists = this.listService.getLists();
+  }
 
+  ngOnInit(): void {
+    this.lists = this.listService.getLists();
     this.updateTopBarConfig();
   }
 
@@ -72,15 +75,24 @@ export class ListPageComponent {
       return;
     }
 
-    const rightButtons =
+    const rightButtons: TopBarButton[] =
       this.selectedLists.size == 1
-        ? [{ type: TopBarButtonType.DELETE }, { type: TopBarButtonType.EDIT }]
-        : [{ type: TopBarButtonType.DELETE }];
+        ? [
+            { type: TopBarButtonType.DELETE, callback: this.removeSelectedLists.bind(this) },
+            { type: TopBarButtonType.EDIT },
+          ]
+        : [{ type: TopBarButtonType.DELETE, callback: this.removeSelectedLists.bind(this) }];
 
     this.topBarService.setConfig({
       title: 'Listas',
       centerTitle: false,
       rightButtons: rightButtons,
     });
+  }
+
+  removeSelectedLists() {
+    this.lists.filter((l) => this.selectedLists.has(l.id)).forEach((l) => this.listService.removeList(l));
+
+    this.selectedLists.clear();
   }
 }
