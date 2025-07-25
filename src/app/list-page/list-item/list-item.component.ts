@@ -9,4 +9,5 @@ import { List } from '../models/list';
 })
 export class ListItemComponent {
   list = input<List>();
+  isSelected = input<boolean>();
 }

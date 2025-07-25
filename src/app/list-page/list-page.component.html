@@ -1,6 +1,13 @@
 <section class="flex flex-col gap-2 p-2">
   @for (list of lists; track $index) {
-    <app-list-item (click)="onListClick(list.id)" [list]="list"></app-list-item>
+    <app-list-item
+      appLongPress
+      [duration]="250"
+      (longPress)="toggleList(list.id)"
+      (shortPress)="onListClick(list.id)"
+      [list]="list"
+      [isSelected]="selectedLists.has(list.id)"
+    ></app-list-item>
   }
 
   <div class="fixed right-10 bottom-10">

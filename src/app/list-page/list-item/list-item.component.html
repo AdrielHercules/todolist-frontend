@@ -1,4 +1,8 @@
-<div class="h-15 content-center rounded-md bg-white select-none hover:cursor-pointer hover:bg-gray-100">
+<div
+  class="h-15 content-center rounded-md bg-white select-none hover:cursor-pointer hover:bg-gray-100"
+  [class.border-1]="isSelected()"
+  [class.border-black]="isSelected()"
+>
   <div class="flex gap-2 pr-5 pl-5">
     <p>{{ list()?.icon }}</p>
     <p>{{ list()?.name }}</p>
