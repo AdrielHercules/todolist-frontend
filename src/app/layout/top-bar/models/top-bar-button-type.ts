@@ -5,4 +5,5 @@ export enum TopBarButtonType {
   USER = 'assets/symbol-defs.svg#icon-user',
   CHECK = 'assets/symbol-defs.svg#icon-check',
   SHARE = 'assets/symbol-defs.svg#icon-share-alternitive',
+  EDIT = 'assets/symbol-defs.svg#icon-edit',
 }
