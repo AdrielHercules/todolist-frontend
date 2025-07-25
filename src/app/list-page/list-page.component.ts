@@ -9,7 +9,6 @@ import { AddButtonComponent } from '../shared/components/add-button/add-button.c
 import { TopBarService } from '../layout/top-bar/services/top-bar.service';
 import { TopBarButtonType } from '../layout/top-bar/models/top-bar-button-type';
 import { LongPressDirective } from '../shared/directives/long-press.directive';
-import { TopBarConfig } from '../layout/top-bar/models/top-bar-config';
 
 @Component({
   selector: 'app-list-page',
@@ -26,18 +25,11 @@ export class ListPageComponent {
   lists: List[] = [];
   protected selectedLists: Set<string>;
 
-  private topBarConfiguration: Partial<TopBarConfig> = {
-    title: 'Listas',
-    centerTitle: false,
-
-    rightButtons: [{ type: TopBarButtonType.SHARE }],
-  };
-
   constructor() {
     this.selectedLists = new Set<string>();
     this.lists = this.listService.getLists();
 
-    this.topBarService.setConfig(this.topBarConfiguration);
+    this.updateTopBarConfig();
   }
 
   onListClick(listId: string) {
@@ -71,23 +63,15 @@ export class ListPageComponent {
 
   updateTopBarConfig() {
     if (!this.isSelecting()) {
-      this.topBarService.setConfig(this.topBarConfiguration);
+      this.topBarService.setConfig({
+        title: 'Listas',
+        centerTitle: false,
+
+        rightButtons: [{ type: TopBarButtonType.SHARE }],
+      });
       return;
     }
 
-    const rightButtons =
-      this.selectedLists.size == 1
-        ? [{ type: TopBarButtonType.DELETE }, { type: TopBarButtonType.EDIT }]
-        : [{ type: TopBarButtonType.DELETE }];
-
-    this.topBarService.setConfig({
-      title: 'Listas',
-      centerTitle: false,
-      rightButtons: rightButtons,
-    });
-  }
-
-  updateTopBarOnSelectionChanges() {
     const rightButtons =
       this.selectedLists.size == 1
         ? [{ type: TopBarButtonType.DELETE }, { type: TopBarButtonType.EDIT }]
