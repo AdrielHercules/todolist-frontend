@@ -94,6 +94,7 @@ export class ListPageComponent implements OnInit {
     this.lists.filter((l) => this.selectedLists.has(l.id)).forEach((l) => this.listService.removeList(l));
 
     this.selectedLists.clear();
+    this.updateTopBarConfig();
   }
 
   editList() {
