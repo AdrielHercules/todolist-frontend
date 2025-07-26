@@ -5,14 +5,20 @@
   (longPress)="onLongPress()"
   (shortPress)="onShortPress()"
 >
-  <p>{{ task?.text }}</p>
+  <p
+    [ngClass]="{
+      'line-through': task().completed,
+      'text-gray-500': task().completed,
+    }"
+  >
+    {{ task().text }}
+  </p>
+
   <input
-    [checked]="task?.completed"
+    [checked]="task().completed"
     type="checkbox"
     placeholder="True"
     class="mr-6 ml-auto"
     (click)="onCheck($event)"
   />
 </div>
-
-<!-- Para posicionar las cosas a la iz o derecha ml/mr-auto para darle más anchura al div px y py-->
