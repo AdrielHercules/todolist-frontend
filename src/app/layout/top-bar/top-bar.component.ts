@@ -18,8 +18,6 @@ export class TopBarComponent {
     rightButtons: [],
   };
 
-  iconHome = 'icon-home';
-
   private topBarService = inject(TopBarService);
 
   constructor() {
