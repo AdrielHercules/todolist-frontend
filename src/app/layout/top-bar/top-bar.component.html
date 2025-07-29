@@ -1,4 +1,9 @@
-<div class="z-1 flex h-14 items-center bg-amber-100 p-4">
+<div
+  class="z-1 flex h-14 items-center bg-amber-100 p-4"
+  [ngClass]="{
+    'bg-transparent': topBarConf.transparent,
+  }"
+>
   @if (topBarConf.leftButtons.length !== 0 || topBarConf.centerTitle) {
     <div class="z-1 flex w-50 items-center justify-start gap-4">
       @for (button of topBarConf.leftButtons; track $index) {

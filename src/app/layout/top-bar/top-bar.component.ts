@@ -2,10 +2,11 @@ import { Component, inject } from '@angular/core';
 import { TopBarConfig } from './models/top-bar-config';
 import { TopBarService } from './services/top-bar.service';
 import { TopBarButton } from './models/top-bar-button';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-top-bar',
-  imports: [],
+  imports: [NgClass],
   templateUrl: './top-bar.component.html',
   styleUrl: './top-bar.component.css',
 })
@@ -13,6 +14,7 @@ export class TopBarComponent {
   topBarConf: TopBarConfig = {
     title: 'string',
     centerTitle: true,
+    transparent: false,
     leftButtons: [],
     rightButtons: [],
   };

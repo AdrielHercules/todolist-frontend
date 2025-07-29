@@ -12,7 +12,7 @@ export class TopBarService {
     this.topBarConf.next({
       title: config.title ?? '',
       centerTitle: config.centerTitle ?? true,
-
+      transparent: config.transparent ?? false,
       leftButtons: config.leftButtons ?? [],
       rightButtons: config.rightButtons ?? [],
     });
