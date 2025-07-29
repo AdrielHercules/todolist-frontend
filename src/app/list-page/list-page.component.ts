@@ -70,7 +70,7 @@ export class ListPageComponent implements OnInit {
         title: 'Listas',
         centerTitle: false,
 
-        rightButtons: [{ type: TopBarButtonType.USER }],
+        rightButtons: [{ type: TopBarButtonType.USER, callback: this.onUserClick.bind(this) }],
       });
       return;
     }
@@ -106,5 +106,9 @@ export class ListPageComponent implements OnInit {
       },
     ]);
     modal?.confirmed.subscribe((l) => this.listService.updateList(l));
+  }
+
+  onUserClick() {
+    this.router.navigate(['/user']);
   }
 }
