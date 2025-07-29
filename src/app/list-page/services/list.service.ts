@@ -38,6 +38,8 @@ export class ListService {
     },
   ];
 
+  private nextId = this.lists.length;
+
   getLists() {
     return this.lists;
   }
@@ -52,7 +54,7 @@ export class ListService {
     if (!list.icon) throw new Error(`Icon missing on list: ${list}`);
 
     this.lists.push({
-      id: String(this.lists.length),
+      id: String(this.nextId++),
       name: list.name,
       icon: list.icon,
     });
