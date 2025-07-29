@@ -1,6 +1,11 @@
-<div class="flex min-h-dvh flex-col">
+<div class="flex min-h-screen flex-col">
   <app-top-bar [title]="'Listas'"></app-top-bar>
-  <main class="h-full flex-1 bg-gray-200">
+
+  <!-- Background -->
+  <div class="fixed z-[-10] h-screen w-screen bg-gray-200"></div>
+
+  <!-- Pages rendering -->
+  <main class="h-full flex-1">
     <router-outlet />
   </main>
 </div>
