@@ -47,9 +47,9 @@ export class ListService {
   }
 
   addList(list: Partial<List>) {
-    if (!list.name || !list.icon) {
-      throw new Error('Error al añadir. No se puede agregar una lista sin nombre ni icono: ' + list);
-    }
+    if (!list.name) throw new Error(`Name missing on list: ${list}`);
+
+    if (!list.icon) throw new Error(`Icon missing on list: ${list}`);
 
     this.lists.push({
       id: String(this.lists.length),
@@ -60,23 +60,18 @@ export class ListService {
 
   removeList(list: List) {
     const listIndex = this.lists.findIndex((l) => l.id === list.id);
-    if (listIndex !== -1) {
-      this.lists.splice(listIndex, 1);
-    } else {
-      console.warn(`Error al eliminar. No se ha encontrado la lista con id ${list.id}`);
-    }
+
+    if (listIndex === -1) throw new Error(`List with ID ${list.id} not found.`);
+
+    this.lists.splice(listIndex, 1);
   }
 
   updateList(listData: Partial<List>) {
-    if (!listData.id) {
-      throw new Error(`Error al actualizar. No se ha especificado un id ${listData.id}`);
-    }
+    if (!listData.id) throw new Error(`List ID not specified. ${listData}`);
 
     const list = this.getListById(listData.id);
-    if (!list) {
-      console.warn(`Error al actualizar. No se encontró la lista con id ${listData.id}`);
-      return;
-    }
+
+    if (!list) throw new Error(`List with ID ${listData.id} not found.`);
 
     list.name = listData.name ?? list.name;
     list.icon = listData.icon ?? list.icon;
