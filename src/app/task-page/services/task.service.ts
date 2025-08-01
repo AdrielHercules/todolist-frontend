@@ -329,13 +329,36 @@ export class TaskService {
     return this.taskList.filter((t) => t.listId === id);
   }
 
-  pushTask(task: Partial<Task>) {
+  updateTask(updatedTask: Partial<Task>) {
+    if (!updatedTask.text) throw new Error(`Error al actualizar. La tarea debe tener un nombre ${updatedTask}`);
+    if (!updatedTask.id) throw new Error(`Error al actualizar. La tarea debe tener un id ${updatedTask}`);
+
+    const task = this.taskList.find((t) => t.id == updatedTask.id);
+
+    if (!task) {
+      return;
+    }
+
+    task.text = updatedTask.text;
+    task.completed = updatedTask.completed ?? task.completed;
+  }
+
+  deleteTask(id: string) {
+    for (let i = 0; i < this.taskList.length; i++) {
+      const task = this.taskList.at(i);
+      if (task?.id === id) {
+        this.taskList.splice(i, 1);
+      }
+    }
+  }
+
+  addTask(task: Partial<Task>) {
     if (!task.text || !task.listId) throw new Error('No se puede añadir una tarea sin texto ni listId');
     this.taskList.push({
       id: String(this.taskList.length),
       text: task.text,
       listId: task.listId,
-      completed: false,
+      completed: task.completed ?? false,
     });
   }
 
