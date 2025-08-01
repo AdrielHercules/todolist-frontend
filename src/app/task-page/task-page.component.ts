@@ -46,7 +46,7 @@ export class TaskPageComponent {
       listId: this.listId,
     };
 
-    this.taskService.pushTask(newTask);
+    this.taskService.addTask(newTask);
     this.listTaks = this.taskService.getTasksByListId(this.listId);
   }
 }
