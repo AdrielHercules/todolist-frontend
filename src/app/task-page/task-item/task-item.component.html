@@ -1,8 +1,9 @@
 <div
-  class="flex h-15 content-center items-center rounded-md bg-white align-middle select-none hover:cursor-pointer hover:bg-blue-100"
+  class="flex h-15 content-center items-center rounded-md align-middle select-none hover:cursor-pointer hover:bg-blue-100"
   [ngClass]="{
-    'border-2': isSelected(),
-    'bg-amber-200': isSelected(),
+    'border-1': isSelected(),
+    'bg-gray-200': isSelected(),
+    'bg-white': !isSelected(),
   }"
 >
   <div class="w-full p-4" appLongPress [duration]="250" (longPress)="onLongPress()" (shortPress)="onShortPress()">
