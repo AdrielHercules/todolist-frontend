@@ -1,24 +1,27 @@
 <div
-  class="flex h-15 content-center items-center rounded-md bg-white pl-6 align-middle select-none hover:cursor-pointer hover:bg-blue-100"
-  appLongPress
-  [duration]="800"
-  (longPress)="onLongPress()"
-  (shortPress)="onShortPress()"
+  class="flex h-15 content-center items-center rounded-md bg-white align-middle select-none hover:cursor-pointer hover:bg-blue-100"
+  [ngClass]="{
+    'border-2': isSelected(),
+    'bg-amber-200': isSelected(),
+  }"
 >
-  <p
-    [ngClass]="{
-      'line-through': task().completed,
-      'text-gray-500': task().completed,
-    }"
-  >
-    {{ task().text }}
-  </p>
+  <div class="w-full p-4" appLongPress [duration]="250" (longPress)="onLongPress()" (shortPress)="onShortPress()">
+    <p
+      [ngClass]="{
+        'line-through': task().completed,
+        'text-gray-500': task().completed,
+      }"
+    >
+      {{ task().text }}
+    </p>
+  </div>
 
-  <input
-    [checked]="task().completed"
-    type="checkbox"
-    placeholder="True"
-    class="mr-6 ml-auto"
-    (click)="onCheck($event)"
-  />
+  <div class="p-4">
+    <input
+      [checked]="task().completed"
+      type="checkbox"
+      placeholder="True"
+      (click)="onCheck($event); $event.stopPropagation()"
+    />
+  </div>
 </div>

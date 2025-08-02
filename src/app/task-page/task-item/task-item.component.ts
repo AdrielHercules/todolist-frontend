@@ -1,39 +1,33 @@
-import { Component, inject, input, ViewContainerRef } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { Task } from '../models/task';
-import { EditTaskModalComponent } from '../edit-task-modal/edit-task-modal.component';
-import { LongPressDirective } from '../../shared/directives/long-press.directive';
 import { NgClass } from '@angular/common';
-
+import { LongPressDirective } from '../../shared/directives/long-press.directive';
 @Component({
   selector: 'app-task-item',
-  imports: [LongPressDirective, NgClass],
+  imports: [NgClass, LongPressDirective],
   templateUrl: './task-item.component.html',
   styleUrl: './task-item.component.css',
 })
 export class TaskItemComponent {
   task = input.required<Task>();
+  taskChanged = output<Task>();
+  longPress = output<Task>();
+  shortPress = output<Task>();
+  isSelected = input<boolean>();
 
-  viewRef = inject(ViewContainerRef);
+  onShortPress() {
+    this.shortPress.emit(this.task());
+  }
+
+  onLongPress() {
+    this.longPress.emit(this.task());
+  }
 
   onCheck(event: MouseEvent) {
-    event.stopPropagation();
-    const imputElement = event.target as HTMLInputElement;
-    const isCheched = imputElement.checked;
+    const inputElement = event.target as HTMLInputElement;
+    const isChecked = inputElement.checked;
 
-    this.task().completed = isCheched;
-  }
-
-  onEditModal() {
-    console.log('Abriendo modal de edición para:', this.task().text);
-    this.viewRef.createComponent(EditTaskModalComponent);
-  }
-
-  onShortPress(): void {
-    console.log('¡Pulsación corta detectada para:', this.task().text, '!');
-    this.onEditModal();
-  }
-
-  onLongPress(): void {
-    console.log('¡Pulsación larga detectada para:', this.task().text, '!');
+    this.task().completed = isChecked;
+    this.taskChanged.emit(this.task());
   }
 }

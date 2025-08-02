@@ -1,14 +1,33 @@
-<div class="fixed top-0 h-screen w-screen animate-fade-in bg-black/25 backdrop-blur-xs">
-  <div class="fixed bottom-0 flex w-screen animate-slide-in flex-col content-center bg-gray-700 p-4">
-    <svg class="icon size-13 self-end fill-gray-100">
-      <use xlink:href="assets/symbol-defs.svg#icon-chevron-down"></use>
-    </svg>
-
+<div
+  (animationend)="onAnimationEnd()"
+  (click)="close()"
+  (keypress)="close()"
+  [class.animate-fade-in]="!isClosing"
+  [class.animate-fade-out]="isClosing"
+>
+  <div class="fixed top-0 h-screen w-screen bg-black/25 backdrop-blur-xs">
     <div
-      class="flex h-15 content-center items-center gap-2 rounded-md bg-white p-2 align-middle select-none hover:cursor-pointer hover:bg-gray-100"
+      class="fixed bottom-0 flex w-screen animate-slide-in flex-col content-center bg-gray-700 p-4"
+      (click)="$event.stopPropagation()"
+      (keypress)="$event.stopPropagation()"
     >
-      <input class="w-full" type="text" placeholder="Hola" />
-      <input class="" type="checkbox" />
+      <svg
+        class="icon size-13 cursor-pointer self-end fill-gray-100"
+        (click)="onCancelClicked()"
+        (keydown)="onCancelClicked()"
+      >
+        <use xlink:href="assets/symbol-defs.svg#icon-chevron-down"></use>
+      </svg>
+
+      <div
+        class="flex h-15 content-center items-center gap-2 rounded-md bg-white p-2 align-middle select-none hover:cursor-pointer hover:bg-gray-100"
+      >
+        <input class="w-full" type="text" [(ngModel)]="text" [placeholder]="[text]" />
+        <input class="" type="checkbox" [(ngModel)]="completed" />
+        <button class="mt-4 self-end rounded bg-blue-600 px-4 py-2 text-white" (click)="onConfirmClicked()">
+          Guardar
+        </button>
+      </div>
     </div>
   </div>
 </div>
