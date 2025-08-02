@@ -5,35 +5,66 @@ import { Directive, HostListener, input, output } from '@angular/core';
 })
 export class LongPressDirective {
   duration = input.required<number>();
-
   longPress = output<void>();
   shortPress = output<void>();
+
   private isShort: boolean;
   private timeOutId: number;
+
+  element: Element | null = null;
 
   constructor() {
     this.isShort = false;
     this.timeOutId = 0;
   }
 
-  @HostListener('pointerdown')
-  onPointerDown(): void {
+  @HostListener('touchstart', ['$event'])
+  @HostListener('mousedown', ['$event'])
+  onPointerDown(event: Event): void {
     this.isShort = true;
+    let touch;
+    if (event instanceof TouchEvent) {
+      touch = event.touches[0];
+      this.element = document.elementFromPoint(touch.pageX, touch.pageY);
+    }
 
     //Comprobamos si efectivamente es una pulsación larga
     this.timeOutId = setTimeout(() => {
       this.longPress.emit();
       this.isShort = false;
     }, this.duration());
+
+    event.preventDefault();
   }
 
-  @HostListener('pointerup')
-  @HostListener('pointerleave')
-  @HostListener('pointercancel')
-  onPointerEnd(): void {
+  @HostListener('touchcancel')
+  onPointerLeave(): void {
     if (this.timeOutId === -1) return;
-    clearTimeout(this.timeOutId);
+    this.clearTimeout();
+  }
+
+  @HostListener('touchend', ['$event'])
+  @HostListener('mouseup', ['$event'])
+  onPointerEnd(event: Event): void {
+    if (this.timeOutId === -1) return;
+    this.clearTimeout();
     if (this.isShort) this.shortPress.emit();
+    event.preventDefault();
+  }
+
+  clearTimeout() {
+    clearTimeout(this.timeOutId);
     this.timeOutId = -1;
+  }
+
+  @HostListener('touchmove', ['$event'])
+  touchMove(event: TouchEvent) {
+    if (this.timeOutId === -1) return;
+
+    const touch = event.touches[0];
+    if (this.element !== document.elementFromPoint(touch.pageX, touch.pageY)) {
+      this.clearTimeout();
+      event.preventDefault();
+    }
   }
 }
