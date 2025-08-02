@@ -23,6 +23,7 @@
       (taskChanged)="updateTask($event)"
       (longPress)="onLongPress(task)"
       (shortPress)="onShortPress(task)"
+      [isSelected]="isSelected(task)"
     >
     </app-task-item>
   }
