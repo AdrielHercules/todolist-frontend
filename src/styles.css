@@ -1,7 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import "tailwindcss";
 
+@font-face {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 200 700;
+  font-display: swap;
+  src: url("/assets/Inter.ttf") format("truetype");
+}
+
 @theme {
+  --font-sans: "Inter", sans-serif;
+  --font-display: "Inter", sans-serif;
+
   --fade-duration: 125ms;
   --animate-fade-in: fade-in var(--fade-duration) ease-in-out;
   @keyframes fade-in {
