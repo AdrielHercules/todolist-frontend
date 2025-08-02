@@ -1,6 +1,7 @@
 <div
-  class="z-1 flex h-14 items-center bg-white p-4"
+  class="z-1 flex h-14 items-center p-4"
   [ngClass]="{
+    'bg-white': !topBarConf.transparent,
     'bg-transparent': topBarConf.transparent,
   }"
 >
