@@ -22,13 +22,12 @@ export class LongPressDirective {
   @HostListener('mousedown', ['$event'])
   onPointerDown(event: Event): void {
     this.isShort = true;
-    let touch;
+
     if (event instanceof TouchEvent) {
-      touch = event.touches[0];
+      const touch = event.touches[0];
       this.element = document.elementFromPoint(touch.pageX, touch.pageY);
     }
 
-    //Comprobamos si efectivamente es una pulsación larga
     this.timeOutId = setTimeout(() => {
       this.longPress.emit();
       this.isShort = false;
@@ -38,6 +37,7 @@ export class LongPressDirective {
   }
 
   @HostListener('touchcancel')
+  @HostListener('mouseleave')
   onPointerLeave(): void {
     if (this.timeOutId === -1) return;
     this.clearTimeout();
