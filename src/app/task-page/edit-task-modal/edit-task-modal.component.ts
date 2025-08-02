@@ -42,10 +42,6 @@ export class EditTaskModalComponent extends ModalComponent<Partial<Task>> implem
     });
   }
 
-  onCancelClicked() {
-    this.closed.emit();
-  }
-
   close() {
     this.isClosing = true;
   }
