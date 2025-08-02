@@ -84,17 +84,17 @@ export class ListPageComponent implements OnInit {
         : [{ type: TopBarButtonType.DELETE, callback: this.removeSelectedLists.bind(this) }];
 
     this.topBarService.setConfig({
-      title: 'Listas',
+      title: '',
       centerTitle: false,
       rightButtons: rightButtons,
+      leftButtons: [{ type: TopBarButtonType.BACK, callback: this.clearSelection.bind(this) }],
     });
   }
 
   removeSelectedLists() {
     this.lists.filter((l) => this.selectedLists.has(l.id)).forEach((l) => this.listService.removeList(l));
 
-    this.selectedLists.clear();
-    this.updateTopBarConfig();
+    this.clearSelection();
   }
 
   editList() {
@@ -110,5 +110,10 @@ export class ListPageComponent implements OnInit {
 
   onUserClick() {
     this.router.navigate(['/user']);
+  }
+
+  clearSelection() {
+    this.selectedLists.clear();
+    this.updateTopBarConfig();
   }
 }
