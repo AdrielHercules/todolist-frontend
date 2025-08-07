@@ -10,14 +10,14 @@
   </div>
   <div class="flex h-full w-full max-w-2xl flex-col gap-2">
     <div class="flex flex-col rounded-md bg-gray-200">
-      <app-icon-button text="Iniciar sesión" icon="icon-user" />
-      <app-icon-button text="Notificaciones" icon="icon-bell" />
-      <app-icon-button text="Idioma" icon="icon-language" />
-      <app-icon-button text="Tema" icon="icon-drop" />
+      <app-icon-button text="Iniciar sesión" [icon]="icons.USER" />
+      <app-icon-button text="Notificaciones" [icon]="icons.NOTIFICATIONS" />
+      <app-icon-button text="Idioma" [icon]="icons.LANGUAGE" />
+      <app-icon-button text="Tema" [icon]="icons.THEME" />
     </div>
     <div class="flex flex-col rounded-md bg-gray-200">
-      <app-icon-button text="Ayuda y soporte" icon="icon-help" />
-      <app-icon-button text="Política de privacidad" icon="icon-lock" />
+      <app-icon-button text="Ayuda y soporte" [icon]="icons.HELP" />
+      <app-icon-button text="Política de privacidad" [icon]="icons.PRIVACY" />
     </div>
   </div>
 </div>

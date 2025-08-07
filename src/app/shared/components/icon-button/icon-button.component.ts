@@ -1,4 +1,5 @@
 import { Component, input } from '@angular/core';
+import { Icons, iconsFile } from '../../icons';
 
 @Component({
   selector: 'app-icon-button',
@@ -6,10 +7,10 @@ import { Component, input } from '@angular/core';
   templateUrl: './icon-button.component.html',
 })
 export class IconButtonComponent {
-  text = input<string>('Button Text');
-  icon = input<string>('');
+  text = input<string>('');
+  icon = input.required<Icons>();
 
   getIcon() {
-    return 'assets/symbol-defs.svg#' + this.icon();
+    return iconsFile + this.icon();
   }
 }
