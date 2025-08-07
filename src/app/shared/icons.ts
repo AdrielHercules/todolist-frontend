@@ -1,7 +1,11 @@
+export function getIcon(icon: Icons) {
+  return iconsFile + icon;
+}
+
 export const iconsFile = 'assets/g-icons.svg#';
 
 export enum Icons {
-  ADD = 'icon-plus',
+  ADD = 'icon-add',
 
   HOME = 'icon-home',
   BACK = 'icon-arrow_back',
