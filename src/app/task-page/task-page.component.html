@@ -1,4 +1,4 @@
-<section class="flex h-full flex-col gap-2 bg-gray-200 p-2">
+<section class="flex h-full flex-col gap-2 p-2">
   @for (task of pendingTasks(); track task.id) {
     <app-task-item
       [task]="task"
