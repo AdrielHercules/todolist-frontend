@@ -14,12 +14,14 @@ import { NgClass } from '@angular/common';
 export class EditListModalComponent extends ModalComponent<Partial<List>> implements OnInit, AfterViewInit {
   inputList = input<List>();
 
-  private id?: string = undefined;
-  protected name;
-  protected icon;
-  protected showIcons;
+  protected title: string;
 
-  protected invalidName;
+  private id?: string;
+  protected name: string;
+  protected icon: string;
+  protected showIcons: boolean;
+
+  protected invalidName: boolean;
 
   private nameInputField = viewChild<ElementRef<HTMLInputElement>>('inputName');
 
@@ -28,8 +30,10 @@ export class EditListModalComponent extends ModalComponent<Partial<List>> implem
 
   constructor() {
     super();
+
+    this.title = 'Crear una lista';
     this.name = '';
-    this.icon = '';
+    this.icon = '📋';
     this.showIcons = false;
     this.invalidName = false;
 
@@ -37,9 +41,14 @@ export class EditListModalComponent extends ModalComponent<Partial<List>> implem
   }
 
   ngOnInit(): void {
-    this.id = this.inputList()?.id;
-    this.name = this.inputList()?.name ?? '';
-    this.icon = this.inputList()?.icon ?? '📋';
+    const inputList = this.inputList();
+
+    if (inputList === undefined) return;
+
+    this.title = 'Editar una lista';
+    this.id = inputList.id;
+    this.name = inputList.name;
+    this.icon = inputList.icon;
   }
 
   override ngAfterViewInit() {
@@ -71,7 +80,6 @@ export class EditListModalComponent extends ModalComponent<Partial<List>> implem
   onAnimationEnd(): void {
     if (this.isClosing) {
       this.closed.emit();
-      this.isClosing = false;
     }
   }
 

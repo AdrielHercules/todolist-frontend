@@ -11,7 +11,7 @@
     (click)="$event.stopPropagation()"
     (keypress)="$event.stopPropagation()"
   >
-    <h2 class="font-semibold">Crear una lista</h2>
+    <h2 class="font-semibold">{{ title }}</h2>
     <div class="flex gap-2">
       <button (click)="showIcons = !showIcons" class="rounded-md border-1 border-gray-500 p-4">{{ icon }}</button>
 
