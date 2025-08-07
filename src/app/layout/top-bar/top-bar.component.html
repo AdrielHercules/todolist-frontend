@@ -1,7 +1,7 @@
 <div
   class="z-1 flex h-14 items-center p-4"
   [ngClass]="{
-    'bg-white': !topBarConf.transparent,
+    'bg-background': !topBarConf.transparent,
     'bg-transparent': topBarConf.transparent,
   }"
 >
@@ -9,7 +9,7 @@
     <div class="z-1 flex w-50 items-center justify-start gap-4">
       @for (button of topBarConf.leftButtons; track $index) {
         <svg
-          class="z-1 size-8 cursor-pointer rounded-md p-1 hover:bg-gray-100 active:bg-gray-100"
+          class="z-1 size-8 cursor-pointer rounded-md fill-primary p-1 hover:bg-secondary active:bg-secondary"
           (click)="onButtonClick(button)"
           (keydown)="onButtonClick(button)"
         >
@@ -19,14 +19,14 @@
     </div>
   }
 
-  <h1 class="z-1 w-full text-center text-xl font-bold" [class.text-center]="topBarConf.centerTitle">
+  <h1 class="z-1 w-full text-center text-xl font-bold text-text" [class.text-center]="topBarConf.centerTitle">
     {{ topBarConf.title }}
   </h1>
 
   <div class="z-1 flex w-50 items-center justify-end gap-4">
     @for (button of topBarConf.rightButtons; track $index) {
       <svg
-        class="z-1 size-8 cursor-pointer rounded-md p-1 hover:bg-gray-100 active:bg-gray-100"
+        class="z-1 size-8 cursor-pointer rounded-md fill-primary p-1 hover:bg-secondary active:bg-secondary"
         (click)="onButtonClick(button)"
         (keydown)="onButtonClick(button)"
       >
