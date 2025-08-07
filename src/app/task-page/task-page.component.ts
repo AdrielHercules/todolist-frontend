@@ -6,9 +6,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AddButtonComponent } from '../shared/components/add-button/add-button.component';
 import { TopBarService } from '../layout/top-bar/services/top-bar.service';
 import { ListService } from '../list-page/services/list.service';
-import { TopBarButtonType } from '../layout/top-bar/models/top-bar-button-type';
 import { ModalService } from '../core/modals/modal.service';
 import { EditTaskModalComponent } from './edit-task-modal/edit-task-modal.component';
+import { Icons } from '../shared/icons';
 
 @Component({
   selector: 'app-task-page',
@@ -49,18 +49,18 @@ export class TaskPageComponent {
   changeTopBar() {
     if (this.selectedTask) {
       this.topBarService.setConfig({
-        leftButtons: [{ type: TopBarButtonType.BACK, callback: this.onBackButton.bind(this) }],
+        leftButtons: [{ icon: Icons.BACK, callback: this.onBackButton.bind(this) }],
         rightButtons: [
-          { type: TopBarButtonType.CHECK, callback: this.onCheckAllSelected.bind(this) },
-          { type: TopBarButtonType.DELETE, callback: this.onDeleteButton.bind(this) },
+          { icon: Icons.CHECK, callback: this.onCheckAllSelected.bind(this) },
+          { icon: Icons.DELETE, callback: this.onDeleteButton.bind(this) },
         ],
       });
     } else {
       this.topBarService.setConfig({
         title: this.titleList,
         centerTitle: true,
-        leftButtons: [{ type: TopBarButtonType.HOME, callback: this.onHomeButton.bind(this) }],
-        rightButtons: [{ type: TopBarButtonType.SHARE }],
+        leftButtons: [{ icon: Icons.HOME, callback: this.onHomeButton.bind(this) }],
+        rightButtons: [{ icon: Icons.SHARE }],
       });
     }
   }

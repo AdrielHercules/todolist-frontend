@@ -1,6 +1,6 @@
-import { TopBarButtonType } from './top-bar-button-type';
+import { Icons } from '../../../shared/icons';
 
 export interface TopBarButton {
   callback?: () => void;
-  type: TopBarButtonType;
+  icon: Icons;
 }

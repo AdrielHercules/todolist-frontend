@@ -3,6 +3,7 @@ import { TopBarConfig } from './models/top-bar-config';
 import { TopBarService } from './services/top-bar.service';
 import { TopBarButton } from './models/top-bar-button';
 import { NgClass } from '@angular/common';
+import { iconsFile } from '../../shared/icons';
 
 @Component({
   selector: 'app-top-bar',
@@ -18,6 +19,8 @@ export class TopBarComponent {
     leftButtons: [],
     rightButtons: [],
   };
+
+  protected iconsFile = iconsFile;
 
   private topBarService = inject(TopBarService);
 

@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { TopBarService } from '../../layout/top-bar/services/top-bar.service';
-import { TopBarButtonType } from '../../layout/top-bar/models/top-bar-button-type';
 import { Router } from '@angular/router';
+import { Icons } from '../../shared/icons';
 
 @Component({
   selector: 'app-signup-page',
@@ -16,7 +16,7 @@ export class SignupPageComponent {
     this.topBarService.setConfig({
       title: 'Crear cuenta',
       centerTitle: true,
-      leftButtons: [{ type: TopBarButtonType.BACK, callback: this.onBackButton.bind(this) }],
+      leftButtons: [{ icon: Icons.BACK, callback: this.onBackButton.bind(this) }],
       rightButtons: [],
     });
   }

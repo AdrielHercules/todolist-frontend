@@ -13,7 +13,7 @@
           (click)="onButtonClick(button)"
           (keydown)="onButtonClick(button)"
         >
-          <use [attr.xlink:href]="button.type"></use>
+          <use [attr.xlink:href]="iconsFile + button.icon"></use>
         </svg>
       }
     </div>
@@ -33,7 +33,7 @@
         (click)="onButtonClick(button)"
         (keydown)="onButtonClick(button)"
       >
-        <use [attr.xlink:href]="button.type"></use>
+        <use [attr.xlink:href]="iconsFile + button.icon"></use>
       </svg>
     }
   </div>

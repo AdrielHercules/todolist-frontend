@@ -7,10 +7,10 @@ import { Router } from '@angular/router';
 import { ListService } from './services/list.service';
 import { AddButtonComponent } from '../shared/components/add-button/add-button.component';
 import { TopBarService } from '../layout/top-bar/services/top-bar.service';
-import { TopBarButtonType } from '../layout/top-bar/models/top-bar-button-type';
 import { LongPressDirective } from '../shared/directives/long-press.directive';
 import { TopBarButton } from '../layout/top-bar/models/top-bar-button';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
+import { Icons } from '../shared/icons';
 
 @Component({
   selector: 'app-list-page',
@@ -77,7 +77,7 @@ export class ListPageComponent implements OnInit {
         title: 'Listas',
         centerTitle: false,
 
-        rightButtons: [{ type: TopBarButtonType.USER, callback: this.onUserClick.bind(this) }],
+        rightButtons: [{ icon: Icons.USER, callback: this.onUserClick.bind(this) }],
       });
       return;
     }
@@ -85,16 +85,16 @@ export class ListPageComponent implements OnInit {
     const rightButtons: TopBarButton[] =
       this.selectedLists.size == 1
         ? [
-            { type: TopBarButtonType.DELETE, callback: this.removeSelectedLists.bind(this) },
-            { type: TopBarButtonType.EDIT, callback: this.editList.bind(this) },
+            { icon: Icons.DELETE, callback: this.removeSelectedLists.bind(this) },
+            { icon: Icons.EDIT, callback: this.editList.bind(this) },
           ]
-        : [{ type: TopBarButtonType.DELETE, callback: this.removeSelectedLists.bind(this) }];
+        : [{ icon: Icons.DELETE, callback: this.removeSelectedLists.bind(this) }];
 
     this.topBarService.setConfig({
       title: '',
       centerTitle: false,
       rightButtons: rightButtons,
-      leftButtons: [{ type: TopBarButtonType.BACK, callback: this.clearSelection.bind(this) }],
+      leftButtons: [{ icon: Icons.BACK, callback: this.clearSelection.bind(this) }],
     });
   }
 

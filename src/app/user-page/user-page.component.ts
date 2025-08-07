@@ -1,7 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { IconButtonComponent } from '../shared/components/icon-button/icon-button.component';
 import { TopBarService } from '../layout/top-bar/services/top-bar.service';
-import { TopBarButtonType } from '../layout/top-bar/models/top-bar-button-type';
 import { Router } from '@angular/router';
 import { Icons } from '../shared/icons';
 @Component({
@@ -19,7 +18,7 @@ export class UserPageComponent {
   constructor() {
     this.topbarService.setConfig({
       transparent: true,
-      leftButtons: [{ type: TopBarButtonType.BACK, callback: this.navigateBack.bind(this) }],
+      leftButtons: [{ icon: Icons.BACK, callback: this.navigateBack.bind(this) }],
     });
   }
 
