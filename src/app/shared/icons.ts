@@ -1,6 +1,8 @@
 export const iconsFile = 'assets/g-icons.svg#';
 
 export enum Icons {
+  ADD = 'icon-plus',
+
   HOME = 'icon-home',
   BACK = 'icon-arrow_back',
   DELETE = 'icon-delete',
