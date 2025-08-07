@@ -42,7 +42,7 @@ export class TaskPageComponent {
     }
     this.tasks.set(this.taskService.getTasksByListId(this.listId));
 
-    this.titleList = this.listService.getLists()[Number(this.listId)].name;
+    this.titleList = this.listService.getListById(this.listId)?.name ?? '';
     this.changeTopBar();
   }
 
