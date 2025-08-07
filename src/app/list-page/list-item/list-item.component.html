@@ -1,8 +1,8 @@
 <div
-  class="h-15 content-center rounded-md select-none hover:cursor-pointer hover:bg-accent"
+  class="h-15 content-center rounded-md select-none hover:cursor-pointer hover:bg-secondary"
   [ngClass]="{
-    'bg-secondary': !isSelected(),
-    'bg-accent': isSelected(),
+    'bg-card': !isSelected(),
+    'bg-secondary': isSelected(),
     'border-1': isSelected(),
     'border-primary': isSelected(),
   }"
