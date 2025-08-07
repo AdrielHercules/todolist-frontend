@@ -11,10 +11,12 @@
 
 @theme {
   --color-text: #050315;
-  --color-background: #ffffff;
+  --color-secondary-text: #8b84c5;
+  --color-background: #f1f0ffd5;
   --color-primary: #2f27ce;
   --color-secondary: #dedcff;
   --color-accent: #adaaf3;
+  --color-card: #ffffff;
 
   --font-sans: "Inter", sans-serif;
   --font-display: "Inter", sans-serif;
