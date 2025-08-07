@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Icons } from '../../icons';
+import { getIcon, Icons } from '../../icons';
 
 @Component({
   selector: 'app-add-button',
@@ -9,4 +9,5 @@ import { Icons } from '../../icons';
 })
 export class AddButtonComponent {
   protected icons = Icons;
+  protected getIcon = getIcon;
 }
