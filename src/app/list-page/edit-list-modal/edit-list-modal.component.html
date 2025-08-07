@@ -1,5 +1,5 @@
 <div
-  class="fixed top-0 z-1 flex h-screen w-screen items-center justify-center bg-black/25 backdrop-blur-xs transition-all"
+  class="bg-back/25 fixed top-0 z-1 flex h-screen w-screen items-center justify-center backdrop-blur-xs transition-all"
   (animationend)="onAnimationEnd()"
   (click)="close()"
   (keypress)="close()"
@@ -7,21 +7,24 @@
   [class.animate-fade-out]="isClosing"
 >
   <div
-    class="m-5 flex w-96 flex-col gap-2 rounded-md bg-blue-50 p-4 opacity-100 shadow-md"
+    class="m-5 flex w-96 flex-col gap-2 rounded-md bg-card p-4 opacity-100 shadow-md"
     (click)="$event.stopPropagation()"
     (keypress)="$event.stopPropagation()"
   >
-    <h2 class="font-semibold">{{ title }}</h2>
+    <h2 class="font-semibold text-text select-none">{{ title }}</h2>
     <div class="flex gap-2">
-      <button (click)="showIcons = !showIcons" class="rounded-md border-1 border-gray-500 p-4">{{ icon }}</button>
+      <button (click)="showIcons = !showIcons" class="cursor-pointer rounded-md border-1 border-accent p-4 text-2xl">
+        {{ icon }}
+      </button>
 
       <input
         #inputName
         id="name-text-input"
         placeholder="Nombre"
-        class="w-full rounded-md border-1 border-gray-500 p-4"
+        class="w-full rounded-md border-1 border-accent p-4 text-text"
         [ngClass]="{
-          'focus:outline-red-500': invalidName,
+          'focus:outline-none': invalidName,
+          'focus:border-red-400': invalidName,
           'animate-zig-zag-h': invalidName,
         }"
         type="text"
@@ -32,10 +35,13 @@
     </div>
     @if (!showIcons) {
       <div class="flex animate-slide-in justify-end gap-2">
-        <button class="rounded-md p-2 font-semibold hover:bg-gray-200 active:bg-gray-200" (click)="close()">
+        <button class="rounded-md p-2 font-semibold text-text hover:bg-secondary active:bg-secondary" (click)="close()">
           CANCELAR
         </button>
-        <button class="rounded-md p-2 font-semibold hover:bg-gray-200 active:bg-gray-200" (click)="onCreateClick()">
+        <button
+          class="rounded-md p-2 font-semibold text-text hover:bg-secondary active:bg-secondary"
+          (click)="onCreateClick()"
+        >
           CREAR
         </button>
       </div>
