@@ -19,11 +19,15 @@ export class UserPageComponent {
   constructor() {
     this.topbarService.setConfig({
       transparent: true,
-      leftButtons: [{ type: TopBarButtonType.BACK, callback: this.goBack.bind(this) }],
+      leftButtons: [{ type: TopBarButtonType.BACK, callback: this.navigateBack.bind(this) }],
     });
   }
 
-  goBack() {
+  navigateBack() {
     this.router.navigate(['/']);
+  }
+
+  navigateToLogin() {
+    this.router.navigate(['/login']);
   }
 }

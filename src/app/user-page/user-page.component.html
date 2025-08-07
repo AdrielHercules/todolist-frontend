@@ -10,7 +10,7 @@
   </div>
   <div class="flex h-full w-full max-w-2xl flex-col gap-2">
     <div class="flex flex-col rounded-md bg-gray-200">
-      <app-icon-button text="Iniciar sesión" [icon]="icons.USER" />
+      <app-icon-button text="Iniciar sesión" [icon]="icons.USER" (click)="navigateToLogin()" />
       <app-icon-button text="Notificaciones" [icon]="icons.NOTIFICATIONS" />
       <app-icon-button text="Idioma" [icon]="icons.LANGUAGE" />
       <app-icon-button text="Tema" [icon]="icons.THEME" />
