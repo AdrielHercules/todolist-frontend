@@ -10,10 +10,11 @@ import { TopBarService } from '../layout/top-bar/services/top-bar.service';
 import { TopBarButtonType } from '../layout/top-bar/models/top-bar-button-type';
 import { LongPressDirective } from '../shared/directives/long-press.directive';
 import { TopBarButton } from '../layout/top-bar/models/top-bar-button';
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-list-page',
-  imports: [ListItemComponent, AddButtonComponent, LongPressDirective],
+  imports: [ListItemComponent, AddButtonComponent, LongPressDirective, CdkDropList, CdkDrag],
   templateUrl: './list-page.component.html',
   styleUrl: './list-page.component.css',
 })
@@ -35,13 +36,19 @@ export class ListPageComponent implements OnInit {
     this.updateTopBarConfig();
   }
 
-  onListClick(listId: string) {
+  onListShortPress(listId: string) {
     if (this.isSelecting()) {
       this.toggleList(listId);
       return;
     }
 
     this.router.navigate(['/tasks', listId]);
+  }
+
+  onListLongPress(listId: string) {
+    if (this.selectedLists.has(listId)) return;
+
+    this.toggleList(listId);
   }
 
   onAddListClick() {
@@ -115,5 +122,9 @@ export class ListPageComponent implements OnInit {
   clearSelection() {
     this.selectedLists.clear();
     this.updateTopBarConfig();
+  }
+
+  drop(event: CdkDragDrop<string[]>) {
+    moveItemInArray(this.lists, event.previousIndex, event.currentIndex);
   }
 }

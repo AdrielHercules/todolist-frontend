@@ -1,12 +1,14 @@
-<section class="flex flex-col gap-2 p-2">
+<section class="flex flex-col gap-2 p-2" cdkDropList (cdkDropListDropped)="drop($event)">
   @for (list of lists; track $index) {
     <app-list-item
       appLongPress
       [duration]="250"
-      (longPress)="toggleList(list.id)"
-      (shortPress)="onListClick(list.id)"
+      (longPress)="onListLongPress(list.id)"
+      (shortPress)="onListShortPress(list.id)"
       [list]="list"
       [isSelected]="selectedLists.has(list.id)"
+      cdkDrag
+      [cdkDragStartDelay]="250"
     ></app-list-item>
   }
 
