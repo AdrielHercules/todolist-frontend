@@ -1,13 +1,13 @@
 <div
-  class="h-15 content-center rounded-md select-none hover:cursor-pointer hover:bg-gray-100"
+  class="h-15 content-center rounded-md select-none hover:cursor-pointer hover:bg-accent"
   [ngClass]="{
-    'bg-white': !isSelected(),
-    'bg-gray-100': isSelected(),
+    'bg-secondary': !isSelected(),
+    'bg-accent': isSelected(),
     'border-1': isSelected(),
-    'border-black': isSelected(),
+    'border-primary': isSelected(),
   }"
 >
-  <div class="flex gap-2 pr-5 pl-5">
+  <div class="flex gap-2 pr-5 pl-5 text-text">
     <p>{{ list()?.icon }}</p>
     <p>{{ list()?.name }}</p>
   </div>
