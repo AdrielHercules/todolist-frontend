@@ -1,0 +1,24 @@
+<div
+  class="fixed top-0 z-10 flex h-screen w-screen items-center justify-center bg-black/25 backdrop-blur-xs transition-all"
+  (animationend)="onAnimationEnd()"
+  (click)="close()"
+  (keypress)="close()"
+  [class.animate-fade-in]="!isClosing"
+  [class.animate-fade-out]="isClosing"
+>
+  <div
+    class="m-5 flex w-100 flex-col gap-4 rounded-md bg-card p-6 opacity-100 shadow-md"
+    (click)="$event.stopPropagation()"
+    (keydown)="$event.stopPropagation()"
+  >
+    <h2 class="text-lg font-semibold text-text">{{ tittle() }}</h2>
+    <span class="text-secondary-text">{{ message() }}</span>
+
+    <div class="flex flex-row justify-end gap-2">
+      <button class="rounded-md p-2 font-semibold text-text hover:bg-secondary" (click)="close()">CANCELAR</button>
+      <button class="rounded-md p-2 font-semibold text-red-500 hover:bg-red-200" (click)="onConfirmClick()">
+        BORRAR
+      </button>
+    </div>
+  </div>
+</div>
