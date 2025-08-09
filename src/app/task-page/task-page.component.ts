@@ -9,6 +9,7 @@ import { ListService } from '../list-page/services/list.service';
 import { ModalService } from '../core/modals/modal.service';
 import { EditTaskModalComponent } from './edit-task-modal/edit-task-modal.component';
 import { Icons } from '../shared/icons';
+import { ConfirmationModalComponent } from '../shared/modal/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-task-page',
@@ -65,8 +66,6 @@ export class TaskPageComponent {
     }
   }
 
-  //Si está completada cambia a pending
-  //Si está en pending cambia a completada
   onCheckAllSelected() {
     this.selectedTasks.forEach((t) => {
       t.completed = !t.completed;
@@ -82,16 +81,25 @@ export class TaskPageComponent {
   onDeleteButton() {
     if (this.selectedTasks.size === 0) return;
 
-    //Aqui tengo que mirar en que lista está
-    //Luego tengo que eliminarla
-    this.selectedTasks.forEach((t) => {
-      this.taskService.deleteTask(t.id);
+    const component = this.modalService.openModal<boolean>(ConfirmationModalComponent, [
+      { property: 'tittle', value: 'Eliminar tareas' },
+      { property: 'message', value: '¿Realmente desea eliminar las tareas?' },
+    ]);
+
+    component?.confirmed.subscribe((t) => {
+      this.selectedTasks.forEach((t) => {
+        this.taskService.deleteTask(t.id);
+      });
+
+      this.selectedTasks.clear();
+      this.tasks.set(this.taskService.getTasksByListId(this.listId));
+      this.selectedTask = false;
+      this.changeTopBar();
     });
 
-    this.selectedTasks.clear();
-    this.tasks.set(this.taskService.getTasksByListId(this.listId));
-    this.selectedTask = false;
-    this.changeTopBar();
+    component?.closed.subscribe(() => {
+      console.log('Cerrado');
+    });
   }
 
   onHomeButton() {
