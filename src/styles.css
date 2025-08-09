@@ -73,3 +73,14 @@
     }
   }
 }
+
+/* Tema Oscuro */
+.theme-dark {
+  --color-text: #f1f1f1;
+  --color-secondary-text: #b5b2e0;
+  --color-background: #121118;
+  --color-primary: #5c54ff;
+  --color-secondary: #2b2a33;
+  --color-accent: #7d78f2;
+  --color-card: #1e1d26;
+}
