@@ -86,7 +86,7 @@ export class TaskPageComponent {
       { property: 'message', value: '¿Realmente desea eliminar las tareas?' },
     ]);
 
-    component?.confirmed.subscribe((t) => {
+    component?.confirmed.subscribe(() => {
       this.selectedTasks.forEach((t) => {
         this.taskService.deleteTask(t.id);
       });
