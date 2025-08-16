@@ -9,7 +9,6 @@ import { NgClass } from '@angular/common';
   selector: 'app-edit-list',
   imports: [FormsModule, NgClass],
   templateUrl: './edit-list-modal.component.html',
-  styleUrl: './edit-list-modal.component.css',
 })
 export class EditListModalComponent extends ModalComponent<Partial<List>> implements OnInit, AfterViewInit {
   inputList = input<List>();
