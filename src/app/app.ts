@@ -9,7 +9,6 @@ import { Themes } from './core/theme/themes';
   selector: 'app-root',
   imports: [RouterOutlet, TopBarComponent, ModalHostComponent],
   templateUrl: './app.html',
-  styleUrl: './app.css',
 })
 export class App {
   protected title = 'todolist-frontend';
