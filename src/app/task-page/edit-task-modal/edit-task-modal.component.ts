@@ -7,7 +7,6 @@ import { FormsModule } from '@angular/forms';
   selector: 'app-edit-task-modal',
   imports: [FormsModule],
   templateUrl: './edit-task-modal.component.html',
-  styleUrl: './edit-task-modal.component.css',
 })
 export class EditTaskModalComponent extends ModalComponent<Partial<Task>> implements OnInit {
   task = input<Task>();
