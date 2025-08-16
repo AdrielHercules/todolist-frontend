@@ -6,7 +6,6 @@ import { NgClass } from '@angular/common';
   selector: 'app-list-item',
   imports: [NgClass],
   templateUrl: './list-item.component.html',
-  styleUrl: './list-item.component.css',
 })
 export class ListItemComponent {
   list = input<List>();
