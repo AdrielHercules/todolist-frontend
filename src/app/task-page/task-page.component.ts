@@ -15,7 +15,6 @@ import { ConfirmationModalComponent } from '../shared/modal/confirmation-modal/c
   selector: 'app-task-page',
   imports: [TaskItemComponent, AddButtonComponent],
   templateUrl: './task-page.component.html',
-  styleUrl: './task-page.component.css',
 })
 export class TaskPageComponent {
   taskService: TaskService = inject(TaskService);
