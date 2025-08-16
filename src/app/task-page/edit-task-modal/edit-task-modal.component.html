@@ -1,26 +1,45 @@
 <div
-  class="fixed bottom-0 z-10 h-screen w-screen bg-black/25 backdrop-blur-xs"
+  class="fixed inset-0 z-10 h-screen w-screen bg-black/25 backdrop-blur-xs"
   (animationend)="onAnimationEnd()"
   (click)="close()"
-  (keypress)="close()"
+  (keydown.esc)="close()"
+  (keydown.space)="close()"
   [class.animate-fade-in]="!isClosing"
   [class.animate-fade-out]="isClosing"
 >
   <div
-    class="fixed bottom-0 flex w-screen animate-slide-in flex-col content-center bg-gray-700 p-4"
+    class="fixed bottom-0 flex w-screen animate-slide-in flex-col rounded-xl bg-secondary p-4 shadow-lg"
     (click)="$event.stopPropagation()"
-    (keypress)="$event.stopPropagation()"
+    (keydown)="$event.stopPropagation()"
   >
-    <svg class="icon size-13 cursor-pointer self-end fill-gray-100" (click)="close()" (keydown)="close()">
-      <use xlink:href="assets/symbol-defs.svg#icon-chevron-down"></use>
-    </svg>
-
-    <div
-      class="flex h-15 content-center items-center gap-2 rounded-md bg-white p-2 align-middle select-none hover:cursor-pointer hover:bg-gray-100"
+    <button
+      type="button"
+      aria-label="Cerrar"
+      class="mb-2 ml-auto flex h-8 w-8 items-center justify-center rounded-full hover:cursor-pointer hover:bg-primary"
+      (click)="close()"
     >
-      <input class="w-full" type="text" [(ngModel)]="text" [placeholder]="[text]" />
-      <input class="" type="checkbox" [(ngModel)]="completed" />
-      <button class="mt-4 self-end rounded bg-primary px-4 py-2 text-white" (click)="onConfirmClicked()">
+      <svg class="h-6 w-6 fill-accent">
+        <use xlink:href="assets/symbol-defs.svg#icon-chevron-down"></use>
+      </svg>
+    </button>
+
+    <div class="flex items-center gap-3 rounded-md bg-background p-2 select-none">
+      <input
+        class="flex-1 rounded-md bg-transparent p-2 text-text"
+        type="text"
+        [(ngModel)]="text"
+        [placeholder]="text"
+      />
+
+      <input type="checkbox" [(ngModel)]="completed" class="accent-primary hover:cursor-pointer" />
+
+      <button
+        type="button"
+        class="rounded-md bg-primary px-4 py-2 text-background hover:cursor-pointer hover:bg-primary/90"
+        (click)="onConfirmClicked()"
+        (keydown.enter)="onConfirmClicked()"
+        (keydown.space)="onConfirmClicked()"
+      >
         Guardar
       </button>
     </div>
