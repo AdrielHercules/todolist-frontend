@@ -9,7 +9,6 @@ import { iconsFile } from '../../shared/icons';
   selector: 'app-top-bar',
   imports: [NgClass],
   templateUrl: './top-bar.component.html',
-  styleUrl: './top-bar.component.css',
 })
 export class TopBarComponent {
   topBarConf: TopBarConfig = {
