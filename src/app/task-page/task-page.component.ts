@@ -43,7 +43,9 @@ export class TaskPageComponent {
     }
     this.tasks.set(this.taskService.getTasksByListId(this.listId));
 
-    this.titleList = this.listService.getListById(this.listId)?.name ?? '';
+    const list = this.listService.getListById(this.listId);
+    this.titleList = `${list?.icon} ${list?.name}`;
+
     this.changeTopBar();
   }
 
@@ -96,10 +98,6 @@ export class TaskPageComponent {
       this.selectedTask = false;
       this.changeTopBar();
     });
-
-    component?.closed.subscribe(() => {
-      console.log('Cerrado');
-    });
   }
 
   onHomeButton() {
@@ -130,10 +128,6 @@ export class TaskPageComponent {
         this.addTask(newTask as Task);
       }
     });
-
-    component?.closed.subscribe(() => {
-      console.log('Cerrado');
-    });
   }
 
   addTask(newTask: Task) {
@@ -158,10 +152,6 @@ export class TaskPageComponent {
       if (updatedTask.id) {
         this.updateTask(updatedTask as Task);
       }
-    });
-
-    component?.closed.subscribe(() => {
-      console.log('Cerrado');
     });
   }
 
