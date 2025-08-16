@@ -6,7 +6,6 @@ import { LongPressDirective } from '../../shared/directives/long-press.directive
   selector: 'app-task-item',
   imports: [NgClass, LongPressDirective],
   templateUrl: './task-item.component.html',
-  styleUrl: './task-item.component.css',
 })
 export class TaskItemComponent {
   task = input.required<Task>();
