@@ -16,7 +16,6 @@ import { Icons } from '../shared/icons';
   selector: 'app-list-page',
   imports: [ListItemComponent, AddButtonComponent, LongPressDirective, CdkDropList, CdkDrag],
   templateUrl: './list-page.component.html',
-  styleUrl: './list-page.component.css',
 })
 export class ListPageComponent implements OnInit {
   private router = inject(Router);
