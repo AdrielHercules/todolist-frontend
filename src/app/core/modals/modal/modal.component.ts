@@ -18,8 +18,6 @@ export abstract class ModalComponent<T> implements AfterViewInit {
 
     if (rootDiv && rootDiv instanceof HTMLElement) {
       this.modalRoot = rootDiv;
-      this.modalRoot.setAttribute('tabindex', '-1');
-      this.modalRoot.focus();
     }
   }
 
