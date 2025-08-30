@@ -1,10 +1,10 @@
 <div
-  class="h-15 content-center rounded-md select-none hover:cursor-pointer hover:bg-secondary"
+  class="flex h-15 content-center items-center rounded-md align-middle text-text select-none hover:cursor-pointer hover:bg-secondary"
   [ngClass]="{
+    'border-l-4': isSelected(),
+    'border-primary': isSelected(),
     'bg-card': !isSelected(),
     'bg-secondary': isSelected(),
-    'border-1': isSelected(),
-    'border-primary': isSelected(),
   }"
 >
   <div class="flex gap-2 pr-5 pl-5 text-text">
