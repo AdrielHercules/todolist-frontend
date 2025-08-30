@@ -14,6 +14,7 @@ export class EditListModalComponent extends ModalComponent<Partial<List>> implem
   inputList = input<List>();
 
   protected title: string;
+  protected confirmButtonText: string;
 
   private id?: string;
   protected name: string;
@@ -31,6 +32,7 @@ export class EditListModalComponent extends ModalComponent<Partial<List>> implem
     super();
 
     this.title = 'Crear una lista';
+    this.confirmButtonText = 'CREAR';
     this.name = '';
     this.icon = '📋';
     this.showIcons = false;
@@ -45,6 +47,7 @@ export class EditListModalComponent extends ModalComponent<Partial<List>> implem
     if (inputList === undefined) return;
 
     this.title = 'Editar una lista';
+    this.confirmButtonText = 'EDITAR';
     this.id = inputList.id;
     this.name = inputList.name;
     this.icon = inputList.icon;
