@@ -74,6 +74,8 @@
   }
 }
 
+/* Temas */
+
 .theme-light {
   --color-text: #050315;
   --color-secondary-text: #8b84c5;
@@ -84,7 +86,6 @@
   --color-card: #ffffff;
 }
 
-/* Tema Oscuro */
 .theme-dark {
   --color-text: #f1f1f1;
   --color-secondary-text: #b5b2e0;
@@ -93,4 +94,34 @@
   --color-secondary: #2b2a33;
   --color-accent: #7d78f2;
   --color-card: #1e1d26;
+}
+
+.theme-ocean {
+  --color-text: #032b2f;
+  --color-secondary-text: #35797d;
+  --color-background: #ebf9fa;
+  --color-primary: #007a8a;
+  --color-secondary: #bce7ea;
+  --color-accent: #00c2d1;
+  --color-card: #ffffff;
+}
+
+.theme-forest {
+  --color-text: #142414;
+  --color-secondary-text: #4c6b4c;
+  --color-background: #f3faf4;
+  --color-primary: #2f6d31;
+  --color-secondary: #cde6ce;
+  --color-accent: #6fbf73;
+  --color-card: #ffffff;
+}
+
+.theme-pastel {
+  --color-text: #2e2633;
+  --color-secondary-text: #7b6a87;
+  --color-background: #fffaff;
+  --color-primary: #a59df5;
+  --color-secondary: #ffeaa7;
+  --color-accent: #f7a9a8;
+  --color-card: #ffffff;
 }
