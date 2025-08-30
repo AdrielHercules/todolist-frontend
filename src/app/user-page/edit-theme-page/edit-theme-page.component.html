@@ -1,0 +1,18 @@
+<div class="flex flex-col gap-2 p-2">
+  @for (theme of themes; track $index) {
+    <div
+      class="flex h-15 content-center items-center rounded-md bg-card align-middle text-text select-none hover:cursor-pointer hover:bg-secondary"
+    >
+      <div class="flex gap-2 pr-5 pl-5 text-text">
+        <input
+          type="radio"
+          name="theme"
+          value="default"
+          (input)="selectTheme(theme)"
+          [checked]="this.selectedTheme === theme"
+        />
+        <label for="default">{{ theme | titlecase }}</label>
+      </div>
+    </div>
+  }
+</div>

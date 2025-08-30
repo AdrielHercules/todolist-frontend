@@ -28,4 +28,8 @@ export class ThemeService {
     this.root.classList.remove(`theme-${this.currentTheme}`);
     this.currentTheme = '';
   }
+
+  getCurrentTheme(): string {
+    return this.currentTheme;
+  }
 }
