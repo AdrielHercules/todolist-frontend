@@ -4,6 +4,7 @@ import { TaskPageComponent } from './task-page/task-page.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { SignupPageComponent } from './signup-page/signup-page.component';
+import { EditThemePageComponent } from './user-page/edit-theme-page/edit-theme-page.component';
 
 export const routes: Routes = [
   {
@@ -30,5 +31,10 @@ export const routes: Routes = [
     path: 'signup',
     component: SignupPageComponent,
     title: 'Signup page',
+  },
+  {
+    path: 'theme',
+    component: EditThemePageComponent,
+    title: 'Editar tema',
   },
 ];
