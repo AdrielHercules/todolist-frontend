@@ -29,4 +29,8 @@ export class UserPageComponent {
   navigateToLogin() {
     this.router.navigate(['/login']);
   }
+
+  navigateToTheme() {
+    this.router.navigate(['/theme']);
+  }
 }
