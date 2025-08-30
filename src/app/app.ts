@@ -15,6 +15,6 @@ export class App {
   themeService = inject(ThemeService);
 
   constructor() {
-    this.themeService.setTheme(Themes.DEFAULT);
+    this.themeService.setTheme(Themes.LIGHT);
   }
 }
