@@ -22,6 +22,6 @@ export class SignupPageComponent {
   }
 
   onBackButton() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 }

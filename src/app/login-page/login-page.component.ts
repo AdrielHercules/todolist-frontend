@@ -23,6 +23,6 @@ export class LoginPageComponent {
   }
 
   onBackButton() {
-    this.router.navigate(['/']);
+    this.router.navigate(['/user']);
   }
 }
