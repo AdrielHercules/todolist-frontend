@@ -1,43 +1,86 @@
-<div class="flex flex-col gap-2 bg-background p-2 text-text">
-  <div class="flex w-full flex-row items-center gap-2 rounded-md bg-card p-4">
-    <svg class="size-6">
-      <use xlink:href="assets/symbol-defs.svg#icon-user"></use>
-    </svg>
-    <div class="w-full rounded-md bg-secondary/20 p-2">
-      <input type="text" placeholder="Introduzca su nombre completo" class="w-full" />
+<div class="fixed top-0 z-[-1] h-screen w-screen bg-gradient-to-br from-accent to-secondary"></div>
+<div
+  class="flex justify-center transition-transform transition-discrete md:fixed md:top-0 md:h-screen md:w-screen md:items-center"
+>
+  <div class="flex w-full max-w-[768px] flex-col gap-2 rounded-md bg-background p-2 text-text shadow-md">
+    <div
+      class="flex w-full flex-row items-center gap-2 rounded-md bg-card p-4 focus-within:border-1 focus-within:border-primary"
+    >
+      <svg class="size-7 fill-text">
+        <use xlink:href="assets/g-icons.svg#icon-person"></use>
+      </svg>
+      <div class="w-full p-2">
+        <input
+          type="text"
+          placeholder="Introduzca su nombre"
+          class="w-full p-2 outline-none placeholder:text-secondary-text"
+        />
+      </div>
     </div>
-  </div>
-  <div class="flex w-full flex-row items-center gap-2 rounded-md bg-card p-4">
-    <svg class="size-6">
-      <use xlink:href="assets/symbol-defs.svg#icon-mail"></use>
-    </svg>
-    <div class="w-full rounded-md bg-secondary/20 p-2">
-      <input type="email" class="w-full" placeholder="Introduzca su email" />
+    <div
+      class="flex w-full flex-row items-center gap-2 rounded-md bg-card p-4 focus-within:border-1 focus-within:border-primary"
+    >
+      <svg class="size-7 fill-text">
+        <use xlink:href="assets/g-icons.svg#icon-person_outline"></use>
+      </svg>
+      <div class="w-full p-2">
+        <input
+          type="text"
+          placeholder="Introduzca su apellido"
+          class="w-full p-2 outline-none placeholder:text-secondary-text"
+        />
+      </div>
     </div>
-  </div>
-  <div class="flex w-full flex-row items-center gap-2 rounded-md bg-card p-4">
-    <svg class="size-10">
-      <use xlink:href="assets/symbol-defs.svg#icon-lock"></use>
-    </svg>
-    <div class="w-full rounded-md bg-secondary/20 p-2">
-      <input type="password" class="w-full" placeholder="Introduzca su contraseña" />
+    <div
+      class="flex w-full flex-row items-center gap-2 rounded-md bg-card p-4 focus-within:border-1 focus-within:border-primary"
+    >
+      <svg class="size-7 fill-text">
+        <use xlink:href="assets/g-icons.svg#icon-email"></use>
+      </svg>
+      <div class="w-full p-2">
+        <input
+          type="email"
+          class="w-full p-2 outline-none placeholder:text-secondary-text"
+          placeholder="Introduzca su email"
+        />
+      </div>
     </div>
-  </div>
-  <div class="flex w-full flex-row items-center gap-2 rounded-md bg-card p-4">
-    <svg class="size-10">
-      <use xlink:href="assets/symbol-defs.svg#icon-lock"></use>
-    </svg>
-    <div class="w-full rounded-md bg-secondary/20 p-2">
-      <input type="password" placeholder="Introduzca de nuevo su contraseña" class="w-full" />
+    <div
+      class="flex w-full flex-row items-center gap-2 rounded-md bg-card p-4 focus-within:border-1 focus-within:border-primary"
+    >
+      <svg class="size-7 fill-text">
+        <use xlink:href="assets/g-icons.svg#icon-lock_open"></use>
+      </svg>
+      <div class="w-full p-2">
+        <input
+          type="password"
+          class="w-full p-2 outline-none placeholder:text-secondary-text"
+          placeholder="Introduzca su contraseña"
+        />
+      </div>
     </div>
-  </div>
-  <div class="w-full items-center rounded-md bg-background p-2">
-    <div class="w-full items-center rounded-md bg-primary p-2 text-center text-xl text-card">
-      <input type="button" value="CREAR CUENTA" class="" />
+    <div
+      class="flex w-full flex-row items-center gap-2 rounded-md bg-card p-4 focus-within:border-1 focus-within:border-primary"
+    >
+      <svg class="size-7 fill-text">
+        <use xlink:href="assets/g-icons.svg#icon-lock_outline"></use>
+      </svg>
+      <div class="w-full p-2">
+        <input
+          type="password"
+          placeholder="Introduzca de nuevo su contraseña"
+          class="w-full p-2 outline-none placeholder:text-secondary-text"
+        />
+      </div>
     </div>
-  </div>
-  <div class="w-full items-center gap-4 rounded-md bg-background p-2">
-    <input type="checkbox" />
-    <span> Al marcar esta casilla, aceptas nuestros Términos y Condiciones</span>
+    <div class="rounded-mdp-2 w-full items-center gap-4">
+      <input type="checkbox" class="m-2 p-4 accent-primary hover:cursor-pointer" />
+      <span class="select-none"> Al marcar esta casilla, aceptas nuestros Términos y Condiciones.</span>
+    </div>
+    <div class="w-full items-center rounded-md p-2">
+      <div class="w-full cursor-pointer items-center rounded-md bg-primary p-5 text-center text-xl text-white">
+        <input type="button" value="Crear cuenta" class="cursor-pointer" />
+      </div>
+    </div>
   </div>
 </div>
