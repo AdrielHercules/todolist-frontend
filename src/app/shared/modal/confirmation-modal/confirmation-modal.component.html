@@ -15,8 +15,13 @@
     <span class="text-secondary-text">{{ message() }}</span>
 
     <div class="flex flex-row justify-end gap-2">
-      <button class="rounded-md p-2 font-semibold text-text hover:bg-secondary" (click)="close()">CANCELAR</button>
-      <button class="rounded-md p-2 font-semibold text-red-500 hover:bg-red-200" (click)="onConfirmClick()">
+      <button class="cursor-pointer rounded-md p-2 font-semibold text-text hover:bg-secondary" (click)="close()">
+        CANCELAR
+      </button>
+      <button
+        class="cursor-pointer rounded-md p-2 font-semibold text-red-500 hover:bg-red-200"
+        (click)="onConfirmClick()"
+      >
         BORRAR
       </button>
     </div>
