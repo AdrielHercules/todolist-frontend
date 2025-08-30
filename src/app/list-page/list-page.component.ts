@@ -11,6 +11,7 @@ import { LongPressDirective } from '../shared/directives/long-press.directive';
 import { TopBarButton } from '../layout/top-bar/models/top-bar-button';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Icons } from '../shared/icons';
+import { ConfirmationModalComponent } from '../shared/modal/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-list-page',
@@ -98,9 +99,17 @@ export class ListPageComponent implements OnInit {
   }
 
   removeSelectedLists() {
-    this.lists.filter((l) => this.selectedLists.has(l.id)).forEach((l) => this.listService.removeList(l));
+    const lists: List[] = this.lists.filter((l) => this.selectedLists.has(l.id));
 
-    this.clearSelection();
+    const modal = this.modalService.openModal<boolean>(ConfirmationModalComponent, [
+      { property: 'tittle', value: 'Confirmar eliminación' },
+      { property: 'message', value: `Se borrarán ${lists.length} listas` },
+    ]);
+
+    modal?.confirmed.subscribe(() => {
+      lists.forEach((l) => this.listService.removeList(l));
+      this.clearSelection();
+    });
   }
 
   editList() {
