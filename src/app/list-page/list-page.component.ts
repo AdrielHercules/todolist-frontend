@@ -85,8 +85,8 @@ export class ListPageComponent implements OnInit {
     const rightButtons: TopBarButton[] =
       this.selectedLists.size == 1
         ? [
-            { icon: Icons.DELETE, callback: this.removeSelectedLists.bind(this) },
             { icon: Icons.EDIT, callback: this.editList.bind(this) },
+            { icon: Icons.DELETE, callback: this.removeSelectedLists.bind(this) },
           ]
         : [{ icon: Icons.DELETE, callback: this.removeSelectedLists.bind(this) }];
 
