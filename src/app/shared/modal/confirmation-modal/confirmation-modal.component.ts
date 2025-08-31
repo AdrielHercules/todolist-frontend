@@ -8,7 +8,7 @@ import { ModalComponent } from '../../../core/modals/modal/modal.component';
 })
 export class ConfirmationModalComponent extends ModalComponent<boolean> {
   protected isClosing: boolean;
-  tittle = input<string>();
+  title = input<string>();
   message = input<string>();
   confirm = output<boolean>;
 
