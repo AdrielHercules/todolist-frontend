@@ -2,8 +2,8 @@
   @for (theme of themes; track $index) {
     <div
       class="flex h-15 content-center items-center rounded-md bg-card align-middle text-text select-none hover:cursor-pointer hover:bg-secondary"
-      (click)="this.selectedTheme = theme"
-      (keydown)="this.selectedTheme = theme"
+      (click)="selectTheme(theme)"
+      (keydown)="selectTheme(theme)"
     >
       <div class="flex gap-2 pr-5 pl-5 text-text">
         <input
@@ -11,7 +11,7 @@
           type="radio"
           name="theme"
           value="default"
-          (input)="selectTheme(theme)"
+          (click)="selectTheme(theme)"
           [checked]="this.selectedTheme === theme"
         />
         <label class="hover:cursor-pointer" for="default">{{ theme | titlecase }}</label>

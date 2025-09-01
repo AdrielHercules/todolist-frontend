@@ -37,6 +37,7 @@ export class EditThemePageComponent implements OnInit {
 
   selectTheme(theme: string) {
     this.themeService.setTheme(theme as Themes);
+    this.selectedTheme = theme;
   }
 
   onBackClick() {
