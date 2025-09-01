@@ -12,6 +12,7 @@ const config: CapacitorConfig = {
       keystoreAlias: process.env.KEYSTORE_ALIAS ?? '',
       keystoreAliasPassword: process.env.KEYSTORE_ALIAS_PASSWORD ?? '',
     },
+    adjustMarginsForEdgeToEdge: 'auto',
   },
 };
 
