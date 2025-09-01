@@ -7,13 +7,16 @@
   [class.animate-fade-out]="isClosing"
 >
   <div
-    class="m-5 flex w-96 flex-col gap-2 rounded-md bg-card p-4 opacity-100 shadow-md"
+    class="m-5 flex w-full max-w-[500px] flex-col gap-2 rounded-md bg-card p-4 opacity-100 shadow-md"
     (click)="$event.stopPropagation()"
     (keypress)="$event.stopPropagation()"
   >
     <h2 class="font-semibold text-text select-none">{{ title }}</h2>
     <div class="flex gap-2">
-      <button (click)="showIcons = !showIcons" class="cursor-pointer rounded-md border-1 border-accent p-4 text-2xl">
+      <button
+        (click)="showIcons = !showIcons"
+        class="rounded-md border-1 border-accent p-4 text-2xl select-none hover:cursor-pointer"
+      >
         {{ icon }}
       </button>
 
@@ -35,11 +38,14 @@
     </div>
     @if (!showIcons) {
       <div class="flex animate-slide-in justify-end gap-2">
-        <button class="rounded-md p-2 font-semibold text-text hover:bg-secondary active:bg-secondary" (click)="close()">
+        <button
+          class="rounded-md p-2 font-semibold text-text hover:cursor-pointer hover:bg-secondary active:bg-secondary"
+          (click)="close()"
+        >
           CANCELAR
         </button>
         <button
-          class="rounded-md p-2 font-semibold text-text hover:bg-secondary active:bg-secondary"
+          class="rounded-md p-2 font-semibold text-text hover:cursor-pointer hover:bg-secondary active:bg-secondary"
           (click)="onCreateClick()"
         >
           {{ confirmButtonText }}
