@@ -125,3 +125,23 @@
   --color-accent: #f7a9a8;
   --color-card: #ffffff;
 }
+
+.theme-sunset {
+  --color-text: #2d1810;
+  --color-secondary-text: #8b5a3c;
+  --color-background: #fdf8f3;
+  --color-primary: #d2691e;
+  --color-secondary: #ffe5d1;
+  --color-accent: #ff8c42;
+  --color-card: #ffffff;
+}
+
+.theme-marcopolo {
+  --color-text: #2d1810;
+  --color-secondary-text: #8b5a3c;
+  --color-background: #fdf8f3;
+  --color-primary: #d2691e;
+  --color-secondary: #ffe5d1;
+  --color-accent: #ff8c42;
+  --color-card: #ffffff;
+}

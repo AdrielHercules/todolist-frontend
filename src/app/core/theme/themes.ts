@@ -4,4 +4,5 @@ export enum Themes {
   OCEAN = 'ocean',
   FOREST = 'forest',
   PASTEL = 'pastel',
+  SUNSET = 'sunset',
 }
