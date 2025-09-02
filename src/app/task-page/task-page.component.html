@@ -1,30 +1,39 @@
-<section class="flex h-full flex-col gap-2 p-2">
-  @for (task of pendingTasks(); track task.id) {
-    <app-task-item
-      [task]="task"
-      (taskChanged)="updateTask($event)"
-      (longPress)="onLongPress(task)"
-      (shortPress)="onShortPress(task)"
-      [isSelected]="isSelected(task)"
-    >
-    </app-task-item>
-  }
+<section cdkDropListGroup class="flex h-full flex-col gap-2 p-2">
+  <div cdkDropList id="pending" class="flex flex-col gap-2" (cdkDropListDropped)="drop($event)">
+    @for (task of pendingTasks(); track task.id) {
+      <app-task-item
+        [task]="task"
+        (taskChanged)="updateTask($event)"
+        (longPress)="onLongPress(task)"
+        (shortPress)="onShortPress(task)"
+        [isSelected]="isSelected(task)"
+        cdkDrag
+        [cdkDragStartDelay]="250"
+        >{{ task }}
+        >
+      </app-task-item>
+    }
+  </div>
 
   @if (completedTasks().length !== 0) {
     <h2 class="p-2 text-sm text-gray-800">COMPLETADAS</h2>
   }
 
-  @for (task of completedTasks(); track task.id) {
-    <app-task-item
-      [task]="task"
-      (taskChanged)="updateTask($event)"
-      (longPress)="onLongPress(task)"
-      (shortPress)="onShortPress(task)"
-      [isSelected]="isSelected(task)"
-    >
-    </app-task-item>
-  }
-
+  <div cdkDropList id="completed" class="flex flex-col gap-2" (cdkDropListDropped)="drop($event)">
+    @for (task of completedTasks(); track task.id) {
+      <app-task-item
+        [task]="task"
+        (taskChanged)="updateTask($event)"
+        (longPress)="onLongPress(task)"
+        (shortPress)="onShortPress(task)"
+        [isSelected]="isSelected(task)"
+        cdkDrag
+        [cdkDragStartDelay]="100"
+        >{{ task }}
+        >
+      </app-task-item>
+    }
+  </div>
   <div class="fixed right-10 bottom-10">
     <app-add-button (click)="onAddTask()"></app-add-button>
   </div>

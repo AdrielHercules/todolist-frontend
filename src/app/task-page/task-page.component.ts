@@ -10,10 +10,11 @@ import { ModalService } from '../core/modals/modal.service';
 import { EditTaskModalComponent } from './edit-task-modal/edit-task-modal.component';
 import { Icons } from '../shared/icons';
 import { ConfirmationModalComponent } from '../shared/modal/confirmation-modal/confirmation-modal.component';
+import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, CdkDropListGroup } from '@angular/cdk/drag-drop';
 
 @Component({
   selector: 'app-task-page',
-  imports: [TaskItemComponent, AddButtonComponent],
+  imports: [TaskItemComponent, AddButtonComponent, CdkDrag, CdkDropList, CdkDropListGroup],
   templateUrl: './task-page.component.html',
 })
 export class TaskPageComponent {
@@ -46,6 +47,28 @@ export class TaskPageComponent {
     this.titleList = `${list?.icon} ${list?.name}`;
 
     this.changeTopBar();
+  }
+
+  drop(event: CdkDragDrop<Task[]>) {
+    const tasksCopy = [...this.tasks()];
+
+    const sourceList = event.previousContainer.id === 'pending' ? this.pendingTasks() : this.completedTasks();
+
+    const taskDragged = sourceList[event.previousIndex];
+    const originalIndex = tasksCopy.findIndex((t) => t === taskDragged);
+
+    const targetList = event.container.id === 'pending' ? this.pendingTasks() : this.completedTasks();
+
+    if (targetList !== sourceList) {
+      taskDragged.completed = !taskDragged.completed;
+      this.taskService.updateTask(taskDragged);
+    }
+
+    const targetTask = targetList[event.currentIndex];
+    const targetIndex = targetTask ? tasksCopy.findIndex((t) => t === targetTask) : tasksCopy.length - 1;
+
+    moveItemInArray(tasksCopy, originalIndex, targetIndex);
+    this.tasks.set(tasksCopy);
   }
 
   changeTopBar() {
