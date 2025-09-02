@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { List } from '../models/list';
+import { BehaviorSubject, Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -40,42 +41,49 @@ export class ListService {
 
   private nextId = this.lists.length;
 
-  getLists() {
-    return this.lists;
+  private listsSubject = new BehaviorSubject<List[]>(this.lists);
+  lists$ = this.listsSubject.asObservable();
+
+  getLists(): Observable<List[]> {
+    return this.lists$;
   }
 
-  getListById(id: string) {
-    return this.lists.find((l) => l.id == id);
+  getListById(id: string): Observable<List | undefined> {
+    return of(this.lists.find((l) => l.id == id));
   }
 
-  addList(list: Partial<List>) {
+  addList(list: Partial<List>): Observable<List> {
     if (!list.name) throw new Error(`Name missing on list: ${list}`);
-
     if (!list.icon) throw new Error(`Icon missing on list: ${list}`);
 
-    this.lists.push({
+    const newList = {
       id: String(this.nextId++),
       name: list.name,
       icon: list.icon,
-    });
+    };
+
+    this.lists = [...this.lists, newList];
+    this.listsSubject.next(this.lists);
+
+    return of(newList);
   }
 
   removeList(list: List) {
-    const listIndex = this.lists.findIndex((l) => l.id === list.id);
-
-    if (listIndex === -1) throw new Error(`List with ID ${list.id} not found.`);
-
-    this.lists.splice(listIndex, 1);
+    this.lists = this.lists.filter((l) => l.id !== list.id);
+    this.listsSubject.next(this.lists);
   }
 
-  updateList(listData: Partial<List>) {
+  updateList(listData: Partial<List>): Observable<List> {
     if (!listData.id) throw new Error(`List ID not specified. ${listData}`);
 
-    const list = this.getListById(listData.id);
-
+    const list = this.lists.find((l) => l.id === listData.id);
     if (!list) throw new Error(`List with ID ${listData.id} not found.`);
 
-    list.name = listData.name ?? list.name;
-    list.icon = listData.icon ?? list.icon;
+    const updated = { ...list, ...listData };
+    const index = this.lists.findIndex((l) => l.id === listData.id);
+
+    this.lists[index] = updated;
+    this.listsSubject.next([...this.lists]);
+    return of(updated);
   }
 }

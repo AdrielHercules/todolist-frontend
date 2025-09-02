@@ -32,7 +32,10 @@ export class ListPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.lists = this.listService.getLists();
+    this.listService.getLists().subscribe((lists) => {
+      this.lists = lists;
+    });
+
     this.updateTopBarConfig();
   }
 
@@ -99,15 +102,15 @@ export class ListPageComponent implements OnInit {
   }
 
   removeSelectedLists() {
-    const lists: List[] = this.lists.filter((l) => this.selectedLists.has(l.id));
+    const listsToRemove: List[] = this.lists.filter((l) => this.selectedLists.has(l.id));
 
     const modal = this.modalService.openModal<boolean>(ConfirmationModalComponent, [
       { property: 'tittle', value: 'Confirmar eliminación' },
-      { property: 'message', value: `Se borrarán ${lists.length} listas` },
+      { property: 'message', value: `Se borrarán ${listsToRemove.length} listas` },
     ]);
 
     modal?.confirmed.subscribe(() => {
-      lists.forEach((l) => this.listService.removeList(l));
+      listsToRemove.forEach((l) => this.listService.removeList(l));
       this.clearSelection();
     });
   }

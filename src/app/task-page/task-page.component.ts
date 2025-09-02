@@ -44,7 +44,8 @@ export class TaskPageComponent {
     this.tasks.set(this.taskService.getTasksByListId(this.listId));
 
     const list = this.listService.getListById(this.listId);
-    this.titleList = `${list?.icon} ${list?.name}`;
+    this.titleList = '';
+    list.subscribe((list) => (this.titleList = `${list?.icon} ${list?.name}`));
 
     this.changeTopBar();
   }
