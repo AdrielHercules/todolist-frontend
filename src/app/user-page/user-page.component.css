@@ -7,4 +7,6 @@
   background: var(--color-accent);
   clip-path: ellipse(100% 100% at 50% 0%);
   z-index: -1;
+
+  background-image: linear-gradient(to bottom right, var(--color-accent), var(--color-secondary));
 }
