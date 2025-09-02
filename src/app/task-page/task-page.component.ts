@@ -106,11 +106,21 @@ export class TaskPageComponent {
   onDeleteButton() {
     if (this.selectedTasks.size === 0) return;
 
-    const component = this.modalService.openModal<boolean>(ConfirmationModalComponent, [
-      { property: 'tittle', value: 'Eliminar tareas' },
-      { property: 'message', value: '¿Realmente desea eliminar las tareas?' },
-    ]);
+    let message: string;
+    let title: string;
 
+    if (this.selectedTasks.size === 1) {
+      message = '¿Realmente desea eliminar la tarea?';
+      title = 'Eliminar tarea';
+    } else {
+      message = '¿Realmente desea eliminar las tareas?';
+      title = 'Eliminar tareas';
+    }
+
+    const component = this.modalService.openModal<boolean>(ConfirmationModalComponent, [
+      { property: 'title', value: title },
+      { property: 'message', value: message },
+    ]);
     component?.confirmed.subscribe(() => {
       this.selectedTasks.forEach((t) => {
         this.taskService.deleteTask(t.id);
