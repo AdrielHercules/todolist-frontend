@@ -11,6 +11,8 @@ export class LongPressDirective {
   private isShort: boolean;
   private timeOutId: number;
 
+  private readonly DISTANCE = 5;
+  private originPosition: { x: number; y: number } = { x: 0, y: 0 };
   element: Element | null = null;
 
   constructor() {
@@ -26,6 +28,8 @@ export class LongPressDirective {
     if (event instanceof TouchEvent) {
       const touch = event.touches[0];
       this.element = document.elementFromPoint(touch.pageX, touch.pageY);
+      this.originPosition.x = touch.pageX;
+      this.originPosition.y = touch.pageY;
     }
 
     this.timeOutId = setTimeout(() => {
@@ -60,7 +64,17 @@ export class LongPressDirective {
     if (this.timeOutId === -1) return;
 
     const touch = event.touches[0];
-    if (this.element !== document.elementFromPoint(touch.pageX, touch.pageY)) {
+    const lastPosition: { x: number; y: number } = { x: touch.pageX, y: touch.pageY };
+
+    const direction: { x: number; y: number } = {
+      x: lastPosition.x - this.originPosition.x,
+      y: lastPosition.y - this.originPosition.y,
+    };
+
+    const distance = Math.sqrt(Math.pow(direction.x, 2) + Math.pow(direction.y, 2));
+    console.log(distance);
+    if (distance > this.DISTANCE) {
+      console.log('Canceled by distance');
       this.clearTimeout();
       event.preventDefault();
     }
