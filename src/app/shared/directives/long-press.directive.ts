@@ -8,7 +8,6 @@ export class LongPressDirective {
   longPress = output<void>();
   shortPress = output<void>();
 
-  private longPressTriggered = false;
   private isShort: boolean;
   private timeOutId: number;
 
@@ -23,7 +22,6 @@ export class LongPressDirective {
   @HostListener('mousedown', ['$event'])
   onPointerDown(event: Event): void {
     this.isShort = true;
-    this.longPressTriggered = false;
 
     if (event instanceof TouchEvent) {
       const touch = event.touches[0];
@@ -33,7 +31,6 @@ export class LongPressDirective {
     this.timeOutId = setTimeout(() => {
       this.longPress.emit();
       this.isShort = false;
-      this.longPressTriggered = true;
     }, this.duration());
   }
 
@@ -49,7 +46,8 @@ export class LongPressDirective {
   onPointerEnd(event: Event): void {
     if (this.timeOutId === -1) return;
     this.clearTimeout();
-    if (this.isShort && !this.longPressTriggered) this.shortPress.emit();
+    event.preventDefault();
+    if (this.isShort) this.shortPress.emit();
   }
 
   clearTimeout() {
@@ -64,6 +62,7 @@ export class LongPressDirective {
     const touch = event.touches[0];
     if (this.element !== document.elementFromPoint(touch.pageX, touch.pageY)) {
       this.clearTimeout();
+      event.preventDefault();
     }
   }
 }
