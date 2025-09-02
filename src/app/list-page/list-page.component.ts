@@ -103,10 +103,14 @@ export class ListPageComponent implements OnInit {
 
   removeSelectedLists() {
     const listsToRemove: List[] = this.lists.filter((l) => this.selectedLists.has(l.id));
+    const message =
+      listsToRemove.length === 1
+        ? `Se eliminará 1 lista.`
+        : `Se eliminarán ${listsToRemove.length} listas. ¿Desea continuar?`;
 
     const modal = this.modalService.openModal<boolean>(ConfirmationModalComponent, [
-      { property: 'tittle', value: 'Confirmar eliminación' },
-      { property: 'message', value: `Se borrarán ${listsToRemove.length} listas` },
+      { property: 'title', value: 'Eliminar listas' },
+      { property: 'message', value: message },
     ]);
 
     modal?.confirmed.subscribe(() => {
