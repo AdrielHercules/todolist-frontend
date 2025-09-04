@@ -25,8 +25,10 @@
     "@tailwindcss/postcss": "^4.1.11",
     "postcss": "^8.5.6",
     "rxjs": "~7.8.0",
+    "sqlite3": "^5.1.7",
     "tailwindcss": "^4.1.11",
     "tslib": "^2.3.0",
+    "typeorm": "^0.3.26",
     "zone.js": "~0.15.0"
   },
   "devDependencies": {
