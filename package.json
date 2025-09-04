@@ -18,6 +18,7 @@
     "@angular/forms": "^20.0.6",
     "@angular/platform-browser": "^20.0.6",
     "@angular/router": "^20.0.6",
+    "@capacitor-community/sqlite": "^7.0.1",
     "@capacitor/android": "^7.4.3",
     "@capacitor/angular": "^2.0.3",
     "@capacitor/core": "latest",
