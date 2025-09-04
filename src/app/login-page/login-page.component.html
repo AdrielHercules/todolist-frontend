@@ -2,7 +2,7 @@
 <div
   class="flex justify-center transition-transform transition-discrete md:fixed md:top-0 md:h-screen md:w-screen md:items-center"
 >
-  <div class="z-10 flex w-full max-w-[768px] flex-col gap-2 rounded-md bg-background p-4 text-text">
+  <div class="z-10 flex w-full max-w-[768px] flex-col gap-2 rounded-md bg-background p-2 text-text shadow-md">
     <div
       class="flex w-full flex-row items-center gap-2 rounded-md bg-card p-4 focus-within:border-1 focus-within:border-primary"
     >
@@ -12,7 +12,7 @@
       <div class="w-full p-2">
         <input
           type="email"
-          class="w-full outline-none placeholder:text-secondary-text"
+          class="w-full p-2 outline-none placeholder:text-secondary-text"
           placeholder="Introduzca su email"
         />
       </div>
@@ -27,12 +27,12 @@
         <input
           type="password"
           placeholder="Introduzca su contraseña"
-          class="outline-none placeholder:text-secondary-text"
+          class="w-full p-2 outline-none placeholder:text-secondary-text"
         />
       </div>
     </div>
 
-    <div class="ri w-full rounded-md bg-card p-2 text-right">
+    <div class="w-full rounded-md p-2 text-right">
       <span>
         <a href="" class="text-text underline hover:text-primary">¿Has olvidado tu contraseña?</a>
       </span>
@@ -44,7 +44,7 @@
       </div>
     </div>
 
-    <div class="w-full rounded-md bg-background p-2 text-center">
+    <div class="w-full rounded-md p-2 text-center">
       <span>
         <span class="select-none"> ¿No tienes cuenta? </span>
         <a routerLink="/signup" class="text-secondary-text underline hover:text-primary">Regístrate</a>
