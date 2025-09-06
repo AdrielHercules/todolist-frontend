@@ -2,11 +2,11 @@ import { Injectable } from '@angular/core';
 import { Capacitor } from '@capacitor/core';
 import { CapacitorSQLite, SQLiteConnection } from '@capacitor-community/sqlite';
 import { DataSource } from 'typeorm';
-import { TaskEntity } from './entities/taskEntity';
+import { TaskEntity } from '../models/taskEntity';
 import { BehaviorSubject } from 'rxjs';
-import { Task } from '../../task-page/models/task';
-import { ListEntity } from './entities/listEntity';
-import { List } from '../../list-page/models/list';
+import { Task } from '../../../task-page/models/task';
+import { ListEntity } from '../models/listEntity';
+import { List } from '../../../list-page/models/list';
 
 @Injectable({
   providedIn: 'root',

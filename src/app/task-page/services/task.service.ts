@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { Task } from '../models/task';
-import { SQLiteService } from '../../core/database/sqlite.service';
-import { TaskEntity } from '../../core/database/entities/taskEntity';
+import { SQLiteService } from '../../core/database/services/sqlite.service';
+import { TaskEntity } from '../../core/database/models/taskEntity';
 import { tasksMockup } from '../models/tasksMockup';
 
 @Injectable({

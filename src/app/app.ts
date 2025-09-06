@@ -4,7 +4,7 @@ import { ModalHostComponent } from './core/modals/modal-host/modal-host.componen
 import { TopBarComponent } from './layout/top-bar/top-bar.component';
 import { ThemeService } from './core/theme/theme.service';
 import { Themes } from './core/theme/themes';
-import { SQLiteService } from './core/database/sqlite.service';
+import { SQLiteService } from './core/database/services/sqlite.service';
 
 @Component({
   selector: 'app-root',

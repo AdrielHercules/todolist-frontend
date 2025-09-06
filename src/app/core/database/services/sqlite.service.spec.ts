@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SQLiteService } from './sqlite.service';
+import { SQLiteService } from '../sqlite.service';
 
 describe('SqliteService', () => {
   let service: SQLiteService;
