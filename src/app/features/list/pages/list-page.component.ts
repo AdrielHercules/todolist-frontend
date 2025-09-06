@@ -11,7 +11,7 @@ import { LongPressDirective } from '../../../shared/directives/long-press.direct
 import { TopBarButton } from '../../../layout/top-bar/models/top-bar-button';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
 import { Icons } from '../../../shared/icons';
-import { ConfirmationModalComponent } from '../../../shared/modal/confirmation-modal/confirmation-modal.component';
+import { ConfirmationModalComponent } from '../../../shared/modals/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-list-page',

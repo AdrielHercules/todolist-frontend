@@ -9,7 +9,7 @@ import { ListService } from '../../list/services/list.service';
 import { ModalService } from '../../../core/modals/modal.service';
 import { EditTaskModalComponent } from '../modals/edit-task-modal/edit-task-modal.component';
 import { Icons } from '../../../shared/icons';
-import { ConfirmationModalComponent } from '../../../shared/modal/confirmation-modal/confirmation-modal.component';
+import { ConfirmationModalComponent } from '../../../shared/modals/confirmation-modal/confirmation-modal.component';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray, CdkDropListGroup } from '@angular/cdk/drag-drop';
 
 @Component({
