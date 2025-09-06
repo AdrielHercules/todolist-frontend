@@ -2,6 +2,13 @@
   <div class="curved-bg"></div>
   <div class="mt-10 flex size-25 items-center justify-center rounded-full bg-card">
     <div class="text-4xl font-semibold text-text select-none">U</div>
+    <button
+      class="absolute mt-17 ml-17 flex size-10 cursor-pointer items-center justify-center rounded-full border-4 border-background bg-secondary transition-transform hover:scale-110"
+    >
+      <svg class="size-4 fill-text">
+        <use [attr.xlink:href]="iconService.getIcon(iconService.icons.EDIT)"></use>
+      </svg>
+    </button>
   </div>
   <div class="flex w-full max-w-5xl flex-col">
     <p class="text-center font-semibold tracking-wider text-text select-none">Nombre Apellido</p>
