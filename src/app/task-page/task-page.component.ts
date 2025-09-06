@@ -32,18 +32,18 @@ export class TaskPageComponent {
   selectedTasks: Set<Task> = new Set<Task>();
 
   protected selectedTask = false;
-  private listId: string;
+  private listId: number;
   private titleList: string;
 
   constructor() {
-    this.listId = '';
+    this.listId = -1;
     const id = this.activatedRoute.snapshot.paramMap.get('listId');
     if (id != null) {
-      this.listId = id;
+      this.listId = Number(id);
     }
     this.tasks.set(this.taskService.getTasksByListId(this.listId));
 
-    const list = this.listService.getListById(this.listId);
+    const list = this.listService.getListById(String(this.listId));
     this.titleList = '';
     list.subscribe((list) => (this.titleList = `${list?.icon} ${list?.name}`));
 
@@ -218,5 +218,4 @@ export class TaskPageComponent {
   isSelected(task: Task): boolean {
     return this.selectedTasks.has(task);
   }
-  /* */
 }
