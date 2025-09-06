@@ -1,8 +1,8 @@
 import { AfterViewInit, Component, ElementRef, input, OnInit, viewChild } from '@angular/core';
-import { List } from '../models/list';
+import { List } from '../../models/list';
 import { FormsModule } from '@angular/forms';
-import { ModalComponent } from '../../core/modals/modal/modal.component';
-import { listIcons } from '../models/list-icons';
+import { ModalComponent } from '../../../../core/modals/modal/modal.component';
+import { listIcons } from '../../models/list-icons';
 import { NgClass } from '@angular/common';
 
 @Component({

@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { List } from '../models/list';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { SQLiteService } from '../../core/database/services/sqlite.service';
+import { SQLiteService } from '../../../core/database/services/sqlite.service';
 
 @Injectable({
   providedIn: 'root',

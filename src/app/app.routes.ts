@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { ListPageComponent } from './list-page/list-page.component';
+import { ListPageComponent } from './features/list/pages/list-page.component';
 import { TaskPageComponent } from './task-page/task-page.component';
 import { UserPageComponent } from './user-page/user-page.component';
 import { LoginPageComponent } from './login-page/login-page.component';

@@ -1,5 +1,5 @@
 import { Component, input } from '@angular/core';
-import { List } from '../models/list';
+import { List } from '../../models/list';
 import { NgClass } from '@angular/common';
 
 @Component({

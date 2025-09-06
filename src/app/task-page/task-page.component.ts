@@ -5,7 +5,7 @@ import { TaskItemComponent } from './task-item/task-item.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AddButtonComponent } from '../shared/components/add-button/add-button.component';
 import { TopBarService } from '../layout/top-bar/services/top-bar.service';
-import { ListService } from '../list-page/services/list.service';
+import { ListService } from '../features/list/services/list.service';
 import { ModalService } from '../core/modals/modal.service';
 import { EditTaskModalComponent } from './edit-task-modal/edit-task-modal.component';
 import { Icons } from '../shared/icons';

@@ -6,7 +6,7 @@ import { TaskEntity } from '../models/taskEntity';
 import { BehaviorSubject } from 'rxjs';
 import { Task } from '../../../task-page/models/task';
 import { ListEntity } from '../models/listEntity';
-import { List } from '../../../list-page/models/list';
+import { List } from '../../../features/list/models/list';
 
 @Injectable({
   providedIn: 'root',

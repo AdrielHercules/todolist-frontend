@@ -1,17 +1,17 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { List } from './models/list';
-import { ListItemComponent } from './list-item/list-item.component';
-import { EditListModalComponent } from './edit-list-modal/edit-list-modal.component';
-import { ModalService } from '../core/modals/modal.service';
+import { List } from '../models/list';
+import { ListItemComponent } from '../components/list-item/list-item.component';
+import { EditListModalComponent } from '../modals/edit-list-modal/edit-list-modal.component';
+import { ModalService } from '../../../core/modals/modal.service';
 import { Router } from '@angular/router';
-import { ListService } from './services/list.service';
-import { AddButtonComponent } from '../shared/components/add-button/add-button.component';
-import { TopBarService } from '../layout/top-bar/services/top-bar.service';
-import { LongPressDirective } from '../shared/directives/long-press.directive';
-import { TopBarButton } from '../layout/top-bar/models/top-bar-button';
+import { ListService } from '../services/list.service';
+import { AddButtonComponent } from '../../../shared/components/add-button/add-button.component';
+import { TopBarService } from '../../../layout/top-bar/services/top-bar.service';
+import { LongPressDirective } from '../../../shared/directives/long-press.directive';
+import { TopBarButton } from '../../../layout/top-bar/models/top-bar-button';
 import { CdkDrag, CdkDragDrop, CdkDropList, moveItemInArray } from '@angular/cdk/drag-drop';
-import { Icons } from '../shared/icons';
-import { ConfirmationModalComponent } from '../shared/modal/confirmation-modal/confirmation-modal.component';
+import { Icons } from '../../../shared/icons';
+import { ConfirmationModalComponent } from '../../../shared/modal/confirmation-modal/confirmation-modal.component';
 
 @Component({
   selector: 'app-list-page',
