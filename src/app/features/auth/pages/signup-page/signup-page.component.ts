@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { TopBarService } from '../layout/top-bar/services/top-bar.service';
+import { TopBarService } from '../../../../layout/top-bar/services/top-bar.service';
 import { Router } from '@angular/router';
-import { Icons } from '../shared/icons';
+import { Icons } from '../../../../shared/icons';
 
 @Component({
   selector: 'app-signup-page',
