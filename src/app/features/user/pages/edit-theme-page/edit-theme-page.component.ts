@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { ThemeService } from '../../core/theme/theme.service';
-import { TopBarService } from '../../layout/top-bar/services/top-bar.service';
-import { Icons } from '../../shared/icons';
-import { Themes } from '../../core/theme/themes';
+import { ThemeService } from '../../../../core/theme/theme.service';
+import { TopBarService } from '../../../../layout/top-bar/services/top-bar.service';
+import { Icons } from '../../../../shared/icons';
+import { Themes } from '../../../../core/theme/themes';
 import { Router } from '@angular/router';
 import { TitleCasePipe } from '@angular/common';
 

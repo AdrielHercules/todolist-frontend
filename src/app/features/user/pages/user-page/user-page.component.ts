@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
-import { IconButtonComponent } from '../shared/components/icon-button/icon-button.component';
-import { TopBarService } from '../layout/top-bar/services/top-bar.service';
+import { IconButtonComponent } from '../../../../shared/components/icon-button/icon-button.component';
+import { TopBarService } from '../../../../layout/top-bar/services/top-bar.service';
 import { Router } from '@angular/router';
-import { Icons } from '../shared/icons';
-import { IconService } from '../core/icons/icon.service';
+import { Icons } from '../../../../shared/icons';
+import { IconService } from '../../../../core/icons/icon.service';
 
 @Component({
   selector: 'app-user-page',
