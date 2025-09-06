@@ -1,6 +1,6 @@
 import { Component, input, OnInit } from '@angular/core';
-import { Task } from '../models/task';
-import { ModalComponent } from '../../core/modals/modal/modal.component';
+import { Task } from '../../models/task';
+import { ModalComponent } from '../../../../core/modals/modal/modal.component';
 import { FormsModule } from '@angular/forms';
 
 @Component({

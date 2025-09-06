@@ -4,7 +4,7 @@ import { CapacitorSQLite, SQLiteConnection } from '@capacitor-community/sqlite';
 import { DataSource } from 'typeorm';
 import { TaskEntity } from '../models/taskEntity';
 import { BehaviorSubject } from 'rxjs';
-import { Task } from '../../../task-page/models/task';
+import { Task } from '../../../features/task/models/task';
 import { ListEntity } from '../models/listEntity';
 import { List } from '../../../features/list/models/list';
 

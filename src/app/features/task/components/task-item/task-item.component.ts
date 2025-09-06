@@ -1,7 +1,7 @@
 import { Component, input, output } from '@angular/core';
-import { Task } from '../models/task';
+import { Task } from '../../models/task';
 import { NgClass } from '@angular/common';
-import { LongPressDirective } from '../../shared/directives/long-press.directive';
+import { LongPressDirective } from '../../../../shared/directives/long-press.directive';
 @Component({
   selector: 'app-task-item',
   imports: [NgClass, LongPressDirective],
