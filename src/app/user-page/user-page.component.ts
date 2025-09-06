@@ -3,6 +3,8 @@ import { IconButtonComponent } from '../shared/components/icon-button/icon-butto
 import { TopBarService } from '../layout/top-bar/services/top-bar.service';
 import { Router } from '@angular/router';
 import { Icons } from '../shared/icons';
+import { IconService } from '../core/icons/icon.service';
+
 @Component({
   selector: 'app-user-page',
   imports: [IconButtonComponent],
@@ -13,7 +15,7 @@ export class UserPageComponent {
   topbarService = inject(TopBarService);
   router = inject(Router);
 
-  protected icons = Icons;
+  protected iconService = inject(IconService);
 
   constructor() {
     this.topbarService.setConfig({

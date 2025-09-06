@@ -1,21 +1,21 @@
 <div class="flex flex-col items-center gap-4 p-4">
   <div class="curved-bg"></div>
-  <div class="mt-10 flex size-25 items-center justify-center rounded-full bg-card shadow-md">
-    <div class="text-4xl font-semibold text-text">U</div>
+  <div class="mt-10 flex size-25 items-center justify-center rounded-full bg-card">
+    <div class="text-4xl font-semibold text-text select-none">U</div>
   </div>
-  <div class="flex flex-col">
-    <p class="text-center font-semibold tracking-wider text-text">User Name</p>
+  <div class="flex w-full max-w-5xl flex-col">
+    <p class="text-center font-semibold tracking-wider text-text select-none">Nombre Apellido</p>
   </div>
-  <div class="flex h-full w-full max-w-5xl flex-col gap-2">
+  <div class="flex w-full max-w-5xl flex-col gap-2">
     <div class="flex flex-col rounded-md bg-card shadow-md">
-      <app-icon-button text="Iniciar sesión" [icon]="icons.USER" (click)="navigateToLogin()" />
-      <app-icon-button text="Notificaciones" [icon]="icons.NOTIFICATIONS" />
-      <app-icon-button text="Idioma" [icon]="icons.LANGUAGE" />
-      <app-icon-button text="Tema" [icon]="icons.THEME" (click)="navigateToTheme()" />
+      <app-icon-button text="Iniciar sesión" [icon]="iconService.icons.USER" (click)="navigateToLogin()" />
+      <app-icon-button text="Notificaciones" [icon]="iconService.icons.NOTIFICATIONS" />
+      <app-icon-button text="Idioma" [icon]="iconService.icons.LANGUAGE" />
+      <app-icon-button text="Tema" [icon]="iconService.icons.THEME" (click)="navigateToTheme()" />
     </div>
     <div class="flex flex-col rounded-md bg-card shadow-md">
-      <app-icon-button text="Ayuda y soporte" [icon]="icons.HELP" />
-      <app-icon-button text="Política de privacidad" [icon]="icons.PRIVACY" />
+      <app-icon-button text="Ayuda y soporte" [icon]="iconService.icons.HELP" />
+      <app-icon-button text="Política de privacidad" [icon]="iconService.icons.PRIVACY" />
     </div>
   </div>
 </div>
