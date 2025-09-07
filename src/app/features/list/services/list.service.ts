@@ -2,6 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { List } from '../models/list';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { SQLiteService } from '../../../core/database/services/sqlite.service';
+import { ListSQLiteService } from '../../../core/database/services/listsqlite.service';
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +42,7 @@ export class ListService {
   ];
 
   private sqlService = inject(SQLiteService);
+  private listsqliteService = inject(ListSQLiteService);
   private nextId = this.lists.length;
 
   private listsSubject = new BehaviorSubject<List[]>(this.lists);
@@ -53,15 +55,11 @@ export class ListService {
   }
 
   async loadListsFromDb() {
-    const lists = await this.sqlService.getListRepository()?.find();
-    if (lists === undefined) {
-      console.log('Failed to load lists from database.');
-      return;
-    }
-    this.lists = this.sqlService.listEntityToList(lists);
+    const lists = await this.listsqliteService.getLists();
+    this.lists = lists;
     this.listsSubject.next(this.lists);
-    console.log('Lists loaded from database.', lists);
-    console.log(this.lists);
+
+    console.log(`Lists loaded from database: ${lists}`);
   }
 
   getLists(): Observable<List[]> {
