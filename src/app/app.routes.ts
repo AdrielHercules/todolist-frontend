@@ -25,12 +25,12 @@ export const routes: Routes = [
   {
     path: 'login',
     component: LoginPageComponent,
-    title: 'Login page',
+    title: 'Inicio de sesión',
   },
   {
     path: 'signup',
     component: SignupPageComponent,
-    title: 'Signup page',
+    title: 'Registro',
   },
   {
     path: 'theme',
