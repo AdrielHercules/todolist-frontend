@@ -56,7 +56,7 @@ export class ListPageComponent implements OnInit {
 
   onAddListClick() {
     const modal = this.modalService.openModal<Partial<List>>(EditListModalComponent);
-    modal?.confirmed.subscribe((list) => this.listService.addList(list));
+    modal?.confirmed.subscribe((list) => this.listService.addList(list).subscribe());
   }
 
   toggleList(listId: string) {
@@ -114,7 +114,8 @@ export class ListPageComponent implements OnInit {
     ]);
 
     modal?.confirmed.subscribe(() => {
-      listsToRemove.forEach((l) => this.listService.removeList(l));
+      listsToRemove.forEach((l) => this.listService.deleteList(l).subscribe());
+
       this.clearSelection();
     });
   }
@@ -127,7 +128,7 @@ export class ListPageComponent implements OnInit {
         value: selectedList,
       },
     ]);
-    modal?.confirmed.subscribe((l) => this.listService.updateList(l));
+    modal?.confirmed.subscribe((l) => this.listService.updateList(l).subscribe());
   }
 
   onUserClick() {

@@ -1,8 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { List } from '../models/list';
-import { BehaviorSubject, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, from, Observable, of, tap, throwError } from 'rxjs';
 import { SQLiteService } from '../../../core/database/services/sqlite.service';
 import { ListSQLiteService } from '../../../core/database/services/listsqlite.service';
+import { Capacitor } from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root',
@@ -41,67 +42,121 @@ export class ListService {
     },
   ];
 
-  private sqlService = inject(SQLiteService);
-  private listsqliteService = inject(ListSQLiteService);
-  private nextId = this.lists.length;
+  private isNative: boolean;
+  private sqliteService = inject(SQLiteService);
+  private listSqliteService = inject(ListSQLiteService);
 
   private listsSubject = new BehaviorSubject<List[]>(this.lists);
   lists$ = this.listsSubject.asObservable();
 
   constructor() {
-    this.sqlService.dbReady$.subscribe((ready) => {
+    this.isNative = Capacitor.isNativePlatform();
+    this.sqliteService.dbReady$.subscribe((ready) => {
       if (ready) this.loadListsFromDb();
     });
   }
 
   async loadListsFromDb() {
-    const lists = await this.listsqliteService.getLists();
-    this.lists = lists;
+    this.lists = await this.listSqliteService.getLists();
     this.listsSubject.next(this.lists);
-
-    console.log(`Lists loaded from database: ${lists}`);
+    console.log(`Lists loaded from database: ${this.lists}`);
   }
 
   getLists(): Observable<List[]> {
     return this.lists$;
   }
 
-  getListById(id: string): Observable<List | undefined> {
-    return of(this.lists.find((l) => l.id == id));
+  getListById(id: string): Observable<List> {
+    const list = this.lists.find((l) => l.id == id);
+    if (!list) return throwError(() => new Error(`No list found with id: ${id}`));
+    return of(list);
   }
 
   addList(list: Partial<List>): Observable<List> {
-    if (!list.name) throw new Error(`Name missing on list: ${list}`);
-    if (!list.icon) throw new Error(`Icon missing on list: ${list}`);
+    if (!list.name) return throwError(() => new Error(`Error adding list: ${list}. Reason: name missing.`));
+    if (!list.icon) return throwError(() => new Error(`Error adding list: ${list}. Reason: icon missing.`));
 
-    const newList = {
-      id: String(this.nextId++),
+    if (this.isNative) {
+      const newList: Partial<List> = {
+        name: list.name,
+        icon: list.icon,
+      };
+
+      const addedList = from(this.listSqliteService.addList(newList)).pipe(
+        tap(() => {
+          this.loadListsFromDb();
+        }),
+        catchError((err) => {
+          return throwError(() => new Error(`Error adding list: ${list}. Reason: ${err}`));
+        }),
+      );
+      return addedList;
+    }
+
+    // Fallback to web storage
+    const localList = { id: this.getNextId(), name: list.name, icon: list.icon };
+    this.lists = [...this.lists, localList];
+    this.listsSubject.next(this.lists);
+    return of(localList);
+  }
+
+  deleteList(list: List): Observable<boolean> {
+    if (!list.id) return throwError(() => new Error(`Error removing list: ${list}. Reason: id missing.`));
+
+    if (this.isNative) {
+      return from(this.listSqliteService.deleteList(list)).pipe(
+        tap((removed) => {
+          if (removed) {
+            this.loadListsFromDb();
+          }
+        }),
+        catchError((error) => {
+          return throwError(() => new Error(`Error removing list: ${list}. Reason: ${error}`));
+        }),
+      );
+    }
+
+    //TODO: Fallback to web storage
+    this.lists = this.lists.filter((l) => l.id !== list.id);
+    this.listsSubject.next(this.lists);
+    return of(true);
+  }
+
+  updateList(list: Partial<List>): Observable<List> {
+    if (!list.id) return throwError(() => new Error(`Error updating list: ${list}. Reason: id missing.`));
+    if (!list.name) return throwError(() => new Error(`Error updating list: ${list}. Reason: name missing.`));
+    if (!list.icon) return throwError(() => new Error(`Error updating list: ${list}. Reason: icon missing.`));
+
+    const newList: List = {
+      id: list.id,
       name: list.name,
       icon: list.icon,
     };
 
-    this.lists = [...this.lists, newList];
-    this.listsSubject.next(this.lists);
+    if (this.isNative) {
+      const updatedList = from(this.listSqliteService.updateList(newList)).pipe(
+        tap(() => {
+          this.loadListsFromDb();
+        }),
+        catchError((error) => {
+          return throwError(() => new Error(`Error updating list: ${list}. Reason: ${error}`));
+        }),
+      );
+      return updatedList;
+    }
 
+    //TODO: Fallback to web storage
+    this.lists = this.lists.map((l) => {
+      return l.id === list.id ? newList : l;
+    });
+
+    this.listsSubject.next(this.lists);
     return of(newList);
   }
 
-  removeList(list: List) {
-    this.lists = this.lists.filter((l) => l.id !== list.id);
-    this.listsSubject.next(this.lists);
-  }
-
-  updateList(listData: Partial<List>): Observable<List> {
-    if (!listData.id) throw new Error(`List ID not specified. ${listData}`);
-
-    const list = this.lists.find((l) => l.id === listData.id);
-    if (!list) throw new Error(`List with ID ${listData.id} not found.`);
-
-    const updated = { ...list, ...listData };
-    const index = this.lists.findIndex((l) => l.id === listData.id);
-
-    this.lists[index] = updated;
-    this.listsSubject.next([...this.lists]);
-    return of(updated);
+  private getNextId(): string {
+    if (this.lists.length === 0) return '0';
+    const maxId = Math.max(...this.lists.map((l) => Number(l.id)));
+    return String(maxId + 1);
   }
 }

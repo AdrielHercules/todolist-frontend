@@ -9,45 +9,78 @@ import { SQLiteService } from './sqlite.service';
 export class ListSQLiteService {
   private sqliteService = inject(SQLiteService);
 
-  async getLists() {
+  async getLists(): Promise<List[]> {
     const listRepo = this.sqliteService.getListRepository();
     const lists = await listRepo.find();
 
     return this.entitiesToLists(lists);
   }
 
-  async getListById(listId: number) {
+  async getListById(listId: number): Promise<List> {
     const listRepo = this.sqliteService.getListRepository();
-    const lists = await listRepo.findOneBy({ id: listId });
+    const list = await listRepo.findOneBy({ id: listId });
 
-    return lists;
+    if (list === null) throw new Error(`ListSQLite error: list not found with id: ${listId}`);
+
+    return this.entityToList(list);
   }
 
-  async saveList(list: Partial<List>) {
+  async getListEntityById(listId: number): Promise<ListEntity> {
     const listRepo = this.sqliteService.getListRepository();
+    const list = await listRepo.findOneBy({ id: listId });
 
-    const listEntity = listRepo.create({
-      name: list.name,
-      icon: list.icon,
-      id: Number(list.id),
-    });
-    if (listEntity === undefined) throw new Error('ListSQLite error: list entity can not be created.');
+    if (list === null) throw new Error(`ListSQLite error: list not found with id: ${listId}`);
 
-    await listRepo?.save(listEntity);
+    return list;
   }
 
-  async updateList(list: Partial<List>) {
-    if (list.id === undefined) throw new Error(`ListSQLite error: missing id in partial list ${list}`);
-
+  async addList(list: Partial<List>): Promise<List> {
     const listRepo = this.sqliteService.getListRepository();
-    await listRepo.update(list.id, { name: list.name, icon: list.icon });
+
+    try {
+      const listEntity = listRepo.create({
+        name: list.name,
+        icon: list.icon,
+      });
+      const entity = await listRepo.save(listEntity);
+      return this.entityToList(entity);
+    } catch (error) {
+      throw new Error(`ListSQLite error: cant save the following list: ${list}. \nReason: ${error}`);
+    }
   }
 
-  async deleteList(list: Partial<List>) {
-    if (list.id === undefined) throw new Error(`ListSQLite error: missing id in partial list ${list}`);
+  async deleteList(list: Partial<List>): Promise<boolean> {
+    if (!list.id) throw new Error(`ListSQLite error: missing id in partial list ${list}`);
+
+    try {
+      const listRepo = this.sqliteService.getListRepository();
+      const entity = await this.getListEntityById(Number(list.id));
+      await listRepo.remove(entity);
+
+      const deleted = (await listRepo.existsBy({ id: Number(list.id) })) == false;
+      return deleted;
+    } catch (error) {
+      console.error(error);
+      return false;
+    }
+  }
+
+  async updateList(list: Partial<List>): Promise<List> {
+    if (!list.id) throw new Error(`ListSQLite error: missing id in partial list ${list}`);
 
     const listRepo = this.sqliteService.getListRepository();
-    await listRepo.delete(list.id);
+
+    try {
+      const listEntity = await listRepo.findOneBy({ id: Number(list.id) });
+
+      if (listEntity === null) throw new Error(`ListSQLite error: list with ${list.id} not found`);
+
+      const updatedEntity = listRepo.merge(listEntity, { ...list, id: Number(list.id) });
+      const savedEntity = await listRepo.save(updatedEntity);
+      return this.entityToList(savedEntity);
+    } catch (error) {
+      throw new Error(`ListSQLite error: cant save the following list: ${list}. \nReason: ${error}`);
+    }
   }
 
   entitiesToLists(listEntities: ListEntity[]): List[] {
@@ -56,9 +89,5 @@ export class ListSQLiteService {
 
   private entityToList(entity: ListEntity): List {
     return { name: entity.name, icon: entity.icon, id: String(entity.id) };
-  }
-
-  private async listToEntity(list: Partial<List>): Promise<ListEntity> {
-    return this.sqliteService.getListRepository()?.create({ name: list.name, icon: list.icon, id: Number(list.id) });
   }
 }
