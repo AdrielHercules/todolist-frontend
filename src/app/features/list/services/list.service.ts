@@ -83,8 +83,9 @@ export class ListService {
       };
 
       const addedList = from(this.listSqliteService.addList(newList)).pipe(
-        tap(() => {
-          this.loadListsFromDb();
+        tap((l) => {
+          this.lists = [...this.lists, l];
+          this.listsSubject.next(this.lists);
         }),
         catchError((err) => {
           return throwError(() => new Error(`Error adding list: ${list}. Reason: ${err}`));
@@ -107,7 +108,8 @@ export class ListService {
       return from(this.listSqliteService.deleteList(list)).pipe(
         tap((removed) => {
           if (removed) {
-            this.loadListsFromDb();
+            this.lists = this.lists.filter((l) => l.id !== list.id);
+            this.listsSubject.next(this.lists);
           }
         }),
         catchError((error) => {
@@ -135,8 +137,11 @@ export class ListService {
 
     if (this.isNative) {
       const updatedList = from(this.listSqliteService.updateList(newList)).pipe(
-        tap(() => {
-          this.loadListsFromDb();
+        tap((updatedList) => {
+          this.lists = this.lists.map((l) => {
+            return l.id === list.id ? updatedList : l;
+          });
+          this.listsSubject.next(this.lists);
         }),
         catchError((error) => {
           return throwError(() => new Error(`Error updating list: ${list}. Reason: ${error}`));
