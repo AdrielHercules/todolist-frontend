@@ -25,15 +25,6 @@ export class ListSQLiteService {
     return this.entityToList(list);
   }
 
-  async getListEntityById(listId: number): Promise<ListEntity> {
-    const listRepo = this.sqliteService.getListRepository();
-    const list = await listRepo.findOneBy({ id: listId });
-
-    if (list === null) throw new Error(`ListSQLite error: list not found with id: ${listId}`);
-
-    return list;
-  }
-
   async addList(list: Partial<List>): Promise<List> {
     const listRepo = this.sqliteService.getListRepository();
 
@@ -67,8 +58,6 @@ export class ListSQLiteService {
 
   async updateList(list: List): Promise<List> {
     if (!list.id) throw new Error(`ListService Error updating list: ${list}. Reason: id missing.`);
-    if (!list.name) throw new Error(`ListService Error updating list: ${list}. Reason: name missing.`);
-    if (!list.icon) throw new Error(`ListService Error updating list: ${list}. Reason: icon missing.`);
 
     try {
       const repository = this.sqliteService.getListRepository();
@@ -82,6 +71,15 @@ export class ListSQLiteService {
     } catch (error) {
       throw new Error(`ListSQLite error: cant save the following list: ${list}. \nReason: ${error}`);
     }
+  }
+
+  private async getListEntityById(listId: number): Promise<ListEntity> {
+    const listRepo = this.sqliteService.getListRepository();
+    const list = await listRepo.findOneBy({ id: listId });
+
+    if (list === null) throw new Error(`ListSQLite error: list not found with id: ${listId}`);
+
+    return list;
   }
 
   entitiesToLists(listEntities: ListEntity[]): List[] {
