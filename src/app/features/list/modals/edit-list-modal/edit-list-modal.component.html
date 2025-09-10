@@ -17,7 +17,7 @@
         (click)="showIcons = !showIcons"
         class="rounded-md border-1 border-accent p-4 text-2xl select-none hover:cursor-pointer"
       >
-        {{ icon }}
+        {{ outputList.icon }}
       </button>
 
       <input
@@ -32,7 +32,7 @@
         }"
         type="text"
         (click)="onInputClick()"
-        [ngModel]="name"
+        [ngModel]="outputList.name"
         (ngModelChange)="onInputChange($event)"
       />
     </div>

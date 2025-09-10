@@ -12,15 +12,12 @@ import { NgClass } from '@angular/common';
 })
 export class EditListModalComponent extends ModalComponent<Partial<List>> implements OnInit, AfterViewInit {
   inputList = input<List>();
+  outputList: Partial<List>;
 
   protected title: string;
   protected confirmButtonText: string;
 
-  private id?: string;
-  protected name: string;
-  protected icon: string;
   protected showIcons: boolean;
-
   protected invalidName: boolean;
 
   private nameInputField = viewChild<ElementRef<HTMLInputElement>>('inputName');
@@ -33,24 +30,21 @@ export class EditListModalComponent extends ModalComponent<Partial<List>> implem
 
     this.title = 'Crear una lista';
     this.confirmButtonText = 'CREAR';
-    this.name = '';
-    this.icon = '📋';
     this.showIcons = false;
     this.invalidName = false;
-
     this.isClosing = false;
+
+    this.outputList = { name: '', icon: '📋' };
   }
 
   ngOnInit(): void {
     const inputList = this.inputList();
-
     if (inputList === undefined) return;
 
     this.title = 'Editar una lista';
     this.confirmButtonText = 'EDITAR';
-    this.id = inputList.id;
-    this.name = inputList.name;
-    this.icon = inputList.icon;
+
+    this.outputList = inputList;
   }
 
   override ngAfterViewInit() {
@@ -58,17 +52,13 @@ export class EditListModalComponent extends ModalComponent<Partial<List>> implem
   }
 
   onCreateClick() {
-    if (this.name === '') {
+    if (this.outputList?.name === '') {
       this.invalidName = true;
       this.nameInputField()?.nativeElement.focus();
       return;
     }
 
-    this.confirmed.emit({
-      id: this.id,
-      name: this.name,
-      icon: this.icon,
-    });
+    this.confirmed.emit(this.outputList);
   }
 
   onInputClick() {
@@ -86,12 +76,12 @@ export class EditListModalComponent extends ModalComponent<Partial<List>> implem
   }
 
   onIconClicked(icon: string) {
-    this.icon = icon;
+    this.outputList.icon = icon;
     this.showIcons = false;
   }
 
   onInputChange(text: Event) {
-    this.name = String(text);
-    if (this.name !== '') this.invalidName = false;
+    this.outputList.name = String(text);
+    if (this.outputList.name !== '') this.invalidName = false;
   }
 }
