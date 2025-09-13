@@ -1,9 +1,10 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { IconButtonComponent } from '../../../../shared/components/icon-button/icon-button.component';
 import { TopBarService } from '../../../../layout/top-bar/services/top-bar.service';
 import { Router } from '@angular/router';
 import { Icons } from '../../../../shared/icons';
 import { IconService } from '../../../../core/icons/icon.service';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-user-page',
@@ -13,7 +14,10 @@ import { IconService } from '../../../../core/icons/icon.service';
 })
 export class UserPageComponent {
   topbarService = inject(TopBarService);
+  userService = inject(UserService);
   router = inject(Router);
+
+  userName = computed(() => `${this.userService.userSignal().name} ${this.userService.userSignal().lastName}`);
 
   protected iconService = inject(IconService);
 
