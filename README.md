@@ -1,30 +1,15 @@
 # Angular Todolist App
 
-<div style="display: flex; align-items: center;">
-  <img src="images/5922789266331650669-portrait.png" width="256" alt="Example Image">
-  <div style="display:flex; flex-direction: column;">
-    <p style="margin-left: 15px;">
-    A simple and flexible <b>Todo app built with Angular.</b> Originally created by AdrielHercules and NestorLT as a training project. It uses TailwindCSS for styling and CapacitorJS for cross-platform support.
-    </p>
-    <p>
-        <h2>Features</h2>
-        <ul>
-            <li>
-            📝 Create multiple lists to organize your tasks
-            </li>
-            <li>
-            💾 Local persistence with SQLite (offline support)
-            </li>
-            <li>
-            📱 Multiplatform support via CapacitorJS (Android, iOS, Web, Desktop)
-            </li>
-            <li>
-            🎨 Multi-theme support with TailwindCSS
-            </li>
-        </ul>
-    </p>
-  </div>
-</div>
+<img src="images/appimage.png" width="256" alt="Todolist app image">
+A simple and flexible **Todo app built with Angular.** Originally created by AdrielHercules and NestorLT as a training project.
+It uses TailwindCSS for styling and CapacitorJS for cross-platform support.
+
+## Features
+
+- 📝 Create multiple lists to organize your tasks
+- 💾 Local persistence with SQLite (offline support)
+- 📱 Multiplatform support via CapacitorJS (Android, iOS, Web, Desktop)
+- 🎨 Multi-theme support with TailwindCSS
 
 ## Download
 
