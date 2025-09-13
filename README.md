@@ -1,7 +1,7 @@
 # Angular Todolist App
 
 <img src="images/appimage.png" width="256" alt="Todolist app image">
-A simple and flexible <b>Todo app built with Angular</b>. Originally created by [AdrielHercules](https://github.com/AdrielHercules) and [NestorLT](https://github.com/NestorLT) as a training project.
+A simple and flexible <b>Todo app built with Angular</b>. Originally created by <a href="https://github.com/AdrielHercules">AdrielHercules</a> and <a href="https://github.com/NestorLT">NestorLT</a> as a training project.
 It uses TailwindCSS for styling and CapacitorJS for cross-platform support.
 
 ## Features
