@@ -1,59 +1,112 @@
-# TodolistFrontend
+# Angular Todolist App
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 20.0.3.
+<div style="display: flex; align-items: center;">
+  <img src="images/5922789266331650669-portrait.png" width="256" alt="Example Image">
+  <div style="display:flex; flex-direction: column;">
+    <p style="margin-left: 15px;">
+    A simple and flexible <b>Todo app built with Angular.</b> Originally created by AdrielHercules and NestorLT as a training project. It uses TailwindCSS for styling and CapacitorJS for cross-platform support.
+    </p>
+    <p>
+        <h2>Features</h2>
+        <ul>
+            <li>
+            📝 Create multiple lists to organize your tasks
+            </li>
+            <li>
+            💾 Local persistence with SQLite (offline support)
+            </li>
+            <li>
+            📱 Multiplatform support via CapacitorJS (Android, iOS, Web, Desktop)
+            </li>
+            <li>
+            🎨 Multi-theme support with TailwindCSS
+            </li>
+        </ul>
+    </p>
+  </div>
+</div>
 
-## Development server
+## Download
 
-To start a local development server, run:
+1. Download the latest version from the Releases page (or build it yourself from source).
+2. Run it on your preferred platform.
+
+## Tech Stack
+
+- Framework: Angular 20
+- Cross-platform: CapacitorJS
+- Styling: TailwindCSS
+- Database: SQLite (via Capacitor plugin)
+- Package Manager: npm
+
+## How to Build
+
+### Requirements
+
+- Angular 20
+- Node.js & npm
+
+#### Clone the Project
+
+``` bash
+git clone https://github.com/AdrielHercules/todolist-frontend
+cd folder
+```
+
+#### Install Dependencies
+
+``` bash
+npm install
+```
+
+#### Run Development Server
 
 ```bash
 ng serve
 ```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+### Building for android 📱
 
-## Code scaffolding
-
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
-
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the project run:
+1. Build the project
 
 ```bash
 ng build
 ```
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+2. Configure Android Build
+Generate an [Android keystore](https://developer.android.com/studio/publish/app-signing?hl=es-419) and create a .env file with the following data:
 
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+```
+KEYSTORE_PATH=""
+KEYSTORE_PASSWORD=""
+KEYSTORE_ALIAS=""
+KEYSTORE_ALIAS_PASSWORD=""
 ```
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+3. Sync angular project with capacitor:
 
 ```bash
-ng e2e
+npx cap sync android
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+4. Build the Capacitor project:
 
-## Additional Resources
+```bash
+npx cap build android
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+5. Or open it directly in Android Studio:
+
+```bash
+npx cap open android
+```
+
+> Check out the [CapacitorJS](https://capacitorjs.com/docs/) Docs for instructions on building for iOS or Desktop.
+
+## Contributing
+
+We welcome contributions! 🎉
+
+- Submit issues
+- Open pull requests
+- Suggest or build new features
