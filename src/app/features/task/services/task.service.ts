@@ -1,38 +1,30 @@
 import { inject, Injectable } from '@angular/core';
 import { Task } from '../models/task';
 import { SQLiteService } from '../../../core/database/services/sqlite.service';
-import { TaskEntity } from '../../../core/database/models/taskEntity';
 import { tasksMockup } from '../models/tasksMockup';
+import { Capacitor } from '@capacitor/core';
+import { TasksqliteService } from '../../../core/database/services/tasksqlite.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class TaskService {
-  sqlservice = inject(SQLiteService);
+  private sqlservice = inject(SQLiteService);
+  private taskSqliteService = inject(TasksqliteService);
+
   private taskList: Task[];
+  private isNative: boolean;
 
   constructor() {
+    this.isNative = Capacitor.isNativePlatform();
     this.taskList = tasksMockup;
     this.sqlservice.dbReady$.subscribe((r) => {
       if (r) this.loadTasksFromDb();
     });
   }
 
-  taskEntityToTask(taskE: TaskEntity[]): Task[] {
-    return taskE.map((te) => {
-      return { id: te.id, text: te.text, completed: te.completed, listId: te.list.id };
-    });
-  }
-
   async loadTasksFromDb() {
-    const tasks = await this.sqlservice.getTaskRepository()?.find({ relations: ['list'] });
-
-    if (tasks !== undefined) {
-      this.taskList = this.taskEntityToTask(tasks);
-      console.log('Tasks loaded from database');
-    } else {
-      console.log('Error loading tasks from database.');
-    }
+    this.taskList = await this.taskSqliteService.loadTaskFromDb();
   }
 
   getTasksByListId(id: number) {
@@ -41,24 +33,23 @@ export class TaskService {
   }
 
   updateTask(updatedTask: Partial<Task>) {
+    console.log('TaskService updateTask recibió:', updatedTask);
     if (!updatedTask.text) throw new Error(`Error al actualizar. La tarea debe tener un nombre ${updatedTask}`);
     if (!updatedTask.id) throw new Error(`Error al actualizar. La tarea debe tener un id ${updatedTask}`);
 
     const task = this.taskList.find((t) => t.id == updatedTask.id);
 
-    if (!task) {
-      return;
+    if (!task) throw new Error(`Error al actualizar. No se ha encontrado la tarea con id ${updatedTask}`);
+
+    if (this.isNative) {
+      this.taskSqliteService.updateTask(updatedTask).then((t) => {
+        task.text = t.text ?? task.text;
+        task.completed = t.completed ?? task.completed;
+      });
+    } else {
+      task.text = updatedTask.text;
+      task.completed = updatedTask.completed ?? task.completed;
     }
-
-    task.text = updatedTask.text;
-    task.completed = updatedTask.completed ?? task.completed;
-
-    this.sqlservice.saveTask({
-      id: task.id,
-      text: task.text,
-      listId: task.listId,
-      completed: task.completed ?? false,
-    });
   }
 
   deleteTask(id: number) {
@@ -74,17 +65,22 @@ export class TaskService {
     if (task.text === undefined || task.text === '') throw new Error('No se puede añadir una tarea sin texto ');
     if (task.listId === undefined) throw new Error('No se puede añadir una tarea sin listId');
 
-    this.taskList.push({
-      id: this.taskList.length,
-      text: task.text,
-      listId: task.listId,
-      completed: task.completed ?? false,
-    });
-    this.sqlservice.saveTask({
-      text: task.text,
-      listId: task.listId,
-      completed: task.completed ?? false,
-    });
+    if (this.isNative) {
+      const savedTask = this.taskSqliteService.addTask({
+        text: task.text,
+        listId: task.listId,
+        completed: task.completed ?? false,
+      });
+
+      savedTask.then((t) => this.taskList.push(t));
+    } else {
+      this.taskList.push({
+        id: this.taskList.length,
+        text: task.text,
+        listId: task.listId,
+        completed: task.completed ?? false,
+      });
+    }
   }
 
   getTasks() {

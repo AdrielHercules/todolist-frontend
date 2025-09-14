@@ -169,7 +169,7 @@ export class TaskPageComponent {
   }
 
   updateTask(updatedTask: Task) {
-    this.tasks.update((tasks) => tasks.map((t) => (t.id === updatedTask.id ? updatedTask : t)));
+    // this.tasks.update((tasks) => tasks.map((t) => (t.id === updatedTask.id ? updatedTask : t)));
     this.taskService.updateTask(updatedTask);
     this.tasks.set(this.taskService.getTasksByListId(this.listId));
   }
@@ -177,14 +177,12 @@ export class TaskPageComponent {
   onEditModal(editTask: Task) {
     console.log('Abriendo modal de edición para:', editTask.text);
 
-    const component = this.modalService.openModal<Partial<Task>>(EditTaskModalComponent, [
+    const component = this.modalService.openModal<Task>(EditTaskModalComponent, [
       { property: 'task', value: editTask },
     ]);
 
     component?.confirmed.subscribe((updatedTask) => {
-      if (updatedTask.id) {
-        this.updateTask(updatedTask as Task);
-      }
+      this.updateTask(updatedTask);
     });
   }
 

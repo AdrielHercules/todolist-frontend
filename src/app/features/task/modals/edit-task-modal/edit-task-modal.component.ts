@@ -8,7 +8,7 @@ import { FormsModule } from '@angular/forms';
   imports: [FormsModule],
   templateUrl: './edit-task-modal.component.html',
 })
-export class EditTaskModalComponent extends ModalComponent<Partial<Task>> implements OnInit {
+export class EditTaskModalComponent extends ModalComponent<Task> implements OnInit {
   task = input<Task>();
 
   protected text?: string;
@@ -38,6 +38,7 @@ export class EditTaskModalComponent extends ModalComponent<Partial<Task>> implem
       text: this.text,
       completed: this.completed,
       id: currentTask.id,
+      listId: currentTask.listId,
     });
   }
 

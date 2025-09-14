@@ -4,7 +4,6 @@ import { CapacitorSQLite, SQLiteConnection } from '@capacitor-community/sqlite';
 import { DataSource, Repository } from 'typeorm';
 import { TaskEntity } from '../models/taskEntity';
 import { BehaviorSubject } from 'rxjs';
-import { Task } from '../../../features/task/models/task';
 import { ListEntity } from '../models/listEntity';
 
 @Injectable({
@@ -46,30 +45,12 @@ export class SQLiteService {
       });
       this.dbConnection = await this.dbConnection.initialize();
 
-      await this.dbConnection.synchronize();
+      await this.dbConnection.synchronize(true);
 
       this.dbReady$.next(true);
     } catch (error) {
       console.error('Failed to initialize the database:', error);
     }
-  }
-
-  async saveTask(task: Partial<Task>) {
-    const taskRepo = this.getTaskRepository();
-    if (taskRepo === undefined) throw new Error('SQLite error: task repository is undefined.');
-
-    const list = await this.getListRepository()?.findOneBy({ id: task.listId });
-    if (!list) {
-      throw new Error(`SQLite error on save: cannot find list with id ${task.listId}`);
-    }
-
-    const taskEntity: Partial<TaskEntity> = taskRepo.create({
-      text: task.text!,
-      completed: task.completed ?? false,
-      list: list,
-    });
-
-    await taskRepo?.save(taskEntity);
   }
 
   async changePassphrase(oldPassphrase: string, newPassphrase: string): Promise<void> {
@@ -81,7 +62,10 @@ export class SQLiteService {
   }
 
   getTaskRepository() {
-    return this.dbConnection?.getRepository(TaskEntity);
+    const repository = this.dbConnection?.getRepository(TaskEntity);
+    if (repository === undefined) throw new Error('SQLite error: when loading task repository');
+
+    return repository;
   }
 
   getListRepository(): Repository<ListEntity> {
