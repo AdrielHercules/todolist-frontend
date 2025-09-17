@@ -24,18 +24,14 @@ export class ListPageComponent implements OnInit {
   private modalService = inject(ModalService);
   private topBarService = inject(TopBarService);
 
-  protected lists: List[] = [];
   protected selectedLists: Set<string>;
+  protected lists = this.listService.getLists();
 
   constructor() {
     this.selectedLists = new Set<string>();
   }
 
   ngOnInit(): void {
-    this.listService.getLists().subscribe((lists) => {
-      this.lists = lists;
-    });
-
     this.updateTopBarConfig();
   }
 
@@ -56,7 +52,7 @@ export class ListPageComponent implements OnInit {
 
   onAddListClick() {
     const modal = this.modalService.openModal<Partial<List>>(EditListModalComponent);
-    modal?.confirmed.subscribe((list) => this.listService.addList(list).subscribe());
+    modal?.confirmed.subscribe((list) => this.listService.addList(list));
   }
 
   toggleList(listId: string) {
@@ -102,7 +98,7 @@ export class ListPageComponent implements OnInit {
   }
 
   removeSelectedLists() {
-    const listsToRemove: List[] = this.lists.filter((l) => this.selectedLists.has(l.id));
+    const listsToRemove: List[] = this.lists().filter((l) => this.selectedLists.has(l.id));
     const message =
       listsToRemove.length === 1
         ? `Se eliminará 1 lista.`
@@ -114,21 +110,21 @@ export class ListPageComponent implements OnInit {
     ]);
 
     modal?.confirmed.subscribe(() => {
-      listsToRemove.forEach((l) => this.listService.deleteList(l).subscribe());
+      listsToRemove.forEach((l) => this.listService.deleteList(l));
 
       this.clearSelection();
     });
   }
 
   editList() {
-    const selectedList = this.lists.find((l) => this.selectedLists.has(l.id));
+    const selectedList = this.lists().find((l) => this.selectedLists.has(l.id));
     const modal = this.modalService.openModal<Partial<List>>(EditListModalComponent, [
       {
         property: 'inputList',
         value: selectedList,
       },
     ]);
-    modal?.confirmed.subscribe((l) => this.listService.updateList(l).subscribe());
+    modal?.confirmed.subscribe((l) => this.listService.updateList(l));
   }
 
   onUserClick() {
@@ -141,6 +137,6 @@ export class ListPageComponent implements OnInit {
   }
 
   drop(event: CdkDragDrop<string[]>) {
-    moveItemInArray(this.lists, event.previousIndex, event.currentIndex);
+    moveItemInArray(this.lists(), event.previousIndex, event.currentIndex);
   }
 }

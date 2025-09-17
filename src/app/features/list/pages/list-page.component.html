@@ -1,5 +1,5 @@
 <section class="flex flex-col gap-2 p-2" cdkDropList (cdkDropListDropped)="drop($event)">
-  @for (list of lists; track $index) {
+  @for (list of lists(); track $index) {
     <app-list-item
       appLongPress
       [duration]="250"

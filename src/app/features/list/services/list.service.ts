@@ -1,6 +1,6 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { List } from '../models/list';
-import { BehaviorSubject, catchError, from, Observable, of, tap, throwError } from 'rxjs';
+import { Observable, of, throwError } from 'rxjs';
 import { SQLiteService } from '../../../core/database/services/sqlite.service';
 import { ListSQLiteService } from '../../../core/database/services/listsqlite.service';
 import { Capacitor } from '@capacitor/core';
@@ -46,8 +46,7 @@ export class ListService {
   private sqliteService = inject(SQLiteService);
   private listSqliteService = inject(ListSQLiteService);
 
-  private listsSubject = new BehaviorSubject<List[]>(this.lists);
-  lists$ = this.listsSubject.asObservable();
+  private listSignal = signal<List[]>(this.lists);
 
   constructor() {
     this.isNative = Capacitor.isNativePlatform();
@@ -58,12 +57,13 @@ export class ListService {
 
   async loadListsFromDb() {
     this.lists = await this.listSqliteService.getLists();
-    this.listsSubject.next(this.lists);
+    this.listSignal.set(this.lists);
+
     console.log(`Lists loaded from database: ${this.lists}`);
   }
 
-  getLists(): Observable<List[]> {
-    return this.lists$;
+  getLists() {
+    return this.listSignal;
   }
 
   getListById(id: string): Observable<List> {
@@ -72,7 +72,7 @@ export class ListService {
     return of(list);
   }
 
-  addList(list: Partial<List>): Observable<List> {
+  addList(list: Partial<List>) {
     if (!list.name) return throwError(() => new Error(`Error adding list: ${list}. Reason: name missing.`));
     if (!list.icon) return throwError(() => new Error(`Error adding list: ${list}. Reason: icon missing.`));
 
@@ -82,49 +82,45 @@ export class ListService {
         icon: list.icon,
       };
 
-      const addedList = from(this.listSqliteService.addList(newList)).pipe(
-        tap((l) => {
-          this.lists = [...this.lists, l];
-          this.listsSubject.next(this.lists);
-        }),
-        catchError((err) => {
-          return throwError(() => new Error(`Error adding list: ${list}. Reason: ${err}`));
-        }),
-      );
-      return addedList;
+      this.listSqliteService
+        .addList(newList)
+        .then((l) => this.listSignal.update((lists) => [...lists, l]))
+        .catch((err) => {
+          throw new Error(`Error adding list: ${list}. Reason: ${err}`);
+        });
+      return;
     }
 
     // Fallback to web storage
     const localList = { id: this.getNextId(), name: list.name, icon: list.icon };
-    this.lists = [...this.lists, localList];
-    this.listsSubject.next(this.lists);
+    this.listSignal.update((lists) => [...lists, localList]);
     return of(localList);
   }
 
-  deleteList(list: List): Observable<boolean> {
+  deleteList(list: List) {
     if (!list.id) return throwError(() => new Error(`Error removing list: ${list}. Reason: id missing.`));
 
     if (this.isNative) {
-      return from(this.listSqliteService.deleteList(list)).pipe(
-        tap((removed) => {
+      this.listSqliteService
+        .deleteList(list)
+        .then((removed) => {
           if (removed) {
-            this.lists = this.lists.filter((l) => l.id !== list.id);
-            this.listsSubject.next(this.lists);
+            this.listSignal.update((lists) => lists.filter((l) => l.id !== list.id));
           }
-        }),
-        catchError((error) => {
-          return throwError(() => new Error(`Error removing list: ${list}. Reason: ${error}`));
-        }),
-      );
+        })
+        .catch((err) => {
+          throw new Error(`Error removing list: ${list}. Reason: ${err}`);
+        });
+
+      return;
     }
 
     //TODO: Fallback to web storage
-    this.lists = this.lists.filter((l) => l.id !== list.id);
-    this.listsSubject.next(this.lists);
+    this.listSignal.update((lists) => lists.filter((l) => l.id !== list.id));
     return of(true);
   }
 
-  updateList(list: Partial<List>): Observable<List> {
+  updateList(list: Partial<List>) {
     if (!list.id) return throwError(() => new Error(`Error updating list: ${list}. Reason: id missing.`));
     if (!list.name) return throwError(() => new Error(`Error updating list: ${list}. Reason: name missing.`));
     if (!list.icon) return throwError(() => new Error(`Error updating list: ${list}. Reason: icon missing.`));
@@ -136,26 +132,29 @@ export class ListService {
     };
 
     if (this.isNative) {
-      const updatedList = from(this.listSqliteService.updateList(newList)).pipe(
-        tap((updatedList) => {
-          this.lists = this.lists.map((l) => {
-            return l.id === list.id ? updatedList : l;
-          });
-          this.listsSubject.next(this.lists);
-        }),
-        catchError((error) => {
-          return throwError(() => new Error(`Error updating list: ${list}. Reason: ${error}`));
-        }),
-      );
-      return updatedList;
+      this.listSqliteService
+        .updateList(newList)
+        .then((updatedList) => {
+          this.listSignal.update((lists) =>
+            lists.map((l) => {
+              return l.id === list.id ? updatedList : l;
+            }),
+          );
+        })
+        .catch((err) => {
+          throw new Error(`Error updating list: ${list}. Reason: ${err}`);
+        });
+
+      return;
     }
 
     //TODO: Fallback to web storage
-    this.lists = this.lists.map((l) => {
-      return l.id === list.id ? newList : l;
-    });
+    this.listSignal.update((lists) =>
+      lists.map((l) => {
+        return l.id === list.id ? newList : l;
+      }),
+    );
 
-    this.listsSubject.next(this.lists);
     return of(newList);
   }
 
