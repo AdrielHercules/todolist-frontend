@@ -103,11 +103,7 @@ export class ListService {
     if (this.isNative) {
       this.listSqliteService
         .deleteList(list)
-        .then((removed) => {
-          if (removed) {
-            this.listSignal.update((lists) => lists.filter((l) => l.id !== list.id));
-          }
-        })
+        .then(() => this.listSignal.update((lists) => lists.filter((l) => l.id !== list.id)))
         .catch((err) => {
           throw new Error(`Error removing list: ${list}. Reason: ${err}`);
         });

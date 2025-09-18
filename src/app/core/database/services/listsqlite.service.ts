@@ -40,7 +40,7 @@ export class ListSQLiteService {
     }
   }
 
-  async deleteList(list: Partial<List>): Promise<boolean> {
+  async deleteList(list: Partial<List>) {
     if (!list.id) throw new Error(`ListSQLite error: missing id in partial list ${list}`);
 
     try {
@@ -48,11 +48,9 @@ export class ListSQLiteService {
       const entity = await this.getListEntityById(Number(list.id));
       await listRepo.remove(entity);
 
-      const deleted = (await listRepo.existsBy({ id: Number(list.id) })) == false;
-      return deleted;
+      await listRepo.existsBy({ id: Number(list.id) });
     } catch (error) {
-      console.error(error);
-      return false;
+      throw new Error(String(error));
     }
   }
 
