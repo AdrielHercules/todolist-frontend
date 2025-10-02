@@ -45,7 +45,7 @@ export class SQLiteService {
       });
       this.dbConnection = await this.dbConnection.initialize();
 
-      await this.dbConnection.synchronize(true);
+      await this.dbConnection.synchronize();
 
       this.dbReady$.next(true);
     } catch (error) {

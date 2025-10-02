@@ -26,7 +26,7 @@ export class TaskPageComponent {
   private activatedRoute = inject(ActivatedRoute);
   private modalService = inject(ModalService);
 
-  tasks = signal<Task[]>([]);
+  tasks = this.taskService.tasks;
   completedTasks = computed(() => this.tasks().filter((t) => t.completed));
   pendingTasks = computed(() => this.tasks().filter((t) => !t.completed));
   selectedTasks: Set<Task> = new Set<Task>();
@@ -41,6 +41,7 @@ export class TaskPageComponent {
     if (id != null) {
       this.listId = Number(id);
     }
+
     this.tasks.set(this.taskService.getTasksByListId(this.listId));
 
     const list = this.listService.getListById(String(this.listId));
@@ -123,7 +124,7 @@ export class TaskPageComponent {
     ]);
     component?.confirmed.subscribe(() => {
       this.selectedTasks.forEach((t) => {
-        this.taskService.deleteTask(t.id);
+        this.taskService.deleteTask(t);
       });
 
       this.selectedTasks.clear();
@@ -158,6 +159,7 @@ export class TaskPageComponent {
       if (task.text) {
         newTask.text = task.text;
         newTask.completed = task.completed;
+        newTask.id = task.id;
         this.addTask(newTask as Task);
       }
     });

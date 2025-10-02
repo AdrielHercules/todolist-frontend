@@ -1,4 +1,4 @@
-import { inject, Injectable } from '@angular/core';
+import { inject, Injectable, signal } from '@angular/core';
 import { Task } from '../models/task';
 import { SQLiteService } from '../../../core/database/services/sqlite.service';
 import { tasksMockup } from '../models/tasksMockup';
@@ -14,6 +14,8 @@ export class TaskService {
 
   private taskList: Task[];
   private isNative: boolean;
+
+  tasks = signal<Task[]>([]);
 
   constructor() {
     this.isNative = Capacitor.isNativePlatform();
@@ -33,37 +35,46 @@ export class TaskService {
   }
 
   updateTask(updatedTask: Partial<Task>) {
-    console.log('TaskService updateTask recibió:', updatedTask);
     if (!updatedTask.text) throw new Error(`Error al actualizar. La tarea debe tener un nombre ${updatedTask}`);
     if (!updatedTask.id) throw new Error(`Error al actualizar. La tarea debe tener un id ${updatedTask}`);
+    if (!updatedTask.listId) throw new Error(`Error al actualizar. La tarea debe tener un list id ${updatedTask}`);
 
     const task = this.taskList.find((t) => t.id == updatedTask.id);
 
-    if (!task) throw new Error(`Error al actualizar. No se ha encontrado la tarea con id ${updatedTask}`);
+    if (!task) throw new Error(`Error al actualizar. No se ha encontrado la tarea con id ${updatedTask.id}`);
 
     if (this.isNative) {
       this.taskSqliteService.updateTask(updatedTask).then((t) => {
         task.text = t.text ?? task.text;
         task.completed = t.completed ?? task.completed;
       });
+      this.tasks.set(this.getTasksByListId(updatedTask.listId));
     } else {
       task.text = updatedTask.text;
       task.completed = updatedTask.completed ?? task.completed;
     }
   }
 
-  deleteTask(id: number) {
-    for (let i = 0; i < this.taskList.length; i++) {
-      const task = this.taskList.at(i);
-      if (task?.id === id) {
-        this.taskList.splice(i, 1);
+  deleteTask(taskD: Task) {
+    if (this.isNative) {
+      if (taskD) this.taskSqliteService.deleteTask(taskD);
+    } else {
+      for (let i = 0; i < this.taskList.length; i++) {
+        const task = this.taskList.at(i);
+        if (task?.id === taskD.id) {
+          this.taskList.splice(i, 1);
+
+          this.tasks.set(this.tasks().filter((t) => t.id != taskD.id));
+          this.taskSqliteService.deleteTask(task);
+        }
       }
     }
   }
 
   addTask(task: Partial<Task>) {
-    if (task.text === undefined || task.text === '') throw new Error('No se puede añadir una tarea sin texto ');
-    if (task.listId === undefined) throw new Error('No se puede añadir una tarea sin listId');
+    if (!task.text) throw new Error('No se puede añadir una tarea sin texto ');
+    if (!task.listId) throw new Error('No se puede añadir una tarea sin listId');
+    if (!task.listId) throw new Error(`Error al actualizar. La tarea debe tener un list id ${task}`);
 
     if (this.isNative) {
       const savedTask = this.taskSqliteService.addTask({
@@ -71,7 +82,7 @@ export class TaskService {
         listId: task.listId,
         completed: task.completed ?? false,
       });
-
+      this.tasks.set(this.getTasksByListId(task.listId));
       savedTask.then((t) => this.taskList.push(t));
     } else {
       this.taskList.push({
